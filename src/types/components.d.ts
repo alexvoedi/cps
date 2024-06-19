@@ -7,7 +7,22 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Nav: typeof import('./../components/nav.vue')['default']
+    Navigation: typeof import('./../components/navigation.vue')['default']
+    NButton: typeof import('naive-ui')['NButton']
+    NCard: typeof import('naive-ui')['NCard']
+    NCardContent: typeof import('naive-ui')['NCardContent']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NLayout: typeof import('naive-ui')['NLayout']
+    NLayoutContent: typeof import('naive-ui')['NLayoutContent']
+    NLayoutHeader: typeof import('naive-ui')['NLayoutHeader']
+    NLayoutSider: typeof import('naive-ui')['NLayoutSider']
+    NMenu: typeof import('naive-ui')['NMenu']
+    NMenuItem: typeof import('naive-ui')['NMenuItem']
+    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NText: typeof import('naive-ui')['NText']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheNav: typeof import('./../components/the-nav.vue')['default']
   }
 }

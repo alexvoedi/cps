@@ -6,6 +6,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: () => import('./pages/index.vue'),
   },
+  {
+    path: '/bingo',
+    component: () => import('./pages/bingo.vue'),
+  },
 ]
 
 const router = createRouter({
