@@ -10,6 +10,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/bingo',
     component: () => import('./pages/bingo.vue'),
   },
+  {
+    path: '/bingo/popout',
+    component: () => import('./pages/bingo-popout.vue'),
+  },
 ]
 
 const router = createRouter({

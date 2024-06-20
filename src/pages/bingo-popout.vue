@@ -1,11 +1,13 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
-  <default>
-    <n-button>Test</n-button>
-  </default>
+  <n-layout class="h-100dvh">
+    <bingo-game />
+  </n-layout>
 </template>
 
 <style>
+
 </style>

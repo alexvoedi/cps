@@ -38,7 +38,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.18.1",
-    "@iconify-json/mdi": "^1.1.66",
+    "@iconify-json/ic": "^1.1.17",
+    "@iconify-json/mdi": "^1.1.67",
     "@types/node": "^20.12.12",
     "@types/seedrandom": "^3.0.8",
     "@unocss/preset-attributify": "^0.60.3",
