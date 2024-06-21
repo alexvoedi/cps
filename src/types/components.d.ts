@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Bingo: typeof import('./../components/bingo.vue')['default']
     BingoBoard: typeof import('./../components/bingo-board.vue')['default']
+    BingoCell: typeof import('./../components/bingo-cell.vue')['default']
     BingoGame: typeof import('./../components/bingo-game.vue')['default']
     Default: typeof import('./../layouts/default.vue')['default']
     Nav: typeof import('./../components/nav.vue')['default']

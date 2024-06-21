@@ -2,7 +2,7 @@
 import seedrandom from 'seedrandom'
 
 const route = useRoute()
-const router = useRouter()
+const params = useUrlSearchParams()
 
 const boardSize = ref(5)
 
@@ -14,9 +14,8 @@ if (route.query.seed) {
   seedrandom(route.query.seed.toString(), { global: true })
 }
 else {
-  const seed = getRandomSeed()
-  seedrandom(seed, { global: true })
-  router.push({ query: { seed } })
+  params.seed = getRandomSeed()
+  seedrandom(params.seed, { global: true })
 }
 
 function popout() {
@@ -31,13 +30,21 @@ function popout() {
 </script>
 
 <template>
-  <h1>Bingo</h1>
+  <div class="flex flex-col h-full">
+    <div class="p-8">
+      <h1 class="text-4xl">
+        Bingo
+      </h1>
 
-  <button @click="popout()">
-    Popout
-  </button>
+      <button @click="popout()">
+        Popout
+      </button>
+    </div>
 
-  <bingo-board :board-size="boardSize" />
+    <div class="overflow-hidden">
+      <bingo-board :board-size="boardSize" />
+    </div>
+  </div>
 </template>
 
 <style>

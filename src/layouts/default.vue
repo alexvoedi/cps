@@ -7,10 +7,10 @@
     <n-layout-sider class="bg-color">
       <the-nav />
     </n-layout-sider>
-    <n-layout class="bg-image p-16">
+    <n-layout class="bg-image p-12">
       <n-layout-header />
 
-      <n-layout-content class="bg-color" :native-scrollbar="false">
+      <n-layout-content :native-scrollbar="false" class="h-full" content-class="h-full">
         <slot />
       </n-layout-content>
     </n-layout>
@@ -23,10 +23,5 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.bg-color {
-  height: 100%;
-  background-color: rgba(16, 16, 20, 0.75);
 }
 </style>

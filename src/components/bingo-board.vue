@@ -61,26 +61,23 @@ function checkForBingo() {
       message.success('Bingo!')
   }
 }
+
+function getIndex(row: number, col: number) {
+  return row * props.boardSize + col
+}
 </script>
 
 <template>
-  <div class="flex overflow-hidden">
-    <div class="grid mx-auto overflow-hidden" :class="[`grid-cols-${boardSize}`]">
-      <div v-for="index in indices" :key="index" class="border border-true-gray-700 bg-black bg-opacity-50 aspect-ratio-1/1">
-        <button
-          class="text-2xl p-4 text-center w-full h-full overflow-hidden" :class="{
-            'bg-green-800': isCheckedIndex(index),
-            'border border-2 border-blue-600': isGoalIndex(index),
-          }"
-          @click="toggleCheckedIndex(index)"
-          @contextmenu.prevent="toggleGoalIndex(index)"
-        >
-          {{
-            BingoData[
-              index
-            ].title
-          }}
-        </button>
+  <div class="h-full mx-auto aspect-ratio-1/1">
+    <div v-for="row in boardSize" :key="row" class="grid" :class="[`grid-cols-${boardSize}`]">
+      <div v-for="col in boardSize" :key="col" class="border border-true-gray-700 bg-black bg-opacity-50 aspect-ratio-1/1 flex">
+        <bingo-cell
+          :is-checked="isCheckedIndex(getIndex(row - 1, col - 1))"
+          :is-goal="isGoalIndex(getIndex(row - 1, col - 1))"
+          :data="BingoData[getIndex(row - 1, col - 1)]"
+          @toggle-checked="toggleCheckedIndex(getIndex(row - 1, col - 1))"
+          @toggle-goal="toggleGoalIndex(getIndex(row - 1, col - 1))"
+        />
       </div>
     </div>
   </div>
