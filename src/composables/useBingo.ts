@@ -35,8 +35,15 @@ export function useBingo() {
     params.version = getLatestVersion()
   }
 
-  if (!params.size)
+  if (params.size) {
+    if (Number(params.size) < 3 || Number(params.size) > 10) {
+      message.warning('Invalid size, using default size instead')
+      params.size = '5'
+    }
+  }
+  else {
     params.size = '5'
+  }
 
   const rng = seedrandom(params.seed)
 
@@ -76,11 +83,7 @@ export function useBingo() {
       cellIndices.add(index)
     }
 
-    const cells: Cell[] = Array.from(cellIndices).map((index) => {
-      const { title } = data[index]
-
-      return new Cell(index, title)
-    })
+    const cells = Array.from(cellIndices).map(index => new Cell(index, data[index]))
 
     return Array.from(cells)
   }
@@ -89,24 +92,25 @@ export function useBingo() {
     return bingoData.flatMap(data => data.data)[id]
   }
 
-  const cells = useLocalStorage(`v${params.version}-seed:${params.seed}-size:${params.size}`, getRandomCells(), {
+  const getGameId = () => {
+    return `v${params.version}-seed:${params.seed}-size:${params.size}`
+  }
+
+  const cells = useLocalStorage(getGameId(), getRandomCells(), {
     serializer: {
       read: (value: string) => {
-        return JSON.parse(value).map(({ id, goal, state }: Cell) => {
+        return JSON.parse(value).map(({ data, id, ...rest }: Cell) => {
           const cellData = getCellById(id)
-          const newCell = new Cell(id, cellData.title)
+          const newCell = new Cell(id, cellData)
 
-          newCell.goal = goal
-          newCell.state = state
+          Object.assign(newCell, rest)
 
           return newCell
         })
       },
       write: (cells: Cell[]) => {
-        return JSON.stringify(cells.map(cell => ({
-          id: cell.id,
-          goal: cell.goal,
-          state: cell.state,
+        return JSON.stringify(cells.map(({ data, ...rest }) => ({
+          ...rest,
         })))
       },
     },
@@ -117,10 +121,16 @@ export function useBingo() {
     cells.value.forEach(cell => cell.reset())
   }
 
+  const newSeed = () => {
+    params.seed = getRandomSeed()
+    cells.value = getRandomCells()
+  }
+
   return {
     cells,
     seed: params.seed,
     size: params.size,
     resetCells,
+    newSeed,
   }
 }

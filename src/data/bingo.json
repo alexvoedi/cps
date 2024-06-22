@@ -3,104 +3,125 @@
     "version": "1.0",
     "data": [
       {
-        "title": "Töte 20 Gnolle"
+        "title": "Töte 20 Gnolle",
+        "description": "Töte 20 Gnolle."
       },
       {
-        "title": "Erreiche Level 10"
+        "title": "Level 10",
+        "description": "Erreiche Level 10."
       },
       {
-        "title": "Besitze 1000 Gold"
+        "title": "1000 Gold",
+        "description": "Besitze 1000 Gold.",
+        "hints": ["Besitze zu einem Zeitpunkt 1000 Gold."]
       },
       {
-        "title": "Schließe Todesminen ab"
+        "title": "Todesminen",
+        "description": "Schließe die Instanz Todesminen ab.",
+        "hints": ["Jeder Boss muss besiegt werden."]
       },
       {
-        "title": "Verwende 3x den Ruhestein"
+        "title": "Verwende 3x Ruhestein",
+        "description": "Verwende 3x den Ruhestein",
+        "hints": ["Es gilt lediglich der normale Ruhestein."],
+        "counter": true
       },
       {
-        "title": "Kaufe 100 Bananen von Tel-Abim"
+        "title": "Kaufe 100 Bananen von Tel-Abim",
+        "description": "Kaufe 100 Bananen von Tel-Abim.",
+        "hints": ["Die Bananen dürfen nicht wieder verkauft werden."]
       },
       {
-        "title": "Erreiche Level 15"
+        "title": "Level 15",
+        "description": "Erreiche Level 15."
       },
       {
-        "title": "Erreiche Level 5"
+        "title": "Level 5",
+        "description": "Erreiche Level 5."
       },
       {
-        "title": "Erhalte den Buff \"Satt\""
+        "title": "Erhalte Buff \"Satt\"",
+        "description": "Erhalte den Buff \"Satt\"."
       },
       {
         "title": "Sterbe durch Fallschaden"
       },
       {
-        "title": "Sterbe durch Hogger"
+        "title": "Sterbe durch Hogger",
+        "description": "Sterbe durch Hogger.",
+        "hints": ["Hogger muss den Todesstoß versetzen."]
       },
       {
-        "title": "Besiege Hogger"
+        "title": "Besiege Hogger",
+        "description": "Besiege Hogger."
       },
       {
-        "title": "Sammle 20 Kräuter"
+        "title": "Sammle 20 Kräuter",
+        "counter": true
       },
       {
-        "title": "Sammle 15 Erze"
+        "title": "Sammle 15 Erze",
+        "counter": true
       },
       {
-        "title": "Fange 10 Fische"
+        "title": "Fange 10 Fische",
+        "counter": true
       },
       {
-        "title": "Gewinne 3 Haustierkämpfe"
+        "title": "Gewinne 3 Haustierkämpfe",
+        "counter": true
       },
       {
-        "title": "Absolviere 3 PvP-Kämpfe"
+        "title": "Absolviere 3 PvP-Kämpfe",
+        "counter": true
       },
       {
         "title": "Besuche Beutebucht"
       },
       {
-        "title": "Schließe 3 Daily-Quests ab"
+        "title": "Schließe 3 Daily-Quests ab",
+        "counter": true
       },
       {
-        "title": "Mache ein Selfie mit Velen"
+        "title": "Erzähle Velen einen Witz"
       },
       {
-        "title": "Töte 40 Murlocs"
+        "title": "Töte 40 Murlocs",
+        "counter": true
       },
       {
-        "title": "Schalte 5 Flugpunkte frei"
+        "title": "Schalte 5 Flugpunkte frei",
+        "counter": true
       },
       {
-        "title": "Fange 3 Haustiere"
+        "title": "Fange 3 Haustiere",
+        "counter": true
       },
       {
         "title": "Umarme einen Pandaren"
       },
       {
-        "title": "Mache Liebe mit Thruk"
+        "title": "Verwende \\liebe bei Thruk",
+        "description": "Verwende das Emote \\liebe bei Thruk in der Instanz Tiefschwarze Grotte (verfügbar ab Level 15)",
+        "hints": ["Thruk muss das Ziel von \\liebe sein.", "Auch der Leichnam von Thruk zählt."]
       },
       {
-        "title": "Stelle 5 Heiltränke her"
+        "title": "Stelle 5 Heiltränke her",
+        "counter": true
       },
       {
         "title": "Mache ein Lagerfeuer in Khaz Modan"
       },
       {
-        "title": "Werde vollkommen betrunken"
-      }
-    ]
-  },
-  {
-    "version": "1.1",
-    "data": [
+        "title": "Trinke und übergebe dich"
+      },
       {
-        "title": "Test"
-      }
-    ]
-  },
-  {
-    "version": "1.2",
-    "data": [
+        "title": "Besuche 2 Portale zum Smaragdgrünen Trum",
+        "counter": true
+      },
       {
-        "title": "Test 2"
+        "title": "Verwende \\kalt in der Frosthauchschlucht",
+        "hints": ["Der Character muss im Gebiet Frosthauchschlucht in Winterquell (Kalimdor) sein."]
       }
     ]
   }

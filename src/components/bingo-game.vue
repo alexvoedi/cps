@@ -37,6 +37,10 @@ function reset() {
           <span>Bingo</span>
         </h1>
 
+        <div>
+          <bingo-timer />
+        </div>
+
         <div class="flex gap-4 items-center">
           <n-button tertiary @click="popout()">
             <template #icon>

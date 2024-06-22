@@ -4,17 +4,26 @@ export enum CellState {
   Failed = 'failed',
 }
 
+export interface CellData {
+  title: string
+  description?: string
+  hints?: string[]
+  counter?: boolean
+}
+
 export class Cell {
   id: number
   goal: boolean
   state: CellState
-  title: string
+  data: CellData
+  counter: number
 
-  constructor(id: number, title: string) {
+  constructor(id: number, data: CellData) {
     this.id = id
     this.goal = false
     this.state = CellState.Unchecked
-    this.title = title
+    this.data = data
+    this.counter = 0
   }
 
   toggleState() {
@@ -45,5 +54,13 @@ export class Cell {
   reset() {
     this.state = CellState.Unchecked
     this.goal = false
+  }
+
+  incrementCounter() {
+    this.counter++
+  }
+
+  decrementCounter() {
+    this.counter--
   }
 }
