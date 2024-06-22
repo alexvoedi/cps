@@ -57,8 +57,8 @@ defineProps<{
         </h2>
 
         <ul class="list-disc pl-6">
-          <li v-for="requirement in cell.data.hints" :key="requirement">
-            {{ requirement }}
+          <li v-for="hint in cell.data.hints" :key="hint">
+            {{ hint }}
           </li>
         </ul>
       </div>
