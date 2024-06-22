@@ -4,7 +4,8 @@
     "data": [
       {
         "title": "Töte 20 Gnolle",
-        "description": "Töte 20 Gnolle."
+        "description": "Töte 20 Gnolle.",
+        "count": 20
       },
       {
         "title": "Level 10",
@@ -24,7 +25,7 @@
         "title": "Verwende 3x Ruhestein",
         "description": "Verwende 3x den Ruhestein",
         "hints": ["Es gilt lediglich der normale Ruhestein."],
-        "counter": true
+        "count": 3
       },
       {
         "title": "Kaufe 100 Bananen von Tel-Abim",
@@ -44,7 +45,9 @@
         "description": "Erhalte den Buff \"Satt\"."
       },
       {
-        "title": "Sterbe durch Fallschaden"
+        "title": "Sterbe durch Fallschaden",
+        "description": "Sterbe durch Fallschaden.",
+        "hints": ["Der Fallschaden muss den Todesstoß versetzen.", "Es darf nicht vom Flugmount gesprungen werden."]
       },
       {
         "title": "Sterbe durch Hogger",
@@ -57,48 +60,64 @@
       },
       {
         "title": "Sammle 20 Kräuter",
-        "counter": true
+        "description": "Sammle 20 Kräuter.",
+        "count": 20
       },
       {
         "title": "Sammle 15 Erze",
-        "counter": true
+        "description": "Sammle 15 Erze.",
+        "count": 15
       },
       {
         "title": "Fange 10 Fische",
-        "counter": true
+        "description": "Fange 10 Fische.",
+        "count": 10
       },
       {
         "title": "Gewinne 3 Haustierkämpfe",
-        "counter": true
+        "description": "Gewinne 3 Haustierkämpfe.",
+        "count": 3
       },
       {
         "title": "Absolviere 3 PvP-Kämpfe",
-        "counter": true
+        "description": "Absolviere 3 PvP-Kämpfe.",
+        "count": 3
       },
       {
-        "title": "Besuche Beutebucht"
+        "title": "Besuche Beutebucht",
+        "description": "Besuche Beutebucht."
       },
       {
         "title": "Schließe 3 Daily-Quests ab",
-        "counter": true
+        "description": "Schließe 3 Daily-Quests ab.",
+        "count": 3
       },
       {
-        "title": "Erzähle Velen einen Witz"
+        "title": "Erzähle Velen einen Witz",
+        "description": "Erzähle Velen einen Witz.",
+        "hints": ["Velen muss das Ziel des Witzes sein."]
       },
       {
         "title": "Töte 40 Murlocs",
-        "counter": true
+        "description": "Töte 40 Murlocs.",
+        "count": 40
       },
       {
         "title": "Schalte 5 Flugpunkte frei",
-        "counter": true
+        "description": "Schalte 5 Flugpunkte frei.",
+        "hints": ["Es muss ein Flugmeister angesprochen werden."],
+        "count": 5
       },
       {
         "title": "Fange 3 Haustiere",
-        "counter": true
+        "description": "Fange 3 Haustiere.",
+        "count": 3
       },
       {
-        "title": "Umarme einen Pandaren"
+        "title": "Umarme 5 Pandaren",
+        "description": "Umarme 5 Pandaren.",
+        "hints": ["Es müssen unterschiedliche Pandaren sein."],
+        "count": 5
       },
       {
         "title": "Verwende \\liebe bei Thruk",
@@ -107,21 +126,39 @@
       },
       {
         "title": "Stelle 5 Heiltränke her",
-        "counter": true
+        "description": "Stelle 5 Heiltränke her.",
+        "hints": ["Es muss ein durch Alchemie hergestellter Heiltrank sein.", "Der Trank darf auch Nebeneffekte haben.", "Es muss beim Trinken sofort Leben wiederhergestellt werden."],
+        "count": 5
       },
       {
-        "title": "Mache ein Lagerfeuer in Khaz Modan"
+        "title": "Mache ein Lagerfeuer in Khaz Modan",
+        "description": "Mache ein Lagerfeuer in Khaz Modan.",
+        "hints": ["Es muss das Lagerfeuer von Kochkunst sein."]
       },
       {
-        "title": "Trinke und übergebe dich"
+        "title": "Trinke und übergebe dich",
+        "description": "Trinke und übergebe dich.",
+        "hints": ["Es muss ein Getränk sein, das den Charakter betrunken macht.", "Der Charakter muss sich übergeben."]
       },
       {
-        "title": "Besuche 2 Portale zum Smaragdgrünen Trum",
-        "counter": true
+        "title": "Besuche 2 Portale zum Smaragdgrünen Traum",
+        "description": "Besuche 2 Portale zum Smaragdgrünen Traum.",
+        "count": 2
       },
       {
         "title": "Verwende \\kalt in der Frosthauchschlucht",
+        "description": "Verwende das Emote \\kalt in der Frosthauchschlucht in Winterquell (Kalimdor).",
         "hints": ["Der Character muss im Gebiet Frosthauchschlucht in Winterquell (Kalimdor) sein."]
+      },
+      {
+        "title": "Gewinne einen PvP-Kampf",
+        "description": "Gewinne einen PvP-Kampf.",
+        "hints": ["Der Kampf muss gegen einen anderen Spieler gewonnen werden."]
+      },
+      {
+        "title": "Besitze 40 Leinenstoff",
+        "description": "Besitze 40 Leinenstoff.",
+        "count": 40
       }
     ]
   }

@@ -8,31 +8,31 @@ export interface CellData {
   title: string
   description?: string
   hints?: string[]
-  counter?: boolean
+  count?: number
 }
 
 export class Cell {
-  id: number
-  goal: boolean
-  state: CellState
-  data: CellData
-  counter: number
+  goal: boolean = false
+  state: CellState = CellState.Unchecked
+  currentCount?: number
 
-  constructor(id: number, data: CellData) {
-    this.id = id
-    this.goal = false
-    this.state = CellState.Unchecked
-    this.data = data
-    this.counter = 0
+  constructor(readonly id: number, readonly data: CellData) {
+    if (data.count !== undefined)
+      this.currentCount = 0
   }
 
   toggleState() {
-    if (this.state === CellState.Checked)
-      this.state = CellState.Failed
-    else if (this.state === CellState.Failed)
-      this.state = CellState.Unchecked
-    else
-      this.state = CellState.Checked
+    switch (this.state) {
+      case CellState.Checked:
+        this.state = CellState.Failed
+        break
+      case CellState.Failed:
+        this.state = CellState.Unchecked
+        break
+      case CellState.Unchecked:
+        this.state = CellState.Checked
+        break
+    }
   }
 
   toggleGoal() {
@@ -54,13 +54,25 @@ export class Cell {
   reset() {
     this.state = CellState.Unchecked
     this.goal = false
+
+    if (this.currentCount !== undefined)
+      this.currentCount = 0
   }
 
   incrementCounter() {
-    this.counter++
+    if (this.data.count === undefined || this.currentCount === undefined)
+      return
+
+    this.currentCount = Math.min(this.data.count, this.currentCount + 1)
+
+    if (this.currentCount === this.data.count)
+      this.state = CellState.Checked
   }
 
   decrementCounter() {
-    this.counter--
+    if (this.data.count === undefined || this.currentCount === undefined)
+      return
+
+    this.currentCount = Math.max(0, this.currentCount - 1)
   }
 }
