@@ -1,22 +1,17 @@
 {
-  "name": "",
+  "name": "@alexvoedi/cps",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "",
-  "author": {
-    "name": "",
-    "email": ""
-  },
+  "description": "A website for the CPS World of Warcraft guild",
   "license": "UNLICENSED",
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/alexvoedi/cps"
   },
   "bugs": {
-    "url": "",
-    "email": ""
+    "url": "https://github.com/alexvoedi/cps/issues/"
   },
   "keywords": [],
   "scripts": {
@@ -25,6 +20,11 @@
     "serve": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "vitest --coverage",
+    "test:run": "vitest --run",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch",
     "prepare": "husky"
   },
   "dependencies": {
