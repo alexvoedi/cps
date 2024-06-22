@@ -1,48 +1,64 @@
 <script setup lang="ts">
-import seedrandom from 'seedrandom'
+import { useDialog } from 'naive-ui'
+import { useBingo } from '../composables/useBingo'
 
-const route = useRoute()
-const params = useUrlSearchParams()
+const { cells, size, resetCells } = useBingo()
 
-const boardSize = ref(5)
-
-function getRandomSeed() {
-  return Array.from({ length: boardSize.value }, () => Math.floor(Math.random() * 10)).join('')
-}
-
-if (route.query.seed) {
-  seedrandom(route.query.seed.toString(), { global: true })
-}
-else {
-  params.seed = getRandomSeed()
-  seedrandom(params.seed, { global: true })
-}
+const dialog = useDialog()
 
 function popout() {
   const url = new URL('/bingo/popout', window.location.origin)
 
-  const query = new URLSearchParams(url.search)
-
-  query.set('seed', route.query.seed?.toString() || getRandomSeed())
+  const query = new URLSearchParams(window.location.search)
 
   window.open(`${url.origin}${url.pathname}?${query}`, 'WoW Bingo', 'width=800,height=800,location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
+}
+
+function reset() {
+  dialog.warning({
+    title: 'Spieldaten zurücksetzen',
+    content: 'Willst du wirklich alle Spieldaten zurücksetzen?',
+    onPositiveClick: () => {
+      resetCells()
+    },
+    onNegativeClick: () => {},
+    positiveText: 'Jop!',
+    negativeText: 'Nee, lieber nicht',
+
+  })
 }
 </script>
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="p-8">
-      <h1 class="text-4xl">
-        Bingo
-      </h1>
+    <div class="p-8 bg-dark-9 bg-opacity-90">
+      <div class="mx-auto container flex justify-between items-center">
+        <h1 class="text-4xl">
+          <span>Bingo</span>
+        </h1>
 
-      <button @click="popout()">
-        Popout
-      </button>
+        <div class="flex gap-4 items-center">
+          <n-button tertiary @click="popout()">
+            <template #icon>
+              <span class="ico-mdi-open-in-new" />
+            </template>
+            <span>Popout</span>
+          </n-button>
+
+          <n-button type="warning" tertiary @click="reset()">
+            <template #icon>
+              <span class="ico-mdi-delete" />
+            </template>
+            <span>Zurücksetzen</span>
+          </n-button>
+
+          <bingo-help />
+        </div>
+      </div>
     </div>
 
-    <div class="overflow-hidden">
-      <bingo-board :board-size="boardSize" />
+    <div class="overflow-hidden p-4 m-auto">
+      <bingo-board :cells="cells" :size="Number(size)" />
     </div>
   </div>
 </template>

@@ -1,33 +1,29 @@
 <script setup lang="ts">
-import type BingoData from '@/data/bingo.json'
+import type { Cell } from '../classes/Cell'
 
 defineProps<{
-  data: typeof BingoData[0]
-  isChecked: boolean
-  isGoal: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'toggleChecked'): void
-  (e: 'toggleGoal'): void
+  cell: Cell
 }>()
 </script>
 
 <template>
   <button
-    class="text-1.5vmin font-semibold p-0.5vmin text-center w-full h-full overflow-hidden border border-2" :class="{
-      'bg-green-800 hover:bg-green-900': isChecked,
-      'hover:bg-true-gray-900': !isChecked,
-      'border-transparent': !isGoal,
-      'border-blue-600': isGoal,
+    class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden border border-2 whitespace-normal overflow-hidden break-words" :class="{
+      'bg-green-800 hover:bg-green-900': cell.isChecked(),
+      'hover:bg-true-gray-900': cell.isUnchecked(),
+      'bg-red-900': cell.isFailed(),
+      'border-transparent': !cell.goal,
+      'border-blue-600': cell.goal,
     }"
-    @click="emit('toggleChecked')"
-    @contextmenu.prevent="emit('toggleGoal')"
+    @click="cell.toggleState()"
+    @contextmenu.prevent="cell.toggleGoal()"
   >
-    {{ data.title }}
+    {{ cell.title }}
   </button>
 </template>
 
 <style>
-
+.text {
+  font-size: max(1.5vmin, 14px);
+}
 </style>

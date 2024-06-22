@@ -2,9 +2,9 @@
 </script>
 
 <template>
-  <default>
+  <default-layout>
     <n-button>Test</n-button>
-  </default>
+  </default-layout>
 </template>
 
 <style>

@@ -1,86 +1,107 @@
 [
   {
-    "title": "Töte 20 Gnolle"
+    "version": "1.0",
+    "data": [
+      {
+        "title": "Töte 20 Gnolle"
+      },
+      {
+        "title": "Erreiche Level 10"
+      },
+      {
+        "title": "Besitze 1000 Gold"
+      },
+      {
+        "title": "Schließe Todesminen ab"
+      },
+      {
+        "title": "Verwende 3x den Ruhestein"
+      },
+      {
+        "title": "Kaufe 100 Bananen von Tel-Abim"
+      },
+      {
+        "title": "Erreiche Level 15"
+      },
+      {
+        "title": "Erreiche Level 5"
+      },
+      {
+        "title": "Erhalte den Buff \"Satt\""
+      },
+      {
+        "title": "Sterbe durch Fallschaden"
+      },
+      {
+        "title": "Sterbe durch Hogger"
+      },
+      {
+        "title": "Besiege Hogger"
+      },
+      {
+        "title": "Sammle 20 Kräuter"
+      },
+      {
+        "title": "Sammle 15 Erze"
+      },
+      {
+        "title": "Fange 10 Fische"
+      },
+      {
+        "title": "Gewinne 3 Haustierkämpfe"
+      },
+      {
+        "title": "Absolviere 3 PvP-Kämpfe"
+      },
+      {
+        "title": "Besuche Beutebucht"
+      },
+      {
+        "title": "Schließe 3 Daily-Quests ab"
+      },
+      {
+        "title": "Mache ein Selfie mit Velen"
+      },
+      {
+        "title": "Töte 40 Murlocs"
+      },
+      {
+        "title": "Schalte 5 Flugpunkte frei"
+      },
+      {
+        "title": "Fange 3 Haustiere"
+      },
+      {
+        "title": "Umarme einen Pandaren"
+      },
+      {
+        "title": "Mache Liebe mit Thruk"
+      },
+      {
+        "title": "Stelle 5 Heiltränke her"
+      },
+      {
+        "title": "Mache ein Lagerfeuer in Khaz Modan"
+      },
+      {
+        "title": "Werde vollkommen betrunken"
+      }
+    ]
   },
   {
-    "title": "Erreiche Level 10"
+    "version": "1.1",
+    "data": [
+      {
+        "title": "Test"
+      }
+    ]
   },
   {
-    "title": "Besitze 1000 Gold"
-  },
-  {
-    "title": "Schließe Todesminen ab"
-  },
-  {
-    "title": "Verwende 3x den Ruhestein"
-  },
-  {
-    "title": "Kaufe 100 Bananen von Tel-Abim"
-  },
-  {
-    "title": "Erreiche Level 15"
-  },
-  {
-    "title": "Erreiche Level 5"
-  },
-  {
-    "title": "Erhalte den Buff \"Satt\""
-  },
-  {
-    "title": "Sterbe durch Fallschaden"
-  },
-  {
-    "title": "Sterbe durch Hogger"
-  },
-  {
-    "title": "Besiege Hogger"
-  },
-  {
-    "title": "Sammle 20 Kräuter"
-  },
-  {
-    "title": "Sammle 15 Erze"
-  },
-  {
-    "title": "Fange 10 Fische"
-  },
-  {
-    "title": "Gewinne 3 Haustierkämpfe"
-  },
-  {
-    "title": "Absolviere 3 PvP-Kämpfe"
-  },
-  {
-    "title": "Besuche Beutebucht"
-  },
-  {
-    "title": "Schließe 3 Daily-Quests ab"
-  },
-  {
-    "title": "Mache ein Seflie mit Velen"
-  },
-  {
-    "title": "Töte 40 Murlocs"
-  },
-  {
-    "title": "Schalte 5 Flugpunkte frei"
-  },
-  {
-    "title": "Fange 3 Haustiere"
-  },
-  {
-    "title": "Umarme einen Pandaren"
-  },
-  {
-    "title": "Mache Liebe mit Thruk"
-  },
-  {
-    "title": "Stelle 5 Heiltränke her"
-  },
-  {
-    "title": "Mache ein Lagerfeuer im in Khaz Modan"
-  },
-  {
-    "title": "Werde vollkommen betrunken"
+    "version": "1.2",
+    "data": [
+      {
+        "title": "Test 2"
+      }
+    ]
   }
 ]

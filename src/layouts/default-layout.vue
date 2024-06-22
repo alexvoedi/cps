@@ -4,15 +4,16 @@
 
 <template>
   <n-layout has-sider class="h-100dvh">
-    <n-layout-sider class="bg-color">
-      <the-nav />
-    </n-layout-sider>
-    <n-layout class="bg-image p-12">
+    <the-nav />
+
+    <n-layout class="bg-image">
       <n-layout-header />
 
-      <n-layout-content :native-scrollbar="false" class="h-full" content-class="h-full">
+      <n-layout-content :native-scrollbar="false" class="h-full" content-class="h-full bg-image">
         <slot />
       </n-layout-content>
+
+      <n-layout-footer />
     </n-layout>
   </n-layout>
 </template>

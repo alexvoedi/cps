@@ -3,9 +3,9 @@
 </script>
 
 <template>
-  <default>
+  <default-layout>
     <bingo-game />
-  </default>
+  </default-layout>
 </template>
 
 <style>
