@@ -9,6 +9,7 @@ import Inspect from 'vite-plugin-inspect'
 import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
+  base: '/cps/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
