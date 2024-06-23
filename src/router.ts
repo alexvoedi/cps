@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/cps/'),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
