@@ -21,53 +21,50 @@ export function useBingo() {
     version: string
   }>()
 
-  if (!params.seed)
-    params.seed = getRandomSeed()
+  const initParameters = () => {
+    if (!params.seed)
+      params.seed = getRandomSeed()
 
-  if (params.version) {
-    const isValidVersion = bingoData.some(data => data.version === params.version)
+    if (params.version) {
+      const isValidVersion = bingoData.some(data => data.version === params.version)
 
-    if (!isValidVersion) {
-      message.warning('Invalid version, using latest version instead')
+      if (!isValidVersion) {
+        message.warning('Invalid version, using latest version instead')
+        params.version = getLatestVersion()
+      }
+    }
+    else {
       params.version = getLatestVersion()
     }
-  }
-  else {
-    params.version = getLatestVersion()
-  }
 
-  if (params.size) {
-    if (Number(params.size) < 3 || Number(params.size) > 10) {
-      message.warning('Invalid size, using default size instead')
+    if (params.size) {
+      if (Number(params.size) < 3 || Number(params.size) > 10) {
+        message.warning('Invalid size, using default size instead')
+        params.size = '5'
+      }
+    }
+    else {
       params.size = '5'
     }
   }
-  else {
-    params.size = '5'
-  }
+
+  initParameters()
 
   const rng = seedrandom(params.seed)
 
-  const includedVersions = computed(() => {
-    const maxVersion = params.version
-
-    const availableVersions = []
-
-    for (const { version } of bingoData) {
-      if (version === maxVersion || isPreviousVersion(version))
-        availableVersions.push(version)
-    }
-
-    return availableVersions
-  })
+  const includedVersions = computed(() =>
+    bingoData
+      .filter(({ version }) => version === params.version || isPreviousVersion(version))
+      .map(({ version }) => version),
+  )
 
   const includedData = computed(() => {
     return bingoData.filter(data => includedVersions.value.includes(data.version)).flatMap(data => data.data)
   })
 
   function isPreviousVersion(version: string) {
-    const [major, minor] = version.split('.')
-    const [maxMajor, maxMinor] = params.version.split('.')
+    const [major, minor] = version.split('.').map(Number)
+    const [maxMajor, maxMinor] = params.version.split('.').map(Number)
 
     return major < maxMajor || (major === maxMajor && minor < maxMinor)
   }
@@ -80,13 +77,12 @@ export function useBingo() {
 
     while (cellIndices.size < cellCount) {
       const index = Math.floor(rng() * data.length)
-
       cellIndices.add(index)
     }
 
-    const cells = Array.from(cellIndices).map(index => new Cell(index, data[index]))
+    const cells = Array.from(cellIndices, index => new Cell(index, data[index]))
 
-    return Array.from(cells)
+    return cells
   }
 
   const getCellById = (id: number) => {
@@ -115,7 +111,6 @@ export function useBingo() {
         })))
       },
     },
-
   })
 
   const resetCells = () => {
@@ -130,14 +125,33 @@ export function useBingo() {
   const isBingo = () => {
     const size = Number(params.size)
 
-    const rows = Array.from({ length: size }, (_, i) => Array.from({ length: size }, (_, j) => i * size + j))
-    const cols = Array.from({ length: size }, (_, i) => Array.from({ length: size }, (_, j) => j * size + i))
-    const diag1 = Array.from({ length: size }, (_, i) => i * size + i)
-    const diag2 = Array.from({ length: size }, (_, i) => i * size + size - i - 1)
+    for (let i = 0; i < size; i++) {
+      let rowDone = true
+      let colDone = true
+      for (let j = 0; j < size; j++) {
+        if (cells.value[i * size + j].state !== CellState.Done) {
+          rowDone = false
+        }
+        if (cells.value[j * size + i].state !== CellState.Done) {
+          colDone = false
+        }
+      }
+      if (rowDone || colDone)
+        return true
+    }
 
-    const lines = [...rows, ...cols, diag1, diag2]
+    let diag1Done = true
+    let diag2Done = true
+    for (let i = 0; i < size; i++) {
+      if (cells.value[i * size + i].state !== CellState.Done) {
+        diag1Done = false
+      }
+      if (cells.value[i * size + (size - i - 1)].state !== CellState.Done) {
+        diag2Done = false
+      }
+    }
 
-    return lines.some(line => line.every(index => cells.value[index].state === CellState.Done))
+    return diag1Done || diag2Done
   }
 
   const cellStates = computed(() => cells.value.map(cell => cell.state))
@@ -149,6 +163,7 @@ export function useBingo() {
     jsConfetti.addConfetti({
       emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
       emojiSize: 32,
+      confettiNumber: 200,
     })
 
     fanfareSound.play()
