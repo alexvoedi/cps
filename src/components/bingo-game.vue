@@ -2,7 +2,7 @@
 import { useDialog } from 'naive-ui'
 import { useBingo } from '../composables/useBingo'
 
-const { cells, size, resetCells, mostRecentVersion } = useBingo()
+const { cells, size, resetCells, mostRecentVersion, newSeed } = useBingo()
 
 const dialog = useDialog()
 
@@ -20,6 +20,20 @@ function reset() {
     content: 'Willst du wirklich alle Spieldaten zurücksetzen?',
     onPositiveClick: () => {
       resetCells()
+    },
+    onNegativeClick: () => {},
+    positiveText: 'Jop!',
+    negativeText: 'Nee, lieber nicht',
+
+  })
+}
+
+function randomize() {
+  dialog.warning({
+    title: 'Neuer Seed',
+    content: 'Willst du wirklich einen neuen Seed generieren?',
+    onPositiveClick: () => {
+      newSeed()
     },
     onNegativeClick: () => {},
     positiveText: 'Jop!',
@@ -54,6 +68,13 @@ function reset() {
               <span class="ico-mdi-delete" />
             </template>
             <span>Zurücksetzen</span>
+          </n-button>
+
+          <n-button type="warning" tertiary @click="randomize()">
+            <template #icon>
+              <span class="ico-mdi-dice" />
+            </template>
+            <span>Randomize</span>
           </n-button>
 
           <bingo-help />

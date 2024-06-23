@@ -5,7 +5,7 @@ import bingoData from '@/data/bingo.json'
 import { Cell, CellState } from '@/classes/Cell'
 
 function getRandomSeed() {
-  return Array.from({ length: 8 }, () => Math.floor(Math.random() * 10)).join('')
+  return Array.from({ length: 8 }, () => Math.floor(Math.random() * 36).toString(36)).join('')
 }
 
 function getLatestVersion() {
