@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 
