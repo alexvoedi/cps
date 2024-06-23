@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { breakpointsTailwind } from '@vueuse/core'
 import type { Cell } from '../classes/Cell'
 
 const props = defineProps<{
@@ -35,13 +36,18 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', keydownHandler)
 })
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+
+const mobile = ref(breakpoints.smallerOrEqual('lg'))
 </script>
 
 <template>
   <n-popover trigger="hover" :duration="0" :keep-alive-on-hover="false" :animated="false" display-directive="show">
     <template #trigger>
       <button
-        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-4 transition-all border border-3 focus-visible:(outline-none)" :class="classes"
+        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-2 md:space-y-4 transition-all border border-3 focus-visible:(outline-none)"
+        :class="classes"
         @click="cell.toggleState()"
         @mousedown.middle.prevent="cell.reset()"
         @contextmenu.prevent="cell.togglePriority()"
@@ -52,8 +58,14 @@ onUnmounted(() => {
           {{ cell.data.title }}
         </div>
 
-        <div v-if="cell.data.count" class="flex gap-4 items-center justify-center">
-          <n-button tertiary circle :disabled="cell.currentCount === 0" @click.stop="cell.decrementCounter()">
+        <div v-if="cell.data.count" class="flex gap-2 md:gap-4 items-center justify-center">
+          <n-button
+            tertiary
+            circle
+            :disabled="cell.currentCount === 0"
+            :size="mobile ? 'tiny' : 'medium'"
+            @click.stop="cell.decrementCounter()"
+          >
             <template #icon>
               <span class="ico-mdi-minus" />
             </template>
@@ -61,7 +73,13 @@ onUnmounted(() => {
 
           <span>{{ cell.currentCount }}</span>
 
-          <n-button tertiary circle :disabled="cell.data.count === cell.currentCount" @click.stop="cell.incrementCounter()">
+          <n-button
+            tertiary
+            circle
+            :disabled="cell.data.count === cell.currentCount"
+            :size="mobile ? 'tiny' : 'medium'"
+            @click.stop="cell.incrementCounter()"
+          >
             <template #icon>
               <span class="ico-mdi-plus" />
             </template>
@@ -98,6 +116,6 @@ onUnmounted(() => {
 
 <style>
 .text {
-  font-size: max(1.75vmin, 14px);
+  font-size: 1.75vmin;
 }
 </style>

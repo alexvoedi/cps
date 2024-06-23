@@ -2,7 +2,7 @@
 import { useDialog } from 'naive-ui'
 import { useBingo } from '../composables/useBingo'
 
-const { cells, size, resetCells } = useBingo()
+const { cells, size, resetCells, mostRecentVersion } = useBingo()
 
 const dialog = useDialog()
 
@@ -34,7 +34,7 @@ function reset() {
     <div class="p-8 bg-dark-9 bg-opacity-90">
       <div class="mx-auto container flex justify-between items-center">
         <h1 class="text-4xl">
-          <span>Bingo</span>
+          <span>Bingo</span> <span class="text-xs">v{{ mostRecentVersion }}</span>
         </h1>
 
         <div>

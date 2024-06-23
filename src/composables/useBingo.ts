@@ -148,11 +148,16 @@ export function useBingo() {
     deep: true,
   })
 
+  const mostRecentVersion = computed(() => {
+    return bingoData[bingoData.length - 1].version
+  })
+
   return {
     cells,
     seed: params.seed,
     size: params.size,
     resetCells,
     newSeed,
+    mostRecentVersion,
   }
 }

@@ -12,9 +12,9 @@
         "description": "Erreiche Level 10."
       },
       {
-        "title": "1000 Gold",
-        "description": "Besitze 1000 Gold.",
-        "hints": ["Besitze zu einem Zeitpunkt 1000 Gold."]
+        "title": "10 Gold",
+        "description": "Besitze 10 Gold.",
+        "hints": ["Besitze zu einem Zeitpunkt 10 Gold."]
       },
       {
         "title": "Todesminen",
@@ -22,14 +22,14 @@
         "hints": ["Jeder Boss muss besiegt werden."]
       },
       {
-        "title": "Verwende 3x Ruhestein",
-        "description": "Verwende 3x den Ruhestein",
+        "title": "Verwende 2x Ruhestein",
+        "description": "Verwende 2x den Ruhestein",
         "hints": ["Es gilt lediglich der normale Ruhestein."],
-        "count": 3
+        "count": 2
       },
       {
         "title": "Kaufe 100 Bananen von Tel-Abim",
-        "description": "Kaufe 100 Bananen von Tel-Abim.",
+        "description": "Kaufe 100 Bananen von Tel'Abim.",
         "hints": ["Die Bananen dürfen nicht wieder verkauft werden."]
       },
       {
@@ -47,7 +47,7 @@
       {
         "title": "Sterbe durch Fallschaden",
         "description": "Sterbe durch Fallschaden.",
-        "hints": ["Der Fallschaden muss den Todesstoß versetzen.", "Es darf nicht vom Flugmount gesprungen werden."]
+        "hints": ["Der Fallschaden muss den Todesstoß versetzen.", "Es darf nicht von einem Flugmount gesprungen werden."]
       },
       {
         "title": "Sterbe durch Hogger",
@@ -79,11 +79,6 @@
         "count": 3
       },
       {
-        "title": "Absolviere 3 PvP-Kämpfe",
-        "description": "Absolviere 3 PvP-Kämpfe.",
-        "count": 3
-      },
-      {
         "title": "Besuche Beutebucht",
         "description": "Besuche Beutebucht."
       },
@@ -93,7 +88,7 @@
         "count": 3
       },
       {
-        "title": "Erzähle Velen einen Witz",
+        "title": "Verwende /witz bei Velen",
         "description": "Erzähle Velen einen Witz.",
         "hints": ["Velen muss das Ziel des Witzes sein."]
       },
@@ -114,15 +109,10 @@
         "count": 3
       },
       {
-        "title": "Umarme 5 Pandaren",
-        "description": "Umarme 5 Pandaren.",
-        "hints": ["Es müssen unterschiedliche Pandaren sein."],
+        "title": "Verwende /umarmen bei 5 Pandaren",
+        "description": "Umarme 5 Pandaren unterschiedliche Pandaren.",
+        "hints": ["Es müssen unterschiedliche Pandaren sein.", "Es sind Spieler und NPCs erlaubt."],
         "count": 5
-      },
-      {
-        "title": "Verwende \\liebe bei Thruk",
-        "description": "Verwende das Emote \\liebe bei Thruk in der Instanz Tiefschwarze Grotte (verfügbar ab Level 15)",
-        "hints": ["Thruk muss das Ziel von \\liebe sein.", "Auch der Leichnam von Thruk zählt."]
       },
       {
         "title": "Stelle 5 Heiltränke her",
@@ -146,19 +136,84 @@
         "count": 2
       },
       {
-        "title": "Verwende \\kalt in der Frosthauchschlucht",
-        "description": "Verwende das Emote \\kalt in der Frosthauchschlucht in Winterquell (Kalimdor).",
+        "title": "Verwende /kalt in der Frosthauchschlucht",
+        "description": "Verwende das Emote /kalt in der Frosthauchschlucht in Winterquell (Kalimdor).",
         "hints": ["Der Character muss im Gebiet Frosthauchschlucht in Winterquell (Kalimdor) sein."]
-      },
-      {
-        "title": "Gewinne einen PvP-Kampf",
-        "description": "Gewinne einen PvP-Kampf.",
-        "hints": ["Der Kampf muss gegen einen anderen Spieler gewonnen werden."]
       },
       {
         "title": "Besitze 40 Leinenstoff",
         "description": "Besitze 40 Leinenstoff.",
         "count": 40
+      },
+      {
+        "title": "Besitze 20 Wollstoff",
+        "description": "Besitze 20 Wollstoff.",
+        "count": 20
+      },
+      {
+        "title": "Angle in einem Fischschwarm",
+        "description": "Angle in einem Fischschwarm."
+      },
+      {
+        "title": "Verwende öffentliches Transportmittel",
+        "description": "Verwende ein öffentliches Transportmittel.",
+        "hints": ["Erlaubt sind Zeppeline, Schiffe und die Tiefenbahn."]
+      },
+      {
+        "title": "Bade in Mondbrunnen",
+        "description": "Bade in einem Mondbrunnen."
+      },
+      {
+        "title": "20 Quests",
+        "description": "Schließe 20 Quests ab.",
+        "count": 20
+      },
+      {
+        "title": "Verwende Verzauberung \"Schwache Gesundheit\"",
+        "description": "Verwende die Verzauberung \"Schwache Gesundheit\".",
+        "hints": ["Die Verzauberung wird auf Armschienen verwendet."]
+      },
+      {
+        "title": "Erkunde Brachland",
+        "description": "Erkunde das Nördliche und Südliche Brachland.",
+        "hints": ["Es müssen alle Gebiete des Brachlands erkundet werden, die zu den dazugehörigen Erfolgen gehören."]
+      },
+      {
+        "title": "Trage 10 Ausrüstungsteile",
+        "description": "Trage mindestens 10 Ausrüstungsteile.",
+        "count": 10,
+        "hints": ["Jeder Ausrüstungsplatz zählt."]
+      },
+      {
+        "title": "Erhalte seltenen Ausrüstungsgegenstand",
+        "description": "Erhalte einen seltenen Ausrüstungsgegenstand.",
+        "hint": ["Der Gegenstand muss nicht angelegt werden können.", "Es muss ein Ausrüstungsgegenstand sein."]
+      },
+      {
+        "title": "Besitze 5 Taschen",
+        "description": "Besitze 5 Taschen.",
+        "count": 5,
+        "hints": ["Alle Taschenarten zählen.", "Die Taschen müssen angelegt sein und das Inventar erweitern."]
+      },
+      {
+        "title": "Erklimme Nimmerlaya",
+        "description": "Erklimme den Gipfel von Nimmerlaya im Kun-Lai Gebirge.",
+        "hints": ["Der Gipfel muss erreicht werden."]
+      },
+      {
+        "title": "Erklimme Hochberg",
+        "description": "Erklimme den Gipfel vom Hochberg im Gebiet Hochberg.",
+        "hints": ["Der Gipfel muss erreicht werden."]
+      },
+      {
+        "title": "Verwende /beten in Herdweiler",
+        "description": "Verwende /beten in Herdweiler in den westlichen Pestländern.",
+        "hints": ["Das Emote muss in einem beliebigen Ort in Herdweiler verwendet werden."]
+      },
+      {
+        "title": "Verwende /trauern in Theramore",
+        "description": "Verwende /trauern in Theramore in den Düstermarschen.",
+        "hints": ["Das Emote muss in einem beliebigen Ort in Theramore verwendet werden."]
       }
     ]
   }
