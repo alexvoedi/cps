@@ -11,7 +11,7 @@ function popout() {
 
   const query = new URLSearchParams(window.location.search)
 
-  window.open(`${url.origin}${url.pathname}?${query}`, 'WoW Bingo', 'width=800,height=800,location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
+  window.open(`${url.origin}/cps/?${query}#${url.pathname}`, 'WoW Bingo', 'width=800,height=800,location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
 }
 
 function reset() {

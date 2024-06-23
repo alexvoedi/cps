@@ -1,7 +1,7 @@
 import seedrandom from 'seedrandom'
 import { useMessage } from 'naive-ui'
 import bingoData from '@/data/bingo.json'
-import { Cell } from '@/classes/Cell'
+import { Cell, CellState } from '@/classes/Cell'
 
 function getRandomSeed() {
   return Array.from({ length: 8 }, () => Math.floor(Math.random() * 10)).join('')
@@ -125,6 +125,28 @@ export function useBingo() {
     params.seed = getRandomSeed()
     cells.value = getRandomCells()
   }
+
+  const isBingo = () => {
+    const size = Number(params.size)
+
+    const rows = Array.from({ length: size }, (_, i) => Array.from({ length: size }, (_, j) => i * size + j))
+    const cols = Array.from({ length: size }, (_, i) => Array.from({ length: size }, (_, j) => j * size + i))
+    const diag1 = Array.from({ length: size }, (_, i) => i * size + i)
+    const diag2 = Array.from({ length: size }, (_, i) => i * size + size - i - 1)
+
+    const lines = [...rows, ...cols, diag1, diag2]
+
+    return lines.some(line => line.every(index => cells.value[index].state === CellState.Checked))
+  }
+
+  const cellStates = computed(() => cells.value.map(cell => cell.state))
+
+  watch(cellStates, () => {
+    if (isBingo())
+      message.success('Bingo!')
+  }, {
+    deep: true,
+  })
 
   return {
     cells,

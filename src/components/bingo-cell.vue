@@ -12,8 +12,6 @@ const classes = computed(() => {
     'bg-green-800 hover:bg-green-900': cell.isChecked(),
     'hover:bg-true-gray-900': cell.isUnchecked(),
     'bg-red-900': cell.isFailed(),
-    'border-transparent': !cell.goal,
-    'border-blue-600': cell.goal,
   }
 })
 </script>
@@ -22,11 +20,17 @@ const classes = computed(() => {
   <n-popover trigger="hover" :duration="0" :keep-alive-on-hover="false" :animated="false">
     <template #trigger>
       <button
-        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden border border-2 whitespace-normal break-words space-y-4 transition-all" :class="classes"
+        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-4 transition-all" :class="classes"
         @click="cell.toggleState()"
         @contextmenu.prevent="cell.toggleGoal()"
       >
-        <div>{{ cell.data.title }}</div>
+        <div
+          :class="{
+            'text-blue-500': cell.goal,
+          }"
+        >
+          {{ cell.data.title }}
+        </div>
 
         <div v-if="cell.data.count" class="flex gap-4 items-center justify-center">
           <n-button tertiary circle :disabled="cell.currentCount === 0" @click.stop="cell.decrementCounter()">
