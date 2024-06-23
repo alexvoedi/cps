@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
+
+useTitle('CPS')
 </script>
 
 <template>

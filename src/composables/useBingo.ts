@@ -1,5 +1,6 @@
 import seedrandom from 'seedrandom'
 import { useMessage } from 'naive-ui'
+import JSConfetti from 'js-confetti'
 import bingoData from '@/data/bingo.json'
 import { Cell, CellState } from '@/classes/Cell'
 
@@ -141,9 +142,22 @@ export function useBingo() {
 
   const cellStates = computed(() => cells.value.map(cell => cell.state))
 
+  const fanfareSound = new Audio('/cps/quest_complete.ogg')
+
+  const finish = () => {
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti({
+      emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+      emojiSize: 32,
+    })
+
+    fanfareSound.play()
+  }
+
   watch(cellStates, () => {
-    if (isBingo())
-      message.success('Bingo!')
+    if (isBingo()) {
+      finish()
+    }
   }, {
     deep: true,
   })
