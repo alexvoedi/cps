@@ -140,6 +140,9 @@ export class Cell {
       case 'p':
         this.togglePriority()
         break
+      case 's':
+        this.toggleState()
+        break
       case '1':
         this.setPriority(CellPriority.None)
         break
@@ -158,6 +161,12 @@ export class Cell {
         else {
           this.setPriority(CellPriority.High)
         }
+        break
+      case 'ArrowUp':
+        this.incrementCounter()
+        break
+      case 'ArrowDown':
+        this.decrementCounter()
         break
     }
   }

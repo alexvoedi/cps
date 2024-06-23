@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Cell, CellPriority, CellState } from '../classes/Cell'
+import type { Cell } from '../classes/Cell'
 
 const props = defineProps<{
   cell: Cell
@@ -38,7 +38,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <n-popover trigger="hover" :duration="0" :keep-alive-on-hover="false" :animated="false">
+  <n-popover trigger="hover" :duration="0" :keep-alive-on-hover="false" :animated="false" display-directive="show">
     <template #trigger>
       <button
         class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-4 transition-all border border-3 focus-visible:(outline-none)" :class="classes"

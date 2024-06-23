@@ -19,7 +19,7 @@ const show = ref(false)
         </p>
 
         <p>
-          Mit der linken Maustaste/<kbd>d</kbd> kann ein Feld als <strong class="text-green-700">erledigt</strong> oder <strong class="text-red-700">fehlgeschlagen</strong> markiert werden. Mit der rechten Maustaste/<kbd>p</kbd> können <strong class="text-blue-600">persönliche Ziele</strong> markiert werden. Mit der mittleren Maustaste/<kbd>r</kbd> kann ein Feld zurückgesetzt werden.
+          Ein Feld als <strong class="text-green-700">erledigt</strong> oder <strong class="text-red-700">fehlgeschlagen</strong> markiert werden. Außerdem können <strong class="text-blue-600">persönliche Ziele</strong> markiert werden.
         </p>
 
         <div>
@@ -31,6 +31,54 @@ const show = ref(false)
             <li>Das Auktionshaus darf nicht verwendet werden.</li>
             <li>Es dürfen keine Gegenstände oder Gold von anderne Spielern gehandelt werden.</li>
             <li>Den Hinweisen ist Folge zu leisten.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold">
+            Tastenkürzel:
+          </h3>
+
+          <p>Durch zeigen auf ein Feld und drücken der entsprechenden Taste können die Felder markiert werden.</p>
+
+          <ul class="list-disc pl-6">
+            <li>
+              <kbd><span class="ico-mdi-mouse" /> Links</kbd>/<kbd>s</kbd> - Status durchschalten
+            </li>
+            <li>
+              <kbd><span class="ico-mdi-mouse" /> Rechts</kbd>/<kbd>p</kbd> - Priorität durchschalten
+            </li>
+            <li>
+              <kbd><span class="ico-mdi-mouse" /> Mitte</kbd>/<kbd>r</kbd> - Status zurücksetzen
+            </li>
+            <li>
+              <kbd>d</kbd> - Status auf <strong class="text-green-800">erledigt</strong> setzen
+            </li>
+            <li>
+              <kbd>f</kbd> - Status auf <strong class="text-red-900">fehlgeschlagen</strong> setzen
+            </li>
+            <li>
+              <kbd>u</kbd> - Status zurücksetzen
+            </li>
+            <li>
+              <kbd>1</kbd> - Priorität zurücksetzen
+            </li>
+            <li>
+              <kbd>2</kbd> - Priorität auf <strong class="text-blue-400">mittel</strong> setzen
+            </li>
+            <li>
+              <kbd>3</kbd> - Priorität auf <strong class="text-blue-700">hoch</strong> setzen
+            </li>
+            <li>
+              <kbd>r</kbd> - Alles zurücksetzen
+            </li>
+            <li>
+              <kbd><span class="ico-mdi-arrow-up" /></kbd> - Zähler erhöhen
+            </li>
+
+            <li>
+              <kbd><span class="ico-mdi-arrow-down" /></kbd> - Zähler verringern
+            </li>
           </ul>
         </div>
       </div>
