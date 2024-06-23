@@ -136,7 +136,7 @@ export function useBingo() {
 
     const lines = [...rows, ...cols, diag1, diag2]
 
-    return lines.some(line => line.every(index => cells.value[index].state === CellState.Checked))
+    return lines.some(line => line.every(index => cells.value[index].state === CellState.Done))
   }
 
   const cellStates = computed(() => cells.value.map(cell => cell.state))

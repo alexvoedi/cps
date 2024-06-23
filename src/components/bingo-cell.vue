@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cell } from '../classes/Cell'
+import { type Cell, CellPriority, CellState } from '../classes/Cell'
 
 const props = defineProps<{
   cell: Cell
@@ -12,7 +12,28 @@ const classes = computed(() => {
     'bg-green-800 hover:bg-green-900': cell.isChecked(),
     'hover:bg-true-gray-900': cell.isUnchecked(),
     'bg-red-900': cell.isFailed(),
+
+    'text-inherit border-transparent': cell.isLowPriority(),
+    'text-blue-400 border-transparent': cell.isMediumPriority(),
+    'border-blue-700': cell.isHighPriority(),
   }
+})
+
+const hovered = ref(false)
+
+function keydownHandler(event: KeyboardEvent) {
+  if (!hovered.value)
+    return
+
+  props.cell.handleKeyPress(event)
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', keydownHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', keydownHandler)
 })
 </script>
 
@@ -20,15 +41,14 @@ const classes = computed(() => {
   <n-popover trigger="hover" :duration="0" :keep-alive-on-hover="false" :animated="false">
     <template #trigger>
       <button
-        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-4 transition-all" :class="classes"
+        class="text font-semibold p-0.5vmin text-center w-full h-full overflow-hidden whitespace-normal break-words space-y-4 transition-all border border-3 focus-visible:(outline-none)" :class="classes"
         @click="cell.toggleState()"
-        @contextmenu.prevent="cell.toggleGoal()"
+        @mousedown.middle.prevent="cell.reset()"
+        @contextmenu.prevent="cell.togglePriority()"
+        @mouseenter="hovered = true"
+        @mouseleave="hovered = false"
       >
-        <div
-          :class="{
-            'text-blue-500': cell.goal,
-          }"
-        >
+        <div>
           {{ cell.data.title }}
         </div>
 

@@ -19,7 +19,7 @@ const show = ref(false)
         </p>
 
         <p>
-          Mit der linken Maustaste kann ein Feld als <strong class="text-green-700">erledigt</strong> oder <strong class="text-red-700">fehlgeschlagen</strong> markiert werden. Mit der rechten Maustaste können <strong class="text-blue-600">persönliche Ziele</strong> markiert werden.
+          Mit der linken Maustaste/<kbd>d</kbd> kann ein Feld als <strong class="text-green-700">erledigt</strong> oder <strong class="text-red-700">fehlgeschlagen</strong> markiert werden. Mit der rechten Maustaste/<kbd>p</kbd> können <strong class="text-blue-600">persönliche Ziele</strong> markiert werden. Mit der mittleren Maustaste/<kbd>r</kbd> kann ein Feld zurückgesetzt werden.
         </p>
 
         <div>
@@ -41,5 +41,17 @@ const show = ref(false)
 </template>
 
 <style>
-
+kbd {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  color: #333;
+  display: inline-block;
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  white-space: nowrap;
+}
 </style>
