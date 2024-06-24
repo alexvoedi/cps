@@ -14,6 +14,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/bingo/popout',
     component: () => import('./pages/bingo-popout.vue'),
   },
+  {
+    path: '/quiz',
+    component: () => import('./pages/quiz.vue'),
+  },
 ]
 
 const router = createRouter({
