@@ -5,6 +5,7 @@ import Peer from 'peerjs'
 export function usePeer(onData: (data: any) => void) {
   const params = useUrlSearchParams<{
     id?: string
+    host?: boolean
     hostId?: string
   }>()
 
@@ -16,17 +17,14 @@ export function usePeer(onData: (data: any) => void) {
     debug: 0,
   })
 
-  function connect(id: string) {
-    const conn = peer.connect(id)
-
-    conn.on('open', () => connections.push(conn))
-
-    conn.on('data', onData)
-  }
-
   peer.on('open', () => {
+    params.id = peer.id
+
     if (params.hostId) {
-      connect(params.hostId)
+      const conn = peer.connect(params.hostId)
+
+      conn.on('open', () => connections.push(conn))
+      conn.on('data', onData)
     }
 
     peer.on('connection', (conn) => {
@@ -47,11 +45,14 @@ export function usePeer(onData: (data: any) => void) {
     })
   })
 
-  const isHost = computed(() => !params.hostId)
+  const isHost = computed(() => Boolean(params.host) === true)
+
+  const peerId = computed(() => peer.id)
 
   return {
     peer,
     connections,
     isHost,
+    peerId,
   }
 }

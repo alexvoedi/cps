@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import { usePeer } from '../composables/usePeer'
 import { QuizState, useQuiz } from '../composables/useQuiz'
 
@@ -15,6 +16,7 @@ const {
   setState,
 } = useQuiz()
 
+const message = useMessage()
 const now = useNow({
   interval: 100,
 })
@@ -73,7 +75,20 @@ function onData(data: { state: QuizState }) {
   }
 }
 
-const { connections, isHost } = usePeer(onData)
+const { connections, isHost, peerId } = usePeer(onData)
+
+function copyLink() {
+  const url = new URL('/cps/quiz', window.location.origin)
+
+  const query = new URLSearchParams()
+
+  query.set('hostId', peerId.value)
+
+  url.search = query.toString()
+
+  navigator.clipboard.writeText(url.toString())
+  message.info('Link copied to clipboard')
+}
 </script>
 
 <template>
@@ -84,6 +99,14 @@ const { connections, isHost } = usePeer(onData)
           <h1 class="text-4xl">
             <span>Quiz</span>
           </h1>
+
+          <div v-if="isHost">
+            <n-button
+              @click="copyLink()"
+            >
+              Copy Link
+            </n-button>
+          </div>
 
           <div v-if="isHost" class="flex gap-4 items-center">
             <div>State: {{ quizState }}</div>
@@ -105,8 +128,8 @@ const { connections, isHost } = usePeer(onData)
             :percentage="100 - (percentage * 100)"
             :show-indicator="false"
             :height="12"
-            border-radius="0"
             :disabled="!showProgress"
+            :border-radius="0"
           />
           <div v-if="currentQuestionIndex !== null && currentQuestion" class="p-8 space-y-16">
             <div
@@ -122,7 +145,7 @@ const { connections, isHost } = usePeer(onData)
             </div>
 
             <div
-              class="grid grid-cols-2 gap-8" :class="{
+              class="grid grid-cols-2 gap-4" :class="{
                 'opacity-0 pointer-events-none': !showAnswerTexts,
               }"
             >

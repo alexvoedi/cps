@@ -29,6 +29,15 @@ const menuOptions: MenuOption[] = [
     key: '/bingo',
     icon: () => renderIcon('ico-ic:baseline-grid-on'),
   },
+  {
+    label: () => h(RouterLink, {
+      to: '/quiz',
+    }, {
+      default: () => 'Quiz',
+    }),
+    key: '/quiz',
+    icon: () => renderIcon('ico-mdi-head-question'),
+  },
 ]
 
 const activeItem = computed(() => route.path)
