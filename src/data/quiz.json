@@ -1,0 +1,22 @@
+[
+  {
+    "question": "In welcher Instanz kommt \"Thruk\" als Boss vor?",
+    "answerId": 2,
+    "answers": [
+      "Scharlachrotes Kloster",
+      "Maraudon",
+      "Tiefschwarze Grotte",
+      "Düsterbruch",
+      "Verlies"
+    ]
+  },
+  {
+    "question": "Wo lebt Hogger?",
+    "answerId": 2,
+    "answers": [
+      "Wald von Elwynn",
+      "Dun Morogh",
+      "Westfall"
+    ]
+  }
+]
