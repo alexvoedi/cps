@@ -14,7 +14,7 @@ function getCell(row: number, col: number) {
 <template>
   <div class="h-full mx-auto aspect-ratio-1/1">
     <div v-for="row in size" :key="row" class="grid" :class="[`grid-cols-${size}`]">
-      <div v-for="col in size" :key="col" class="border border-true-gray-700 bg-dark-9 bg-opacity-95 aspect-ratio-1/1 flex">
+      <div v-for="col in size" :key="col" class="border border-true-gray-700 bg-dark-9 bg-opacity-90 aspect-ratio-1/1 flex">
         <bingo-cell
           :cell="getCell(row - 1, col - 1)"
         />

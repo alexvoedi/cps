@@ -18,5 +18,33 @@
       "Dun Morogh",
       "Westfall"
     ]
+  },
+  {
+    "question": "Wie viel Gold kann ein Charakter maximal besitzen?",
+    "answers": [
+      "10.000.000 Gold",
+      "9.999.999 Gold"
+    ],
+    "answerId": 1,
+    "category": "Keine"
+  },
+  {
+    "question": "Ist dies Frage 4?",
+    "answers": [
+      "Ja, es könnte Frage 4 sein, aber es könnte auch eine andere Frage sein",
+      "Nein"
+    ],
+    "answerId": 1,
+    "category": "Keine"
+  },
+  {
+    "question": "Ist dies Frage 5?",
+    "answers": [
+      "Nein",
+      "Ja",
+      "Vielleicht"
+    ],
+    "answerId": 1,
+    "category": "Keine"
   }
 ]

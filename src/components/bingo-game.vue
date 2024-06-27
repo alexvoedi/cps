@@ -45,7 +45,7 @@ function randomize() {
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="p-8 bg-dark-9 bg-opacity-90">
+    <div class="p-8 bg-dark-9 bg-opacity-80">
       <div class="mx-auto container flex justify-between items-center">
         <h1 class="text-4xl">
           <span>Bingo</span> <span class="text-xs">v{{ mostRecentVersion }}</span>
