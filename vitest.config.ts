@@ -1,3 +1,4 @@
+import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -9,6 +10,11 @@ export default defineConfig({
     include: ['tests/**/*.test.ts', 'src/**/*.test.ts'],
     coverage: {
       provider: 'istanbul',
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   plugins: [
