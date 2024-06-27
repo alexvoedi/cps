@@ -23,6 +23,8 @@ declare module 'vue' {
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
     NMenu: typeof import('naive-ui')['NMenu']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NModal: typeof import('naive-ui')['NModal']
+    NPopover: typeof import('naive-ui')['NPopover']
     NProgress: typeof import('naive-ui')['NProgress']
     QuizAnswerButton: typeof import('./../components/quiz-answer-button.vue')['default']
     QuizAnswerList: typeof import('./../components/quiz-answer-list.vue')['default']
