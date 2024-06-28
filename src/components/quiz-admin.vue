@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import { useMessage } from 'naive-ui'
+import { useQuizStore } from '../store/quiz'
+import { copyLink } from '../utils/copyLink'
+
+const params = useUrlSearchParams<{
+  host?: boolean
+  id?: string
+}>()
+
+const message = useMessage()
+
+const quiz = useQuizStore()
+
+function copyGameUrl() {
+  if (params.id) {
+    copyLink(params.id)
+    message.info('Link copied to clipboard')
+  }
+}
+</script>
+
+<template>
+  <div class="flex items-center justify-center gap-4">
+    <n-tag :bordered="false" type="info" round>
+      {{ quiz.state }}
+    </n-tag>
+  </div>
+
+  <div class="flex items-center justify-center gap-4">
+    <n-button
+      circle
+      quaternary
+      @click="copyGameUrl()"
+    >
+      <template #icon>
+        <span class="ico-mdi-link" />
+      </template>
+    </n-button>
+
+    <quiz-admin-modal />
+
+    <n-button
+      circle
+      quaternary
+      @click="quiz.nextState()"
+    >
+      <template #icon>
+        <span class="ico-mdi-skip-next" />
+      </template>
+    </n-button>
+  </div>
+</template>
+
+<style>
+
+</style>

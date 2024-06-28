@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { QuizState } from '../enums/QuizState'
+import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 
 const props = defineProps<{
@@ -8,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const quiz = useQuizStore()
+const peerStore = usePeerStore()
 
 const highlightCorrectAnswer = computed(() => [
   QuizState.ShowCorrectAnswer,
@@ -38,6 +40,17 @@ const buttonType = computed(() => {
 
 function setAnswer() {
   quiz.setCurrentAnswer(props.answerId)
+
+  const params = useUrlSearchParams<{
+    host?: boolean
+  }>()
+
+  if (!params.host) {
+    peerStore.send({
+      state: quiz.state,
+      answerId: quiz.currentAnswerId,
+    })
+  }
 }
 </script>
 

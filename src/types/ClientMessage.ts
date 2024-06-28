@@ -1,6 +1,12 @@
 import type { QuizState } from '@/enums/QuizState'
 
 export interface ClientMessage {
-  state: QuizState.ShowAnswers
-  answerId: number
+  id: string
+  data: {
+    state: QuizState.ShowAnswers
+    answerId: number
+  } | {
+    state: QuizState.Waiting
+    name: string
+  }
 }

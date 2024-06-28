@@ -3,6 +3,8 @@ import { useMessage } from 'naive-ui'
 import type { DataConnection } from 'peerjs'
 import Peer from 'peerjs'
 import { defineStore } from 'pinia'
+import { useBaseStore } from '@/store/base'
+import { useQuizStore } from '@/store/quiz'
 
 interface PeerStore {
   connections: DataConnection[]
@@ -34,6 +36,8 @@ export const usePeerStore = defineStore('peer-store', {
     },
 
     createClientPeer(peer: Peer, onData: (data: any) => void) {
+      const base = useBaseStore()
+      const quiz = useQuizStore()
       const message = useMessage()
       const params = useUrlSearchParams<{
         id?: string
@@ -51,6 +55,7 @@ export const usePeerStore = defineStore('peer-store', {
 
           conn.on('open', () => {
             this.connections.push(conn)
+            this.send({ state: quiz.state, name: base.name })
           })
 
           conn.on('close', () => {
@@ -60,11 +65,17 @@ export const usePeerStore = defineStore('peer-store', {
       })
     },
 
-    createHostPeer(peer: Peer, onData: (data: any) => void) {
+    createHostPeer(peer: Peer, onData: (response: {
+      id: string
+      data: any
+    }) => void) {
       const message = useMessage()
 
       peer.on('connection', (conn) => {
-        conn.on('data', onData)
+        conn.on('data', data => onData({
+          id: conn.peer,
+          data,
+        }))
 
         conn.on('open', () => {
           this.connections.push(conn)

@@ -3,6 +3,7 @@ import { QuizState } from '@/enums/QuizState'
 import { getRandomIndices } from '@/utils/getRandomItems'
 import Questions from '@/data/quiz.json'
 import type { QuizQuestion } from '@/types/QuizQuestion'
+import { usePeerStore } from '@/store/peer'
 
 export interface QuizStore {
   state: QuizState
@@ -11,6 +12,7 @@ export interface QuizStore {
   currentQuestionId: number | null
   countdownDuration: number
   countdownStart: Date | null
+  countdown: number | undefined
   players: Array<{
     id: string
     name: string
@@ -29,6 +31,7 @@ export const useQuizStore = defineStore('quiz-store', {
     countdownStart: null,
     players: [],
     currentAnswerId: null,
+    countdown: undefined,
   }),
 
   actions: {
@@ -55,14 +58,20 @@ export const useQuizStore = defineStore('quiz-store', {
       this.currentQuestionId = this.questionIds[currentIndex + 1]
     },
 
+    addQuestionId(questionId: number) {
+      this.questionIds.push(questionId)
+    },
+
     resetCountdown() {
+      clearTimeout(this.countdown)
+      this.countdown = null
       this.countdownStart = new Date()
     },
 
     startCountdown() {
       this.countdownStart = new Date()
 
-      setTimeout(() => {
+      this.countdown = setTimeout(() => {
         if (this.state === QuizState.ShowAnswers) {
           this.state = QuizState.LockAnswers
         }
@@ -70,28 +79,57 @@ export const useQuizStore = defineStore('quiz-store', {
     },
 
     setState(state: QuizState) {
+      const peer = usePeerStore()
+
       this.state = state
 
       switch (state) {
         case QuizState.Waiting:
+          peer.send({
+            state,
+          })
           break
         case QuizState.StartQuiz:
+          peer.send({
+            state,
+            questionCount: this.questionCount,
+            countdownDuration: this.countdownDuration,
+          })
           break
         case QuizState.ShowQuestion:
+          peer.send({
+            state,
+            currentQuestionId: this.currentQuestionId,
+          })
           break
         case QuizState.ShowAnswers:
           this.startCountdown()
+          peer.send({
+            state,
+          })
           break
         case QuizState.LockAnswers:
+          peer.send({
+            state,
+          })
           break
         case QuizState.ShowCorrectAnswer:
+          peer.send({
+            state,
+          })
           break
         case QuizState.ShowQuestionResults:
+          peer.send({
+            state,
+          })
           break
         case QuizState.NextQuestion:
           this.nextQuestion()
           this.resetCountdown()
           this.resetCurrentAnswer()
+          peer.send({
+            state,
+          })
           break
         default:
           break
@@ -129,12 +167,40 @@ export const useQuizStore = defineStore('quiz-store', {
       }
     },
 
+    setCurrentQuestion(questionId: number) {
+      this.currentQuestionId = questionId
+    },
+
     setCurrentAnswer(answerId: number) {
       this.currentAnswerId = answerId
     },
 
     resetCurrentAnswer() {
       this.currentAnswerId = null
+    },
+
+    addPlayer(id: string, name: string) {
+      this.players.push({
+        id,
+        name,
+        answers: [],
+      })
+    },
+
+    setPlayerAnswer(id: string, answerId: number) {
+      const player = this.players.find(player => player.id === id)
+
+      if (!player) {
+        throw new Error('Player not found')
+      }
+
+      const index = this.currentQuestionIndex
+
+      if (index === null) {
+        throw new Error('Current question index is null')
+      }
+
+      player.answers[index] = answerId
     },
   },
 
@@ -153,6 +219,26 @@ export const useQuizStore = defineStore('quiz-store', {
       }
 
       return state.questionIds.indexOf(state.currentQuestionId)
+    },
+
+    results: (state) => {
+      const results: Array<{
+        name: string
+        correctAnswerCount: number
+      }> = []
+
+      for (const player of state.players) {
+        results.push({
+          name: player.name,
+          correctAnswerCount: player.answers.filter((answer, index) => {
+            const question = Questions[state.questionIds[index]]
+
+            return question.answerId === answer
+          }).length,
+        })
+      }
+
+      return results
     },
   },
 })

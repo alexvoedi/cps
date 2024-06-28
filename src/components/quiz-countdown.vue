@@ -9,7 +9,7 @@ const now = useNow({
 })
 
 const remainingCountdown = computed(() => {
-  if (!quiz.countdownStart) {
+  if (!quiz.countdownStart || !quiz.countdown) {
     return 0
   }
 
@@ -17,7 +17,7 @@ const remainingCountdown = computed(() => {
 })
 
 const percentage = computed(() => {
-  if (!quiz.countdownStart) {
+  if (!quiz.countdownStart || !quiz.countdown) {
     return 0
   }
 
