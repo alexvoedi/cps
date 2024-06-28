@@ -64,8 +64,8 @@ export const useQuizStore = defineStore('quiz-store', {
 
     resetCountdown() {
       clearTimeout(this.countdown)
-      this.countdown = null
-      this.countdownStart = new Date()
+      this.countdown = undefined
+      this.countdownStart = null
     },
 
     startCountdown() {
