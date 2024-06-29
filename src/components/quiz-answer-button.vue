@@ -109,7 +109,6 @@ const percentageString = computed(() => {
 </template>
 
 <style>
-/* fill using linear gradient according to percentage */
 .percentage {
   color: white !important;
 }
