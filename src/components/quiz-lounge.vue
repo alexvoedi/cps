@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useQuizStore } from '../store/quiz'
 import Spinner from '@/assets/spinner.svg'
 </script>
 

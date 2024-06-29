@@ -13,7 +13,7 @@ export function useTimer() {
 
     startTime = Date.now()
 
-    timer.value = setInterval(() => {
+    timer.value = window.setInterval(() => {
       currentTime = Date.now()
 
       time.value += currentTime - startTime
