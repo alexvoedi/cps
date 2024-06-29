@@ -31,11 +31,11 @@ export const usePeerStore = defineStore('peer-store', {
         this.createHostPeer(peer, onData)
       }
       else {
-        this.createClientPeer(peer, onData)
+        this.createPlayerPeer(peer, onData)
       }
     },
 
-    createClientPeer(peer: Peer, onData: (data: any) => void) {
+    createPlayerPeer(peer: Peer, onData: (data: any) => void) {
       const base = useBaseStore()
       const quiz = useQuizStore()
       const message = useMessage()

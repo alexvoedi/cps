@@ -4,6 +4,10 @@ import { useQuizStore } from '../store/quiz'
 
 const quiz = useQuizStore()
 
+const params = useUrlSearchParams<{
+  host?: boolean
+}>()
+
 const showQuestionText = computed(() => [
   QuizState.ShowQuestion,
   QuizState.ShowAnswers,
@@ -25,6 +29,14 @@ const showQuestionText = computed(() => [
       </div>
     </div>
   </div>
+
+  <quiz-card v-else-if="quiz.currentQuestionIndex !== null">
+    <h2>
+      Jetzt kommt
+    </h2>
+
+    Frage {{ quiz.currentQuestionIndex + (params.host ? 1 : 2) }}
+  </quiz-card>
 </template>
 
 <style>

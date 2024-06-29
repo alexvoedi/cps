@@ -1,6 +1,6 @@
 import type { QuizState } from '@/enums/QuizState'
 
-export interface ClientMessage {
+export interface PlayerMessage {
   id: string
   data: {
     state: QuizState.ShowAnswers

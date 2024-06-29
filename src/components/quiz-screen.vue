@@ -3,7 +3,7 @@
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 import { QuizState } from '../enums/QuizState'
-import type { ClientMessage } from '../types/ClientMessage'
+import type { PlayerMessage } from '../types/PlayerMessage'
 import type { HostMessage } from '../types/HostMessage'
 
 const params = useUrlSearchParams<{
@@ -17,10 +17,10 @@ onMounted(() => {
     quiz.init()
   }
 
-  peer.init(params.host ? onHostData : onClientData)
+  peer.init(params.host ? onHostData : onPlayerData)
 })
 
-function onHostData({ id, data }: ClientMessage) {
+function onHostData({ id, data }: PlayerMessage) {
   console.log({ id, data })
 
   if (data.state !== quiz.state) {
@@ -37,7 +37,7 @@ function onHostData({ id, data }: ClientMessage) {
   }
 }
 
-function onClientData(data: HostMessage) {
+function onPlayerData(data: HostMessage) {
   Object.assign(quiz, data)
 
   switch (data.state) {
@@ -54,22 +54,31 @@ function onClientData(data: HostMessage) {
       break
   }
 }
+
+const showQuestion = computed(() => {
+  return ![QuizState.Waiting, QuizState.StartQuiz, QuizState.ShowResults].includes(quiz.state)
+})
 </script>
 
 <template>
-  <div class="p-8 bg-dark-9 bg-opacity-80">
-    <div class="mx-auto container flex gap-4 justify-between items-center">
-      <h1 class="text-4xl">
-        <span>Quiz</span>
-      </h1>
+  <quiz-admin v-if="params.host" />
 
-      <quiz-admin v-if="params.host" />
-    </div>
-  </div>
-
-  <quiz-question />
+  <Transition name="fade" mode="out-in" appear>
+    <quiz-question v-if="showQuestion" />
+    <quiz-lounge v-else-if="quiz.state === QuizState.Waiting" />
+    <quiz-start v-else-if="quiz.state === QuizState.StartQuiz" />
+    <quiz-results v-else-if="quiz.state === QuizState.ShowResults" />
+  </Transition>
 </template>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

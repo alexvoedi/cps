@@ -16,7 +16,7 @@ const quiz = useQuizStore()
   <n-modal v-model:show="show">
     <n-card>
       <div>
-        {{ quiz.results }}
+        {{ quiz.overallResults }}
       </div>
     </n-card>
   </n-modal>

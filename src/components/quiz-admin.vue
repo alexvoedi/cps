@@ -21,34 +21,38 @@ function copyGameUrl() {
 </script>
 
 <template>
-  <div class="flex items-center justify-center gap-4">
-    <n-tag :bordered="false" type="info" round>
-      {{ quiz.state }}
-    </n-tag>
-  </div>
+  <div class="p-4 bg-dark-9 bg-opacity-80">
+    <div class="mx-auto container flex gap-4 justify-between items-center">
+      <div class="flex items-center justify-center gap-4">
+        <n-tag :bordered="false" type="info" round>
+          {{ quiz.state }}
+        </n-tag>
+      </div>
 
-  <div class="flex items-center justify-center gap-4">
-    <n-button
-      circle
-      quaternary
-      @click="copyGameUrl()"
-    >
-      <template #icon>
-        <span class="ico-mdi-link" />
-      </template>
-    </n-button>
+      <div class="flex items-center justify-center gap-4">
+        <n-button
+          circle
+          quaternary
+          @click="copyGameUrl()"
+        >
+          <template #icon>
+            <span class="ico-mdi-link" />
+          </template>
+        </n-button>
 
-    <quiz-admin-modal />
+        <quiz-admin-modal />
 
-    <n-button
-      circle
-      quaternary
-      @click="quiz.nextState()"
-    >
-      <template #icon>
-        <span class="ico-mdi-skip-next" />
-      </template>
-    </n-button>
+        <n-button
+          circle
+          quaternary
+          @click="quiz.nextState()"
+        >
+          <template #icon>
+            <span class="ico-mdi-skip-next" />
+          </template>
+        </n-button>
+      </div>
+    </div>
   </div>
 </template>
 

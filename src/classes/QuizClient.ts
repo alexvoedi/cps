@@ -1,6 +1,6 @@
 import Questions from '@/data/quiz.json'
 
-export class QuizClient {
+export class QuizPlayer {
   readonly answers = new Map<number, number>()
 
   constructor(readonly id: string, readonly name: string) {}
