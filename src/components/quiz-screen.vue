@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 import { QuizState } from '../enums/QuizState'
 

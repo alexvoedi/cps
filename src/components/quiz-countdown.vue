@@ -28,7 +28,7 @@ const showProgress = computed(() => [
   QuizState.ShowAnswers,
 ].includes(quiz.state))
 
-let lastSecondPlayed = 0 // To ensure each sound is played only once at the correct time
+let lastSecondPlayed = 0
 
 watch(remainingCountdown, (newValue) => {
   const remainingSeconds = Math.ceil((quiz.countdownDuration * 1000 - newValue) / 1000)
