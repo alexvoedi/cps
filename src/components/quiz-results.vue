@@ -117,9 +117,14 @@ const columns = reactive<DataTableColumns>([
 ])
 
 const fanfareSound = new Audio('/cps/quest_complete.ogg')
+const theEnd = new Audio('/cps/the-end.mp3')
 
 function finish() {
   fanfareSound.play()
+
+  setTimeout(() => {
+    theEnd.play()
+  }, 3_800)
 
   const jsConfetti = new JSConfetti()
 
@@ -143,13 +148,37 @@ onMounted(() => {
     finish()
   }
 })
+
+function toggleSound() {
+  if (theEnd.paused) {
+    theEnd.play()
+  }
+  else {
+    theEnd.pause()
+  }
+}
+
+onUnmounted(() => {
+  fanfareSound.pause()
+  theEnd.pause()
+})
 </script>
 
 <template>
   <div class="overflow-hidden m-auto">
     <div class="bg-dark-9 bg-opacity-80">
-      <h2 class="p-6 text-2xl font-bold">
-        Spielstand
+      <h2 class="p-6 text-2xl font-bold flex justify-between">
+        <span> Spielstand</span>
+
+        <n-button
+          v-if="quiz.currentQuestionIndex === quiz.questionCount - 1"
+          circle quaternary
+          @click="toggleSound()"
+        >
+          <template #icon>
+            <span class="ico-mdi-volume-off" />
+          </template>
+        </n-button>
       </h2>
 
       <n-data-table :columns="columns" :data="data" />
