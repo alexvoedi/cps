@@ -1,8 +1,8 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 import { QuizState } from '../enums/QuizState'
+import { MessageType } from '../enums/MessageType'
 import type { PlayerMessage } from '../types/PlayerMessage'
 import type { HostMessage } from '../types/HostMessage'
 
@@ -21,19 +21,33 @@ onMounted(() => {
 })
 
 function onHostData({ id, data }: PlayerMessage) {
-  console.log({ id, data })
+  switch (data.type) {
+    case MessageType.Admin: {
+      const player = quiz.players.find(player => player.id === id)
 
-  if (data.state !== quiz.state) {
-    return
-  }
+      if (player) {
+        player.focus = data.focus
+      }
 
-  switch (data.state) {
-    case QuizState.Waiting:
-      quiz.addPlayer(id, data.name)
       break
-    case QuizState.ShowAnswers:
-      quiz.setPlayerAnswer(id, data.answerId)
+    }
+    case MessageType.Quiz: {
+      if (data.state !== quiz.state)
+        return
+
+      switch (data.state) {
+        case QuizState.Waiting: {
+          quiz.addPlayer(id, data.name)
+          break
+        }
+        case QuizState.ShowAnswers: {
+          quiz.setPlayerAnswer(id, data.answerId)
+          break
+        }
+      }
+
       break
+    }
   }
 }
 
@@ -52,11 +66,14 @@ function onPlayerData(data: HostMessage) {
       quiz.resetCountdown()
       quiz.resetCurrentAnswer()
       break
+    case QuizState.LockAnswers:
+      quiz.resetCountdown()
+      break
   }
 }
 
 const showQuestion = computed(() => {
-  return ![QuizState.Waiting, QuizState.StartQuiz, QuizState.ShowResults].includes(quiz.state)
+  return ![QuizState.Waiting, QuizState.StartQuiz, QuizState.ShowResults, QuizState.EndQuiz].includes(quiz.state)
 })
 </script>
 
@@ -66,9 +83,12 @@ const showQuestion = computed(() => {
   <Transition name="fade" mode="out-in" appear>
     <quiz-question v-if="showQuestion" />
     <quiz-lounge v-else-if="quiz.state === QuizState.Waiting" />
-    <quiz-start v-else-if="quiz.state === QuizState.StartQuiz" />
+    <quiz-rules v-else-if="quiz.state === QuizState.StartQuiz" />
     <quiz-results v-else-if="quiz.state === QuizState.ShowResults" />
+    <quiz-end v-else-if="quiz.state === QuizState.EndQuiz" />
   </Transition>
+
+  <quiz-admin-overview v-if="params.host" />
 </template>
 
 <style>

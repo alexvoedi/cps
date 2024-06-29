@@ -1,6 +1,7 @@
 [
   {
     "question": "In welcher Instanz kommt \"Thruk\" als Boss vor?",
+    "category": "Dungeons",
     "answerId": 2,
     "answers": [
       "Scharlachrotes Kloster",
@@ -12,6 +13,7 @@
   },
   {
     "question": "Wo lebt Hogger?",
+    "category": "NPCs",
     "answerId": 2,
     "answers": [
       "Wald von Elwynn",
@@ -21,12 +23,12 @@
   },
   {
     "question": "Wie viel Gold kann ein Charakter maximal besitzen?",
+    "category": "Allgemein",
     "answers": [
       "10.000.000 Gold",
       "9.999.999 Gold"
     ],
-    "answerId": 1,
-    "category": "Keine"
+    "answerId": 1
   },
   {
     "question": "Ist dies Frage 4?",

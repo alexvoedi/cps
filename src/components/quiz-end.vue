@@ -4,9 +4,7 @@
 
 <template>
   <quiz-card>
-    <h2 class="text-3xl font-bold">
-      Jetzt geht's los!
-    </h2>
+    The end
   </quiz-card>
 </template>
 

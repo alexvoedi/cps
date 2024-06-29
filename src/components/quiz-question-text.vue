@@ -20,7 +20,9 @@ const showQuestionText = computed(() => [
       'opacity-0 pointer-events-none': !showQuestionText,
     }"
   >
-    <span>Frage {{ quiz.currentQuestionIndex + 1 }} / {{ quiz.questionCount }} </span>
+    <div class="text-center">
+      Frage {{ quiz.currentQuestionIndex + 1 }} / {{ quiz.questionCount }}
+    </div>
 
     <h2 class="text-center font-bold text-3xl">
       {{ quiz.currentQuestion.question }}

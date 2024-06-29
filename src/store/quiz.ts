@@ -16,7 +16,8 @@ export interface QuizStore {
   players: Array<{
     id: string
     name: string
-    answers: number[]
+    answers: Array<number | null>
+    focus: boolean
   }>
   currentAnswerId: number | null
 }
@@ -24,7 +25,7 @@ export interface QuizStore {
 export const useQuizStore = defineStore('quiz-store', {
   state: (): QuizStore => ({
     state: QuizState.Waiting,
-    questionCount: 30,
+    questionCount: 2,
     questionIds: [],
     currentQuestionId: null,
     countdownDuration: 15,
@@ -37,7 +38,6 @@ export const useQuizStore = defineStore('quiz-store', {
   actions: {
     init() {
       this.questionIds = getRandomIndices(Questions, this.questionCount)
-      this.currentQuestionId = this.questionIds[0]
     },
 
     setQuestion(questionId: number) {
@@ -46,16 +46,17 @@ export const useQuizStore = defineStore('quiz-store', {
 
     nextQuestion() {
       if (this.currentQuestionId === null) {
-        throw new Error('Current question ID is null')
+        this.currentQuestionId = this.questionIds[0]
       }
+      else {
+        const currentIndex = this.questionIds.indexOf(this.currentQuestionId)
 
-      const currentIndex = this.questionIds.indexOf(this.currentQuestionId)
+        if (currentIndex === this.questionCount - 1) {
+          throw new Error('Current question is the last question')
+        }
 
-      if (currentIndex === this.questionCount - 1) {
-        throw new Error('Current question is the last question')
+        this.currentQuestionId = this.questionIds[currentIndex + 1]
       }
-
-      this.currentQuestionId = this.questionIds[currentIndex + 1]
     },
 
     addQuestionId(questionId: number) {
@@ -71,7 +72,7 @@ export const useQuizStore = defineStore('quiz-store', {
     startCountdown() {
       this.countdownStart = new Date()
 
-      this.countdown = setTimeout(() => {
+      this.countdown = window.setTimeout(() => {
         if (this.state === QuizState.ShowAnswers) {
           this.state = QuizState.LockAnswers
         }
@@ -109,6 +110,8 @@ export const useQuizStore = defineStore('quiz-store', {
           })
           break
         case QuizState.LockAnswers:
+          this.fillPlayerAnswers()
+          this.resetCountdown()
           peer.send({
             state,
           })
@@ -127,6 +130,7 @@ export const useQuizStore = defineStore('quiz-store', {
         case QuizState.ShowResults:
           peer.send({
             state,
+            players: this.players,
           })
           break
         case QuizState.NextQuestion:
@@ -135,6 +139,13 @@ export const useQuizStore = defineStore('quiz-store', {
           this.resetCurrentAnswer()
           peer.send({
             state,
+            currentQuestionId: this.currentQuestionId,
+          })
+          break
+        case QuizState.EndQuiz:
+          peer.send({
+            state,
+            players: this.players,
           })
           break
         default:
@@ -144,26 +155,42 @@ export const useQuizStore = defineStore('quiz-store', {
 
     nextState() {
       const nextStateMap: Record<QuizState, QuizState> = {
-        [QuizState.Waiting]: QuizState.StartQuiz,
-        [QuizState.StartQuiz]: QuizState.ShowQuestion,
+        [QuizState.Waiting]: QuizState.ShowResults,
+        [QuizState.StartQuiz]: QuizState.NextQuestion,
         [QuizState.ShowQuestion]: QuizState.ShowAnswers,
         [QuizState.ShowAnswers]: QuizState.LockAnswers,
         [QuizState.LockAnswers]: QuizState.ShowCorrectAnswer,
         [QuizState.ShowCorrectAnswer]: QuizState.ShowQuestionResults,
         [QuizState.ShowQuestionResults]: (() => {
           if (this.currentQuestionIndex === null) {
-            throw new Error('Current question index is null')
+            return QuizState.NextQuestion
           }
-
-          if (this.currentQuestionIndex % 2 === 0) {
+          else if (this.currentQuestionIndex === 0) {
+            return QuizState.NextQuestion
+          }
+          else if (this.currentQuestionIndex % 10 === 0) {
             return QuizState.ShowResults
+          }
+          else if (this.currentQuestionIndex === this.questionCount - 1) {
+            return QuizState.EndQuiz
           }
           else {
             return QuizState.NextQuestion
           }
         })(),
         [QuizState.NextQuestion]: QuizState.ShowQuestion,
-        [QuizState.ShowResults]: QuizState.NextQuestion,
+        [QuizState.ShowResults]: (() => {
+          if (this.currentQuestionIndex === null) {
+            return QuizState.StartQuiz
+          }
+          else if (this.currentQuestionIndex === this.questionCount - 1) {
+            return QuizState.ShowResults
+          }
+          else {
+            return QuizState.NextQuestion
+          }
+        })(),
+        [QuizState.EndQuiz]: QuizState.ShowResults,
       }
 
       if (nextStateMap[this.state] !== undefined) {
@@ -175,8 +202,8 @@ export const useQuizStore = defineStore('quiz-store', {
       this.currentQuestionId = questionId
     },
 
-    setCurrentAnswer(answerId: number) {
-      this.currentAnswerId = answerId
+    setCurrentAnswer(answer: number | null) {
+      this.currentAnswerId = answer
     },
 
     resetCurrentAnswer() {
@@ -188,6 +215,7 @@ export const useQuizStore = defineStore('quiz-store', {
         id,
         name,
         answers: [],
+        focus: true,
       })
     },
 
@@ -217,7 +245,7 @@ export const useQuizStore = defineStore('quiz-store', {
         return acc
       }, new Map<string, {
         name: string
-        answer: number
+        answer: number | null
         correct: boolean
       }>())
     },
@@ -232,14 +260,81 @@ export const useQuizStore = defineStore('quiz-store', {
       return this.getPlayerAnswersByIndex(index)
     },
 
-    isCorrectAnswer(questionId: number, answerId: number) {
+    isCorrectAnswer(questionId: number, answerIdOrNull: number | null) {
       const question = Questions[questionId]
 
       if (!question) {
         throw new Error('Question not found')
       }
 
-      return question.answerId === answerId
+      return question.answerId === answerIdOrNull
+    },
+
+    fillPlayerAnswers() {
+      this.players.forEach((player) => {
+        if (player.answers.length < this.questionCount) {
+          player.answers.push(null)
+        }
+      })
+    },
+
+    getPlayerAnswerArray(playerId: string) {
+      // correct answer: true
+      // wrong answer: false
+      // not answered: null
+
+      if (this.currentQuestionIndex === null) {
+        return []
+      }
+
+      const player = this.players.find(player => player.id === playerId)
+
+      if (!player) {
+        throw new Error('Player not found')
+      }
+
+      const array: Array<boolean | null> = []
+
+      for (let index = 0; index <= this.currentQuestionIndex; index++) {
+        if (player.answers[index] === null) {
+          array.push(null)
+        }
+        else {
+          array.push(this.isCorrectAnswer(this.questionIds[index], player.answers[index]))
+        }
+      }
+
+      return array
+    },
+
+    getPlayerResults(playerId: string) {
+      const player = this.players.find(player => player.id === playerId)
+
+      if (!player) {
+        throw new Error('Player not found')
+      }
+
+      let correct = 0
+      let wrong = 0
+      let notAnswered = 0
+
+      player.answers.forEach((answer, index) => {
+        if (answer === null) {
+          notAnswered++
+        }
+        else if (this.isCorrectAnswer(this.questionIds[index], answer)) {
+          correct++
+        }
+        else {
+          wrong++
+        }
+      })
+
+      return {
+        correct,
+        wrong,
+        notAnswered,
+      }
     },
   },
 

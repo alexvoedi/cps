@@ -5,6 +5,7 @@ import Peer from 'peerjs'
 import { defineStore } from 'pinia'
 import { useBaseStore } from '@/store/base'
 import { useQuizStore } from '@/store/quiz'
+import { MessageType } from '@/enums/MessageType'
 
 interface PeerStore {
   connections: DataConnection[]
@@ -55,7 +56,7 @@ export const usePeerStore = defineStore('peer-store', {
 
           conn.on('open', () => {
             this.connections.push(conn)
-            this.send({ state: quiz.state, name: base.name })
+            this.send({ type: MessageType.Quiz, state: quiz.state, name: base.name })
           })
 
           conn.on('close', () => {

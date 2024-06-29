@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { MessageType } from '../enums/MessageType'
 import { QuizState } from '../enums/QuizState'
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
@@ -42,11 +43,12 @@ const buttonType = computed(() => {
   }
 })
 
-function setAnswer() {
-  quiz.setCurrentAnswer(props.answerId)
+function toggleAnswer() {
+  quiz.setCurrentAnswer(quiz.currentAnswerId === props.answerId ? null : props.answerId)
 
   if (!params.host) {
     peerStore.send({
+      type: MessageType.Quiz,
       state: quiz.state,
       answerId: quiz.currentAnswerId,
     })
@@ -86,20 +88,21 @@ const percentageString = computed(() => {
     :type="buttonType"
     :tertiary="!selected"
     :primary="selected"
-    class="px-6! py-5! text-xl! text-wrap! h-full! percentage"
+    class="px-6! py-5! text-xl! text-wrap! h-full!"
     :class="{
       'disabled:(opacity-75)!': quiz.state !== QuizState.ShowAnswers && quiz.state !== QuizState.LockAnswers,
+      'percentage': quiz.state === QuizState.ShowQuestionResults,
     }"
-    :disabled="quiz.state !== QuizState.ShowAnswers"
+    :disabled="quiz.state !== QuizState.ShowAnswers || Boolean(params.host)"
     block
-    @click="setAnswer()"
+    @click="toggleAnswer()"
   >
     {{ text }}
 
     <n-tooltip v-if="quiz.state === QuizState.ShowQuestionResults || params.host" class="max-w-480px">
       <template #trigger>
         <span
-          class="absolute left-2 bottom-2 text-xs decoration-underline decoration-dotted decoration-offset-2s"
+          class="absolute left-1 bottom-1 text-xs decoration-underline decoration-dotted decoration-offset-2s"
         >{{ percentageString }}</span>
       </template>
 

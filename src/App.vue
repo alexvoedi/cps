@@ -5,7 +5,9 @@ useTitle('CPS')
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme" abstract>
+  <n-config-provider
+    :theme="darkTheme" abstract
+  >
     <n-message-provider>
       <n-dialog-provider>
         <router-view />

@@ -24,18 +24,22 @@ const showQuestionText = computed(() => [
 
       <div class="p-8 space-y-16">
         <quiz-question-text />
-
         <quiz-answer-list />
       </div>
     </div>
   </div>
 
-  <quiz-card v-else-if="quiz.currentQuestionIndex !== null">
-    <h2>
-      Jetzt kommt
+  <quiz-card v-else-if="quiz.currentQuestionIndex !== null && quiz.currentQuestion !== null">
+    <h2 class="text-4xl text-center font-bold">
+      Frage {{ quiz.currentQuestionIndex + (params.host ? 1 : 2) }}
     </h2>
 
-    Frage {{ quiz.currentQuestionIndex + (params.host ? 1 : 2) }}
+    <div class="text-center">
+      <span class="opacity-80">Kategorie</span>
+      <h3 class="text-3xl text-center font-bold">
+        {{ quiz.currentQuestion.category }}
+      </h3>
+    </div>
   </quiz-card>
 </template>
 

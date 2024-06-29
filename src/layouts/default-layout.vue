@@ -15,8 +15,8 @@ const mobile = ref(breakpoints.smallerOrEqual('md'))
         height: mobile ? 'calc(100% - 42px)' : '100%',
       }"
     >
-      <n-layout-content :native-scrollbar="false" class="h-full" content-class="relative h-full ">
-        <video autoplay muted loop class="object-cover bottom-0 right-0 min-w-full min-h-full z-1" poster="/bg-image.webp" preload="auto">
+      <n-layout-content :native-scrollbar="false" class="h-full" content-class="relative h-full">
+        <video autoplay muted loop class="object-cover bottom-0 right-0 top-0 left-0 h-full w-full z-1 overflow-hidden" poster="/bg-image.webp" preload="auto">
           <source src="/bg-video.mp4" type="video/mp4">
         </video>
 

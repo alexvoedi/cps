@@ -22,7 +22,7 @@ function copyGameUrl() {
 
 <template>
   <div class="p-4 bg-dark-9 bg-opacity-80">
-    <div class="mx-auto container flex gap-4 justify-between items-center">
+    <div class="mx-auto flex gap-4 justify-between items-center">
       <div class="flex items-center justify-center gap-4">
         <n-tag :bordered="false" type="info" round>
           {{ quiz.state }}

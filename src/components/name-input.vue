@@ -15,6 +15,7 @@ const name = ref<string>('')
       placeholder="Name"
       maxlength="32"
       minlength="3"
+      @keydown.enter="base.setName(name)"
     />
     <n-button size="large" type="primary" @click="base.setName(name)">
       Speichern

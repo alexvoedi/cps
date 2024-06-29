@@ -1,38 +1,30 @@
 <script setup lang="ts">
+import JSConfetti from 'js-confetti'
 import type { DataTableColumns } from 'naive-ui'
+import { useQuizStore } from '../store/quiz'
+import { calcPoints } from '../utils/calcPoints'
+
+const quiz = useQuizStore()
 
 const data = computed(() => {
   const playerResults: {
     name: string
     correct: number
     wrong: number
-  }[] = [
-    {
-      name: 'Max Mustermann',
-      correct: 10,
-      wrong: 0,
-    },
-    {
-      name: 'Jobst',
-      correct: 8,
-      wrong: 2,
-    },
-    {
-      name: 'Erika Mustermann',
-      correct: 8,
-      wrong: 2,
-    },
-    {
-      name: 'Hans Mustermann',
-      correct: 7,
-      wrong: 3,
-    },
-    {
-      name: 'Klaus Mustermann',
-      correct: 6,
-      wrong: 4,
-    },
-  ]
+    notAnswered: number
+    points: number
+  }[] = quiz.players.map((player) => {
+    const results = quiz.getPlayerResults(player.id)
+    const answerArray = quiz.getPlayerAnswerArray(player.id)
+
+    const points = calcPoints(answerArray)
+
+    return {
+      points,
+      ...player,
+      ...results,
+    }
+  })
 
   const sorted = playerResults.sort((a, b) => b.correct - a.correct)
 
@@ -83,20 +75,74 @@ const columns = reactive<DataTableColumns>([
     minWidth: 64,
   },
   {
-    title: '✔️',
+    title: 'Punkte',
+    key: 'points',
+    align: 'center',
+    className: 'text-lg',
+    minWidth: 64,
+  },
+  {
+    title() {
+      return h('span', {
+        class: 'ico-mdi-check text-3xl text-green-6',
+      })
+    },
     key: 'correct',
     align: 'center',
     className: 'text-lg',
     minWidth: 64,
   },
   {
-    title: '❌',
+    title() {
+      return h('span', {
+        class: 'ico-mdi-close text-3xl text-red-6',
+      })
+    },
     key: 'wrong',
     align: 'center',
     className: 'text-lg',
     minWidth: 64,
   },
+  {
+    title() {
+      return h('span', {
+        class: 'ico-mdi-help text-2xl text-true-gray-4',
+      })
+    },
+    key: 'notAnswered',
+    align: 'center',
+    className: 'text-lg',
+    minWidth: 64,
+  },
 ])
+
+const fanfareSound = new Audio('/cps/quest_complete.ogg')
+
+function finish() {
+  fanfareSound.play()
+
+  const jsConfetti = new JSConfetti()
+
+  jsConfetti.addConfetti({
+    emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+    emojiSize: 32,
+    confettiNumber: 200,
+  })
+
+  setInterval(() => {
+    jsConfetti.addConfetti({
+      emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸', '🎉', '🎊', '🎈', '🎁', '🎀', '🪅', '🎆', '🎇', '🧨', '🎂', '🍰', '🧁', '🍭', '🍬'],
+      emojiSize: 32,
+      confettiNumber: 10,
+    })
+  }, 750)
+}
+
+onMounted(() => {
+  if (quiz.currentQuestionIndex === quiz.questionCount - 1) {
+    finish()
+  }
+})
 </script>
 
 <template>

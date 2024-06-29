@@ -8,4 +8,5 @@ export enum QuizState {
   ShowQuestionResults = 'show-question-results',
   NextQuestion = 'next-question',
   ShowResults = 'show-results',
+  EndQuiz = 'end-quiz',
 }
