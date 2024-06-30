@@ -5,11 +5,13 @@ import { defineStore } from 'pinia'
 import { useHost } from '@/composables/useHost'
 
 interface PeerStore {
+  id: string | null
   connections: DataConnection[]
 }
 
 export const usePeerStore = defineStore('peer-store', {
   state: (): PeerStore => ({
+    id: null,
     connections: [],
   }),
 
@@ -22,7 +24,6 @@ export const usePeerStore = defineStore('peer-store', {
       const host = useHost()
       const params = useUrlSearchParams<{
         id?: string
-        hostId?: string
       }>()
 
       const peer = new Peer(params.id || '', {

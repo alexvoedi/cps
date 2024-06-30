@@ -26,12 +26,12 @@ const data = computed(() => {
     }
   })
 
-  const sorted = playerResults.sort((a, b) => b.correct - a.correct)
+  const sorted = playerResults.sort((a, b) => b.points - a.points)
 
   let rankCounter = 1
 
   sorted.forEach((player, index) => {
-    if (index > 0 && player.correct < sorted[index - 1].correct) {
+    if (index > 0 && player.points < sorted[index - 1].points) {
       rankCounter++
     }
 

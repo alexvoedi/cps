@@ -34,6 +34,7 @@
     "peerjs": "^1.5.4",
     "pinia": "^2.1.7",
     "seedrandom": "^3.0.5",
+    "uuid": "^10.0.0",
     "vue": "^3.4.31",
     "vue-confetti-explosion": "^1.0.2",
     "vue-router": "^4.4.0"
@@ -44,6 +45,7 @@
     "@iconify-json/mdi": "^1.1.67",
     "@types/node": "^20.14.9",
     "@types/seedrandom": "^3.0.8",
+    "@types/uuid": "^10.0.0",
     "@unocss/preset-attributify": "^0.61.0",
     "@unocss/preset-icons": "^0.61.0",
     "@unocss/preset-uno": "^0.61.0",
@@ -69,6 +71,8 @@
     "vue-tsc": "^2.0.24"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue,json,html}": ["eslint --fix"]
+    "*.{js,jsx,ts,tsx,vue,json,html}": [
+      "eslint --fix"
+    ]
   }
 }

@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import { v7 as uuidv7 } from 'uuid'
 import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
 import { onData } from '../games/quiz/onData'
 import { useBaseStore } from '../store/base'
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
+
+const params = useUrlSearchParams<{
+  id?: string
+}>()
+
+if (!params.id) {
+  params.id = `cps-${uuidv7()}`
+}
 
 const base = useBaseStore()
 const peer = usePeerStore()
