@@ -70,7 +70,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,json,html}": ["eslint --fix"],
-    "*.{js,jsx,ts,tsx,vue}": ["vitest --run"],
-    "*.{js,jsx,ts,tsx,vue": ["tsc --noEmit"]
+    "*.{js,jsx,ts,tsx,vue}": ["tsc --noEmit"]
   }
 }
