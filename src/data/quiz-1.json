@@ -358,7 +358,7 @@
     "category": "Völker",
     "answers": [
       "Grunzer",
-      "Peons",
+      "Peon",
       "Diener"
     ],
     "answerId": 1
@@ -506,5 +506,39 @@
       "Priester"
     ],
     "answerId": 2
-  }
+  },
+  {
+    "question": "Was ist das Volksreittier der Worgen?",
+    "category": "Völker",
+    "answers": [
+      "Wolf",
+      "Pferd",
+      "Widder",
+      "Säbler",
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Welche Instanz ist kein Schlachtfeld?",
+    "category": "PvP",
+    "answers": [
+      "Zwillingsgipfel",
+      "Brodelnde Küste",
+      "Insel der Eroberung",
+      "Die Belagerung von Boralus"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Welche Instanz ist kein Schlachtzug?",
+    "category": "Schlachtzüge",
+    "answers": [
+      "Tiegel der Stürme",
+      "Prüfung des Kreuzfahrers",
+      "Hallen der Tapferkeit",
+      "Mogu'shangewölbe"
+    ],
+    "answerId": 2
+  },
+  
 ]
