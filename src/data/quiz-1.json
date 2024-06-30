@@ -9,7 +9,7 @@
     "answerId": 2
   },
   {
-    "question": "Welches Gebiet liegt direkt südlich der Sengende Schlucht?",
+    "question": "Welches Gebiet liegt direkt südlich der Sengenden Schlucht?",
     "category": "Geographie",
     "answers": [
       "Sümpfe des Elends",
@@ -316,10 +316,213 @@
       "Priester",
       "Dämonenjäger",
       "Paladin",
-      "Krieger",
       "Jäger",
       "Hexenmeister"
     ],
-    "answerId": 7
-  }
+    "answerId": 6
+  },
+
+  {
+    "question": "Welcher Drachenschwarm wacht über das Leben?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Rot", 
+      "Grün" 
+    ],
+    "answerId": 0
+  },
+  
+  {
+    "question": "Welche Piratenfraktion ist in Beutebucht verhasst?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Schwarzmeerräuber",
+      "Bilgeratten",
+      "Blutsegelbukaniere",
+      "Schwertwasserkorsaren" 
+    ],
+    "answerId": 2
+  },
+  
+  {
+    "question": "Welcher Haustiertyp kann durch einen einzelnen Angriff maximal 35% der eigenen Gesundheit erleiden?", 
+    "category": "Haustiere", 
+    "answers": [ 
+      "Kleintier", 
+      "Drachkin", 
+      "Humanoid",
+      "Magisch", 
+      "Elementar" 
+    ],
+    "answerId": 3
+  },
+  
+  {
+    "question": "Wie nennt man einfache orcische Arbeiter?", 
+    "category": "Völker", 
+    "answers": [ 
+      "Grunzer", 
+      "Peons", 
+      "Diener" 
+    ],
+    "answerId": 1
+  },
+
+  {
+    "question": "Über welches Gebiet wacht der Avatar von Freya?", 
+    "category": "Völker", 
+    "answers": [ 
+      "Sholazarbecken", 
+      "Krater von Un'Goro", 
+      "Schlingendorntal",
+      "Feralas"
+    ],
+    "answerId": 0
+  },
+
+  {
+    "question": "Wie spricht man den Namen des alten Gottes Y'Shaarj aus?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "I-shartsch", 
+      "Uai-sha-ritsch",
+      "Isha-ritsch",
+      "Yah-sha-ratsch"
+    ],
+    "answerId": 3
+  },
+
+  {
+    "question": "Welcher der alten Götter war in Silithus eingesperrt?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Yogg-Saron", 
+      "N'zoth", 
+      "C'Thun",
+    ],
+    "answerId": 2
+  },
+
+  {
+    "question": "Wie heißt das Volk das üblicherweise Transmogrifikationsdienste in Hauptstädten anbietet?", 
+    "category": "Völker", 
+    "answers": [ 
+      "Astrale", 
+      "Leerenwandler",
+      "Mittler",
+      "Nexusprinzen",
+    ],
+    "answerId": 0
+  },
+
+  {
+    "question": "Was gehört nicht in die Kategorie Abzeichen?", 
+    "category": "Features", 
+    "answers": [ 
+      "Blindes Auge",
+      "Apexissplitter",
+      "Kuriose Münze", 
+      "Kämpfergold",
+      "Flugsteine",
+    ],
+    "answerId": 1
+  },
+
+  {
+    "question": "Als Mentor eingetragene Spieler können neue Spieler an welchem Symbol erkennen?", 
+    "category": "Features", 
+    "answers": [ 
+      "Grüne Flagge",
+      "Schneeflocke",
+      "Murloc",
+      "Holzschwert"
+    ],
+    "answerId": 2
+  },
+
+  {
+    "question": "Das Zitat \"Wir werden niemals Sklaven sein!\" stammt von:", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Grommash Höllschrei",
+      "Gul'dan",
+      "Saurfang",
+      "Garrosh Höllschrei",
+      "Thrall"
+    ],
+    "answerId": 0
+  },
+
+  {
+    "question": "Welcher Charakter ist kein Raidboss?", 
+    "category": "Schlachtzüge", 
+    "answers": [ 
+      "Kael'thas Sonnenwanderer",
+      "Anub'Arak",
+      "Cho'gall",
+      "Tyrannin Velhari",
+      "Ner'zhul"
+    ],
+    "answerId": 4
+  },
+
+  {
+    "question": "Der berühmte weltreisende Pandaren heißt ...?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Cho der Lehrensucher",
+      "Chen Sturmbräu",
+      "Taran Zhu",
+    ],
+    "answerId": 1
+  },
+
+  {
+    "question": "Das Pferd von Arthas Menethil heißt ...?", 
+    "category": "Geschichte", 
+    "answers": [ 
+      "Unbesiegbar",
+      "Unsichtbar",
+      "Frostgram",
+      "Sindragosa"
+    ],
+    "answerId": 0
+  },
+
+  {
+    "question": "In welchem Bosskampf werden alle Spieler getötet und von NPCs wiederbelebt?", 
+    "category": "Schlachtzüge", 
+    "answers": [ 
+      "Der Lichkönig",
+      "Argus, der Zerrütter",
+      "Illidan Sturmgrimm",
+      "Archimonde"
+    ],
+    "answerId": 1
+  },
+
+  {
+    "question": "Welcher Beruf kann einen Teufelskernhundharnisch herstellen?", 
+    "category": "Berufe", 
+    "answers": [ 
+      "Schmiedekunst",
+      "Lederverarbeitung",
+      "Ingenieurskunst",
+      "Verzauberkunst"
+    ],
+    "answerId": 0
+  },
+
+  {
+    "question": "Welche Klasse kann keinen einstündigen Gruppen-Stärkungszauber wirken?", 
+    "category": "Klassen", 
+    "answers": [ 
+      "Krieger",
+      "Magier",
+      "Schamane",
+      "Priester"
+    ],
+    "answerId": 2
+  },
+  
 ]
