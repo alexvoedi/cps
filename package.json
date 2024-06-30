@@ -69,6 +69,8 @@
     "vue-tsc": "^2.0.22"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue,json,html}": "eslint --fix"
+    "*.{js,jsx,ts,tsx,vue,json,html}": ["eslint --fix"],
+    "*.{js,jsx,ts,tsx,vue}": ["vitest --run"],
+    "*.{js,jsx,ts,tsx,vue": ["tsc --noEmit"]
   }
 }
