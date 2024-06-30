@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { useQuizStore } from '../store/quiz'
 import { QuizState } from '../enums/QuizState'
+import { useHost } from '../composables/useHost'
 
-const params = useUrlSearchParams<{
-  host?: boolean
-}>()
 const quiz = useQuizStore()
+const host = useHost()
 
 onMounted(() => {
-  if (params.host) {
+  if (host.value) {
     quiz.init()
   }
 })
@@ -19,7 +18,7 @@ const showQuestion = computed(() => {
 </script>
 
 <template>
-  <quiz-admin v-if="params.host" />
+  <quiz-admin v-if="host" />
 
   <Transition name="fade" mode="out-in" appear>
     <quiz-question v-if="showQuestion" />
@@ -29,7 +28,7 @@ const showQuestion = computed(() => {
     <quiz-end v-else-if="quiz.state === QuizState.EndQuiz" />
   </Transition>
 
-  <quiz-admin-overview v-if="params.host" />
+  <quiz-admin-overview v-if="host" />
 </template>
 
 <style>

@@ -1,24 +1,36 @@
 <script setup lang="ts">
-import type { DataTableColumns } from 'naive-ui'
+import { type DataTableColumns, NButton } from 'naive-ui'
 import { useQuizStore } from '../store/quiz'
+import type { QuizPlayer } from '../types/QuizPlayer'
+import { usePeerStore } from '../store/peer'
 
+const peer = usePeerStore()
 const quiz = useQuizStore()
 
 const data = computed(() => {
   return quiz.players.map((player) => {
     const answered = quiz.currentQuestionIndex !== null ? typeof player.answers[quiz.currentQuestionIndex] === 'number' ? '✔️' : '❌' : '❌'
+
     return {
-      name: player.name,
+      ...player,
       focus: player.focus ? '✔️' : '❌',
+      connected: peer.connections.some(connection => player.id === connection.peer)
+        ? '✔️'
+        : '❌',
       answered,
     }
   })
 })
 
-const columns = reactive<DataTableColumns>([
+const columns = reactive<DataTableColumns<QuizPlayer>>([
   {
     title: 'Name',
     key: 'name',
+  },
+  {
+    title: 'Verbunden',
+    key: 'connected',
+    align: 'center',
   },
   {
     title: 'Fokus',
@@ -29,6 +41,26 @@ const columns = reactive<DataTableColumns>([
     title: 'Geantwortet',
     key: 'answered',
     align: 'center',
+  },
+  {
+    title: 'Kick',
+    key: 'kick',
+    align: 'center',
+    render(row) {
+      return h(NButton, {
+        size: 'small',
+        type: 'error',
+        circle: true,
+        quaternary: true,
+        onClick() {
+          quiz.kickPlayer(row.id)
+        },
+      }, {
+        icon: () => h('span', {
+          class: 'ico-mdi-delete',
+        }),
+      })
+    },
   },
 ])
 </script>

@@ -18,7 +18,7 @@ const remainingCountdown = computed(() => {
 
 const percentage = computed(() => {
   if (!quiz.countdownStart || !quiz.countdown) {
-    return 0
+    return 1
   }
 
   return Math.min((remainingCountdown.value / 1000) / quiz.countdownDuration, 1)

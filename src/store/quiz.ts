@@ -1,10 +1,12 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import { QuizState } from '@/enums/QuizState'
 import { getRandomIndices } from '@/utils/getRandomIndices'
 import Questions from '@/data/quiz.json'
 import type { QuizQuestion } from '@/types/QuizQuestion'
 import { usePeerStore } from '@/store/peer'
 import { getNextStateForShowQuestionResults, getNextStateForShowResults } from '@/utils/getNextState'
+import type { QuizPlayer } from '@/types/QuizPlayer'
+import { MessageType } from '@/enums/MessageType'
 
 export interface QuizStore {
   state: QuizState
@@ -14,13 +16,8 @@ export interface QuizStore {
   countdownDuration: number
   countdownStart: Date | null
   countdown: number | undefined
-  players: Array<{
-    id: string
-    name: string
-    answers: Array<number | null>
-    focus: boolean
-  }>
-  currentAnswerId: number | null
+  players: QuizPlayer[]
+  currentAnswerId: Ref<number | null>
 }
 
 export const useQuizStore = defineStore('quiz-store', {
@@ -32,7 +29,16 @@ export const useQuizStore = defineStore('quiz-store', {
     countdownDuration: 15,
     countdownStart: null,
     players: [],
-    currentAnswerId: null,
+    currentAnswerId: useLocalStorage('currentAnswerId', null, {
+      serializer: {
+        read(value) {
+          return value === 'null' ? null : Number.parseInt(value)
+        },
+        write(value) {
+          return value === null ? 'null' : value.toString()
+        },
+      },
+    }),
     countdown: undefined,
   }),
 
@@ -65,19 +71,24 @@ export const useQuizStore = defineStore('quiz-store', {
     },
 
     resetCountdown() {
-      clearTimeout(this.countdown)
       this.countdown = undefined
       this.countdownStart = null
     },
 
-    startCountdown() {
+    initCountdown() {
       this.countdownStart = new Date()
+    },
 
+    startCountdown() {
       this.countdown = window.setTimeout(() => {
         if (this.state === QuizState.ShowAnswers) {
-          this.state = QuizState.LockAnswers
+          this.setState(QuizState.LockAnswers)
         }
       }, this.countdownDuration * 1000)
+    },
+
+    stopCountdown() {
+      clearTimeout(this.countdown)
     },
 
     setState(state: QuizState) {
@@ -89,9 +100,6 @@ export const useQuizStore = defineStore('quiz-store', {
 
       switch (state) {
         case QuizState.Waiting:
-          peer.send({
-            state,
-          })
           break
         case QuizState.StartQuiz:
           Object.assign(data, {
@@ -105,10 +113,12 @@ export const useQuizStore = defineStore('quiz-store', {
           })
           break
         case QuizState.ShowAnswers:
+          this.initCountdown()
           this.startCountdown()
           break
         case QuizState.LockAnswers:
           this.fillPlayerAnswers()
+          this.stopCountdown()
           this.resetCountdown()
           break
         case QuizState.ShowCorrectAnswer:
@@ -141,6 +151,7 @@ export const useQuizStore = defineStore('quiz-store', {
       }
 
       peer.send({
+        type: MessageType.Quiz,
         state,
         ...data,
       })
@@ -178,11 +189,36 @@ export const useQuizStore = defineStore('quiz-store', {
     },
 
     addPlayer(id: string, name: string) {
+      const answers: Array<number | null> = []
+
+      if (this.currentQuestionIndex !== null) {
+        for (let index = 0; index <= this.currentQuestionIndex; index++) {
+          answers.push(null)
+        }
+      }
+
       this.players.push({
         id,
         name,
-        answers: [],
+        answers,
         focus: true,
+      })
+    },
+
+    kickPlayer(id: string) {
+      const playerIndex = this.players.findIndex(player => player.id === id)
+
+      if (playerIndex === -1) {
+        throw new Error('Player not found')
+      }
+
+      this.players.splice(playerIndex, 1)
+
+      const peer = usePeerStore()
+
+      peer.send({
+        type: MessageType.Admin,
+        kick: true,
       })
     },
 
@@ -321,3 +357,7 @@ export const useQuizStore = defineStore('quiz-store', {
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useQuizStore, import.meta.hot))
+}

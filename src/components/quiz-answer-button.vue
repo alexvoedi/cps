@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
 import { QuizState } from '../enums/QuizState'
 import { usePeerStore } from '../store/peer'
@@ -9,12 +10,10 @@ const props = defineProps<{
   answerId: number
 }>()
 
-const params = useUrlSearchParams<{
-  host?: boolean
-}>()
-
 const quiz = useQuizStore()
-const peerStore = usePeerStore()
+const peer = usePeerStore()
+
+const host = useHost()
 
 const highlightCorrectAnswer = computed(() => [
   QuizState.ShowCorrectAnswer,
@@ -22,7 +21,7 @@ const highlightCorrectAnswer = computed(() => [
 ].includes(quiz.state))
 
 const selected = computed(() => {
-  return quiz.currentAnswerId === props.answerId
+  return quiz.currentAnswerId === props.answerId && !host.value
 })
 
 const answerCorrect = computed(() => {
@@ -46,8 +45,8 @@ const buttonType = computed(() => {
 function toggleAnswer() {
   quiz.setCurrentAnswer(quiz.currentAnswerId === props.answerId ? null : props.answerId)
 
-  if (!params.host) {
-    peerStore.send({
+  if (!host.value) {
+    peer.send({
       type: MessageType.Quiz,
       state: quiz.state,
       answerId: quiz.currentAnswerId,
@@ -57,13 +56,11 @@ function toggleAnswer() {
 
 function countAnswers() {
   return quiz.players.reduce((acc, player) => {
-    const index = quiz.currentQuestionIndex
-
-    if (index === null) {
+    if (quiz.currentQuestionIndex === null) {
       return acc
     }
 
-    if (player.answers[index] === props.answerId) {
+    if (player.answers[quiz.currentQuestionIndex] === props.answerId) {
       return acc + 1
     }
     return acc
@@ -93,13 +90,13 @@ const percentageString = computed(() => {
       'disabled:(opacity-75)!': quiz.state !== QuizState.ShowAnswers && quiz.state !== QuizState.LockAnswers,
       'percentage': quiz.state === QuizState.ShowQuestionResults,
     }"
-    :disabled="quiz.state !== QuizState.ShowAnswers || Boolean(params.host)"
+    :disabled="quiz.state !== QuizState.ShowAnswers || host"
     block
     @click="toggleAnswer()"
   >
     {{ text }}
 
-    <n-tooltip v-if="quiz.state === QuizState.ShowQuestionResults || params.host" class="max-w-480px">
+    <n-tooltip v-if="quiz.state === QuizState.ShowQuestionResults || host" class="max-w-480px">
       <template #trigger>
         <span
           class="absolute left-1 bottom-1 text-xs decoration-underline decoration-dotted decoration-offset-2s"

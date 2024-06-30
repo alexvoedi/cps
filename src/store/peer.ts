@@ -1,8 +1,8 @@
 import { useUrlSearchParams } from '@vueuse/core'
-import { useMessage } from 'naive-ui'
 import type { DataConnection } from 'peerjs'
 import Peer from 'peerjs'
 import { defineStore } from 'pinia'
+import { useHost } from '@/composables/useHost'
 
 interface PeerStore {
   connections: DataConnection[]
@@ -14,10 +14,14 @@ export const usePeerStore = defineStore('peer-store', {
   }),
 
   actions: {
-    init(onData: (data: any) => void) {
+    init(events: {
+      onData: (data: any) => void
+      onOpen?: (id: string) => void
+      onClose?: (id: string) => void
+    }) {
+      const host = useHost()
       const params = useUrlSearchParams<{
         id?: string
-        host?: boolean
         hostId?: string
       }>()
 
@@ -25,60 +29,67 @@ export const usePeerStore = defineStore('peer-store', {
         debug: 0,
       })
 
-      if (params.host) {
-        this.createHostPeer(peer, onData)
+      if (host.value) {
+        this.createHostPeer(peer, events)
       }
       else {
-        this.createPlayerPeer(peer, onData)
+        this.createPlayerPeer(peer, events)
       }
     },
 
-    createPlayerPeer(peer: Peer, onData: (data: any) => void) {
-      const message = useMessage()
+    createPlayerPeer(peer: Peer, events: {
+      onData: (data: any) => void
+      onOpen?: (id: string) => void
+      onClose?: (id: string) => void
+    }) {
+      const host = useHost()
       const params = useUrlSearchParams<{
         id?: string
-        host?: boolean
         hostId?: string
       }>()
 
       peer.on('open', (id) => {
         params.id = id
 
-        if (!params.host && params.hostId) {
+        if (!host.value && params.hostId) {
           const conn = peer.connect(params.hostId)
 
-          conn.on('data', onData)
+          conn.on('data', events.onData)
 
           conn.on('open', () => {
             this.connections.push(conn)
+            events.onOpen?.(id)
           })
 
           conn.on('close', () => {
-            message.warning(`Disconnected from host!`)
+            events.onClose?.(id)
           })
         }
       })
     },
 
-    createHostPeer(peer: Peer, onData: (response: {
-      id: string
-      data: any
-    }) => void) {
-      const message = useMessage()
-
+    createHostPeer(peer: Peer, events: {
+      onData: (response: {
+        id: string
+        data: any
+      }) => void
+      onOpen?: (id: string) => void
+      onClose?: (id: string) => void
+    }) {
       peer.on('connection', (conn) => {
-        conn.on('data', data => onData({
+        conn.on('data', data => events.onData({
           id: conn.peer,
           data,
         }))
 
         conn.on('open', () => {
           this.connections.push(conn)
-          message.info(`Connected to ${conn.peer}`)
+          events.onOpen?.(conn.peer)
         })
 
         conn.on('close', () => {
-          message.info(`Disconnected from ${conn.peer}`)
+          events.onClose?.(conn.peer)
+          this.removePeer(conn.peer)
         })
       })
     },
@@ -87,6 +98,10 @@ export const usePeerStore = defineStore('peer-store', {
       this.connections.forEach((conn) => {
         conn.send(data)
       })
+    },
+
+    removePeer(id: string) {
+      this.connections = this.connections.filter(connection => connection.peer !== id)
     },
   },
 })

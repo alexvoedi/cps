@@ -4,7 +4,6 @@ import { useQuizStore } from '../store/quiz'
 import { copyLink } from '../utils/copyLink'
 
 const params = useUrlSearchParams<{
-  host?: boolean
   id?: string
 }>()
 

@@ -1,24 +1,27 @@
 <script setup lang="ts">
+import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
-import { QuizState } from '../enums/QuizState'
+import { onData } from '../games/quiz/onData'
 import { useBaseStore } from '../store/base'
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
-import type { HostMessage } from '../types/HostMessage'
-import type { PlayerMessage } from '../types/PlayerMessage'
 
 const base = useBaseStore()
 const peer = usePeerStore()
 const quiz = useQuizStore()
-
-const params = useUrlSearchParams<{
-  host?: boolean
-}>()
+const host = useHost()
 
 const ready = computed(() => !!base.name)
 
-if (!params.host) {
+if (!host.value) {
   const focus = useWindowFocus()
+
+  window.addEventListener('beforeunload', () => {
+    peer.send({
+      type: MessageType.Admin,
+      leave: true,
+    })
+  })
 
   watch(focus, () => {
     peer.send({
@@ -28,68 +31,14 @@ if (!params.host) {
   })
 }
 
-peer.init(params.host ? onHostData : onPlayerData)
+function initPeer() {
+  const events = onData(host.value, {
+    peer,
+    quiz,
+    base,
+  })
 
-function onHostData({ id, data }: PlayerMessage) {
-  switch (data.type) {
-    case MessageType.Admin: {
-      const player = quiz.players.find(player => player.id === id)
-
-      if ('focus' in data) {
-        if (player) {
-          player.focus = data.focus
-        }
-      }
-      else if ('name' in data) {
-        if (player) {
-          player.name = data.name
-        }
-        else {
-          quiz.addPlayer(id, data.name)
-        }
-      }
-
-      break
-    }
-    case MessageType.Quiz: {
-      if (data.state !== quiz.state)
-        return
-
-      switch (data.state) {
-        case QuizState.Waiting: {
-          quiz.addPlayer(id, data.name)
-          break
-        }
-        case QuizState.ShowAnswers: {
-          quiz.setPlayerAnswer(id, data.answerId)
-          break
-        }
-      }
-
-      break
-    }
-  }
-}
-
-function onPlayerData(data: HostMessage) {
-  Object.assign(quiz, data)
-
-  switch (data.state) {
-    case QuizState.ShowQuestion:
-      quiz.setCurrentQuestion(data.currentQuestionId)
-      quiz.addQuestionId(data.currentQuestionId)
-      break
-    case QuizState.ShowAnswers:
-      quiz.startCountdown()
-      break
-    case QuizState.NextQuestion:
-      quiz.resetCountdown()
-      quiz.resetCurrentAnswer()
-      break
-    case QuizState.LockAnswers:
-      quiz.resetCountdown()
-      break
-  }
+  peer.init(events)
 }
 </script>
 
@@ -97,7 +46,7 @@ function onPlayerData(data: HostMessage) {
   <default-layout>
     <div class="flex flex-col h-full overflow-hidden">
       <quiz-screen v-if="ready" />
-      <name-card v-else />
+      <name-card v-else @set-name="initPeer" />
     </div>
   </default-layout>
 </template>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+const emit = defineEmits<{
+  (e: 'setName', name: string): void
+}>()
 </script>
 
 <template>
@@ -12,7 +14,7 @@
       Bitte gib deinen Namen ein, um am Quiz teilzunehmen.
     </p>
 
-    <name-input />
+    <name-input @set-name="(name) => emit('setName', name)" />
   </div>
 </template>
 
