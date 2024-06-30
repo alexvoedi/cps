@@ -87,7 +87,7 @@ const percentageString = computed(() => {
     :primary="selected"
     class="px-6! py-5! text-xl! text-wrap! h-full!"
     :class="{
-      'disabled:(opacity-75)!': quiz.state !== QuizState.ShowAnswers && quiz.state !== QuizState.LockAnswers,
+      'disabled:(opacity-75)!': quiz.state !== QuizState.ShowAnswers && quiz.state !== QuizState.LockAnswers || host,
       'percentage': quiz.state === QuizState.ShowQuestionResults,
     }"
     :disabled="quiz.state !== QuizState.ShowAnswers || host"

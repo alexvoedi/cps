@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useHost } from '../composables/useHost'
 import { QuizState } from '../enums/QuizState'
 import { useQuizStore } from '../store/quiz'
 
 const quiz = useQuizStore()
-const host = useHost()
 
 const showQuestionText = computed(() => [
   QuizState.ShowQuestion,
@@ -28,8 +26,12 @@ const showQuestionText = computed(() => [
   </div>
 
   <quiz-card v-else-if="quiz.currentQuestionIndex !== null && quiz.currentQuestion !== null">
-    <h2 class="text-4xl text-center font-bold">
-      Frage {{ quiz.currentQuestionIndex + (host ? 1 : 2) }}
+    <h2 v-if="quiz.currentQuestionIndex < quiz.questionCount - 1" class="text-4xl text-center font-bold">
+      Frage {{ quiz.currentQuestionIndex + 1 }}
+    </h2>
+
+    <h2 v-else class="text-4xl text-center font-bold">
+      Letzte Frage!
     </h2>
 
     <div class="text-center">

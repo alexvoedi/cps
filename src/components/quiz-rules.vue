@@ -30,7 +30,7 @@ const quiz = useQuizStore()
             <li>Jede in Folge richtig beantwortete Frage gibt +10 Zusatzpunkte. Falsch oder nicht beantwortete Fragen setzen die Zusatzpunkte auf 0 zurück.</li>
           </ul>
         </li>
-        <li>Wer nach Frage {{ quiz.questionCount }} die meisten Punkte hat gewinnt.</li>
+        <li>Wer nach Frage der letzten Frage die meisten Punkte hat gewinnt.</li>
         <li>Es sind keine Hilfsmittel erlaubt.</li>
       </ul>
     </div>

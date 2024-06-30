@@ -137,13 +137,14 @@ function onPlayerData({ quiz }: {
           case QuizState.ShowQuestion:
             quiz.setCurrentQuestion(message.currentQuestionId)
             quiz.addQuestionId(message.currentQuestionId)
-            quiz.initCountdown()
             break
           case QuizState.ShowAnswers:
+            quiz.initCountdown()
             quiz.startCountdown()
             break
           case QuizState.LockAnswers:
             quiz.stopCountdown()
+            quiz.resetCountdown()
             break
           case QuizState.NextQuestion:
             quiz.resetCountdown()
