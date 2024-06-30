@@ -380,7 +380,7 @@
     "answers": [
       "I-shartsch",
       "Uai-sha-ritsch",
-      "Isha-ritsch",
+      "I-sha-ritsch",
       "Yah-sha-ratsch"
     ],
     "answerId": 3
@@ -497,7 +497,7 @@
     "answerId": 0
   },
   {
-    "question": "Welche Klasse kann keinen einstündigen Gruppen-Stärkungszauber wirken?",
+    "question": "Welche Klasse kann keinen Gruppen-Stärkungszauber wirken?",
     "category": "Klassen",
     "answers": [
       "Krieger",
@@ -540,5 +540,26 @@
     ],
     "answerId": 2
   },
-  
+  {
+    "question": "Welche Klasse kann kein Schwert tragen?",
+    "category": "Klassen",
+    "answers": [
+      "Hexenmeister",
+      "Magier",
+      "Priester",
+      "Schurke"
+    ],
+    "answerId": 2
+  },
+    {
+    "question": "Welcher Feiertag existiert nicht im Kalender?",
+    "category": "Features",
+    "answers": [
+      "Tag der Toten",
+      "Piratentag",
+      "T-Shirt-Tag",
+      "Tag der Magie"
+    ],
+    "answerId": 3
+  }
 ]
