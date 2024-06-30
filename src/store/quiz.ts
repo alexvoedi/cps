@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { QuizState } from '@/enums/QuizState'
-import { getRandomIndices } from '@/utils/getRandomItems'
+import { getRandomIndices } from '@/utils/getRandomIndices'
 import Questions from '@/data/quiz.json'
 import type { QuizQuestion } from '@/types/QuizQuestion'
 import { usePeerStore } from '@/store/peer'
+import { getNextStateForShowQuestionResults, getNextStateForShowResults } from '@/utils/getNextState'
 
 export interface QuizStore {
   state: QuizState
@@ -84,6 +85,8 @@ export const useQuizStore = defineStore('quiz-store', {
 
       this.state = state
 
+      const data = {}
+
       switch (state) {
         case QuizState.Waiting:
           peer.send({
@@ -91,45 +94,32 @@ export const useQuizStore = defineStore('quiz-store', {
           })
           break
         case QuizState.StartQuiz:
-          peer.send({
-            state,
+          Object.assign(data, {
             questionCount: this.questionCount,
             countdownDuration: this.countdownDuration,
           })
           break
         case QuizState.ShowQuestion:
-          peer.send({
-            state,
+          Object.assign(data, {
             currentQuestionId: this.currentQuestionId,
           })
           break
         case QuizState.ShowAnswers:
           this.startCountdown()
-          peer.send({
-            state,
-          })
           break
         case QuizState.LockAnswers:
           this.fillPlayerAnswers()
           this.resetCountdown()
-          peer.send({
-            state,
-          })
           break
         case QuizState.ShowCorrectAnswer:
-          peer.send({
-            state,
-          })
           break
         case QuizState.ShowQuestionResults:
-          peer.send({
-            state,
+          Object.assign(data, {
             players: this.players,
           })
           break
         case QuizState.ShowResults:
-          peer.send({
-            state,
+          Object.assign(data, {
             players: this.players,
           })
           break
@@ -137,20 +127,23 @@ export const useQuizStore = defineStore('quiz-store', {
           this.nextQuestion()
           this.resetCountdown()
           this.resetCurrentAnswer()
-          peer.send({
-            state,
+          Object.assign(data, {
             currentQuestionId: this.currentQuestionId,
           })
           break
         case QuizState.EndQuiz:
-          peer.send({
-            state,
+          Object.assign(data, {
             players: this.players,
           })
           break
         default:
           break
       }
+
+      peer.send({
+        state,
+        ...data,
+      })
     },
 
     nextState() {
@@ -161,35 +154,9 @@ export const useQuizStore = defineStore('quiz-store', {
         [QuizState.ShowAnswers]: QuizState.LockAnswers,
         [QuizState.LockAnswers]: QuizState.ShowCorrectAnswer,
         [QuizState.ShowCorrectAnswer]: QuizState.ShowQuestionResults,
-        [QuizState.ShowQuestionResults]: (() => {
-          if (this.currentQuestionIndex === null) {
-            return QuizState.NextQuestion
-          }
-          else if (this.currentQuestionIndex === 0) {
-            return QuizState.NextQuestion
-          }
-          else if (this.currentQuestionIndex % 10 === 0) {
-            return QuizState.ShowResults
-          }
-          else if (this.currentQuestionIndex === this.questionCount - 1) {
-            return QuizState.EndQuiz
-          }
-          else {
-            return QuizState.NextQuestion
-          }
-        })(),
+        [QuizState.ShowQuestionResults]: getNextStateForShowQuestionResults(this),
         [QuizState.NextQuestion]: QuizState.ShowQuestion,
-        [QuizState.ShowResults]: (() => {
-          if (this.currentQuestionIndex === null) {
-            return QuizState.StartQuiz
-          }
-          else if (this.currentQuestionIndex === this.questionCount - 1) {
-            return QuizState.ShowResults
-          }
-          else {
-            return QuizState.NextQuestion
-          }
-        })(),
+        [QuizState.ShowResults]: getNextStateForShowResults(this),
         [QuizState.EndQuiz]: QuizState.ShowResults,
       }
 
@@ -219,23 +186,21 @@ export const useQuizStore = defineStore('quiz-store', {
       })
     },
 
-    setPlayerAnswer(id: string, answerId: number) {
+    setPlayerAnswer(id: string, answer: number | null) {
       const player = this.players.find(player => player.id === id)
 
       if (!player) {
         throw new Error('Player not found')
       }
 
-      const index = this.currentQuestionIndex
-
-      if (index === null) {
+      if (this.currentQuestionIndex === null) {
         throw new Error('Current question index is null')
       }
 
-      player.answers[index] = answerId
+      player.answers[this.currentQuestionIndex] = answer
     },
 
-    getPlayerAnswersByIndex(index: number) {
+    getPlayersAnswersByIndex(index: number) {
       return this.players.reduce((acc, player) => {
         acc.set(player.id, {
           name: player.name,
@@ -257,17 +222,17 @@ export const useQuizStore = defineStore('quiz-store', {
         throw new Error('Question ID not found')
       }
 
-      return this.getPlayerAnswersByIndex(index)
+      return this.getPlayersAnswersByIndex(index)
     },
 
-    isCorrectAnswer(questionId: number, answerIdOrNull: number | null) {
+    isCorrectAnswer(questionId: number, answer: number | null) {
       const question = Questions[questionId]
 
       if (!question) {
         throw new Error('Question not found')
       }
 
-      return question.answerId === answerIdOrNull
+      return question.answerId === answer
     },
 
     fillPlayerAnswers() {
@@ -353,23 +318,6 @@ export const useQuizStore = defineStore('quiz-store', {
       }
 
       return state.questionIds.indexOf(state.currentQuestionId)
-    },
-
-    overallResults: (state) => {
-      const correctAnswersMap = new Map(state.questionIds.map(id => [id, Questions[id].answerId]))
-
-      const results = state.players.map((player) => {
-        const correctAnswers = player.answers.filter((answer, index) =>
-          correctAnswersMap.get(state.questionIds[index]) === answer,
-        )
-
-        return {
-          name: player.name,
-          correctAnswerCount: correctAnswers.length,
-        }
-      })
-
-      return results
     },
   },
 })

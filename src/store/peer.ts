@@ -3,9 +3,6 @@ import { useMessage } from 'naive-ui'
 import type { DataConnection } from 'peerjs'
 import Peer from 'peerjs'
 import { defineStore } from 'pinia'
-import { useBaseStore } from '@/store/base'
-import { useQuizStore } from '@/store/quiz'
-import { MessageType } from '@/enums/MessageType'
 
 interface PeerStore {
   connections: DataConnection[]
@@ -37,8 +34,6 @@ export const usePeerStore = defineStore('peer-store', {
     },
 
     createPlayerPeer(peer: Peer, onData: (data: any) => void) {
-      const base = useBaseStore()
-      const quiz = useQuizStore()
       const message = useMessage()
       const params = useUrlSearchParams<{
         id?: string
@@ -56,7 +51,6 @@ export const usePeerStore = defineStore('peer-store', {
 
           conn.on('open', () => {
             this.connections.push(conn)
-            this.send({ type: MessageType.Quiz, state: quiz.state, name: base.name })
           })
 
           conn.on('close', () => {
@@ -94,9 +88,5 @@ export const usePeerStore = defineStore('peer-store', {
         conn.send(data)
       })
     },
-  },
-
-  getters: {
-    isHost: () => Boolean(useUrlSearchParams().host),
   },
 })

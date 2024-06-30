@@ -168,7 +168,7 @@ onUnmounted(() => {
   <div class="overflow-hidden m-auto">
     <div class="bg-dark-9 bg-opacity-80">
       <h2 class="p-6 text-2xl font-bold flex justify-between">
-        <span> Spielstand</span>
+        <span>Spielstand</span>
 
         <n-button
           v-if="quiz.currentQuestionIndex === quiz.questionCount - 1"

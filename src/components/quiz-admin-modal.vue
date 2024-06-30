@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { useQuizStore } from '../store/quiz'
-
 const show = ref(false)
-
-const quiz = useQuizStore()
 </script>
 
 <template>
@@ -13,11 +9,9 @@ const quiz = useQuizStore()
     </template>
   </n-button>
 
-  <n-modal v-model:show="show">
-    <n-card>
-      <div>
-        {{ quiz.overallResults }}
-      </div>
+  <n-modal v-model:show="show" class="max-w-800px">
+    <n-card closable content-class="p-0!" title="Administration" @close="show = false">
+      <quiz-results />
     </n-card>
   </n-modal>
 </template>

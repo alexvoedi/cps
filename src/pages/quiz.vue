@@ -35,8 +35,18 @@ function onHostData({ id, data }: PlayerMessage) {
     case MessageType.Admin: {
       const player = quiz.players.find(player => player.id === id)
 
-      if (player) {
-        player.focus = data.focus
+      if ('focus' in data) {
+        if (player) {
+          player.focus = data.focus
+        }
+      }
+      else if ('name' in data) {
+        if (player) {
+          player.name = data.name
+        }
+        else {
+          quiz.addPlayer(id, data.name)
+        }
       }
 
       break

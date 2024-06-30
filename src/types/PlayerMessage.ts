@@ -15,6 +15,8 @@ export type PlayerAdminMessage = {
   type: MessageType.Admin
 } & ({
   focus: boolean
+} | {
+  name: string
 })
 
 export interface PlayerMessage {

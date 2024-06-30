@@ -17,6 +17,7 @@ declare module 'vue' {
     NameInput: typeof import('./../components/name-input.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
+    NCardContent: typeof import('naive-ui')['NCardContent']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
