@@ -1,52 +1,53 @@
 [
   {
-    "question": "In welcher Instanz kommt \"Thruk\" als Boss vor?",
-    "category": "Dungeons",
+    "question": "Was ist 3 + 4?",
+    "category": "Plus",
     "answerId": 2,
     "answers": [
-      "Scharlachrotes Kloster",
-      "Maraudon",
-      "Tiefschwarze Grotte",
-      "Düsterbruch",
-      "Verlies"
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
     ]
   },
   {
-    "question": "Wo lebt Hogger?",
-    "category": "NPCs",
-    "answerId": 2,
+    "question": "Was ist 3 - 1?",
+    "category": "Minus",
+    "answerId": 0,
     "answers": [
-      "Wald von Elwynn",
-      "Dun Morogh",
-      "Westfall"
+      "2",
+      "1",
+      "0"
     ]
   },
   {
-    "question": "Wie viel Gold kann ein Charakter maximal besitzen?",
-    "category": "Allgemein",
+    "question": "Was ist 8 * 2",
+    "category": "Mal",
     "answers": [
-      "10.000.000 Gold",
-      "9.999.999 Gold"
+      "18",
+      "16"
     ],
     "answerId": 1
   },
   {
-    "question": "Ist dies Frage 4?",
+    "question": "Was ist 4 + 0?",
     "answers": [
-      "Ja, es könnte Frage 4 sein, aber es könnte auch eine andere Frage sein",
-      "Nein"
+      "4",
+      "5",
+      "0"
     ],
-    "answerId": 1,
-    "category": "Keine"
+    "answerId": 0,
+    "category": "Plus"
   },
   {
-    "question": "Ist dies Frage 5?",
+    "question": "Was 9 * 1?",
     "answers": [
-      "Nein",
-      "Ja",
-      "Vielleicht"
+      "1",
+      "9",
+      "0"
     ],
     "answerId": 1,
-    "category": "Keine"
+    "category": "Mal"
   }
 ]
