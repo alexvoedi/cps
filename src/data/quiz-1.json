@@ -506,5 +506,16 @@
       "Priester"
     ],
     "answerId": 2
+  },
+  {
+    "question": "Welcher NPC poliert eure Rüstung in Sturmwind für 'n Stück Kupfer?",
+    "category": "Gute Frage",
+    "answers": [
+      "Lenny \"Finger\" McCoy",
+      "Topper McNabb",
+      "Miggi",
+      "Dashel Steinfaust"
+    ],
+    "answerId": 1
   }
 ]
