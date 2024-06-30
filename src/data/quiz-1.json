@@ -1,0 +1,325 @@
+[
+  {
+    "question": "Wie viel Gold kann ein Charakter maximal besitzen?",
+    "category": "Gute Frage",
+    "answers": [
+      "9.999.999",
+      "10.000.000"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welches Gebiet liegt direkt südlich der Sengende Schlucht?",
+    "category": "Geographie",
+    "answers": [
+      "Sümpfe des Elends",
+      "Ödland",
+      "Brennende Steppe",
+      "Rotkammgebirge"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welche Uhrzeit zeigt die Turmuhr in Sturmwind an?",
+    "category": "Gute Frage",
+    "answers": [
+      "Passt sich der echten Uhrzeit an",
+      "9:50 Uhr",
+      "8:45 Uhr",
+      "3:15 Uhr",
+      "Keines der genannten"
+    ],
+    "answerId": 4
+  },
+  {
+    "question": "Welchen Typen kann ein Haustier nicht haben?",
+    "category": "Haustiere",
+    "answers": [
+      "Elementar",
+      "Aquatisch",
+      "Drachkin",
+      "Arkan",
+      "Untot"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Welches neue Höchstlevel wurde mit der Erweiterung Cataclysm eingeführt?",
+    "category": "Features",
+    "answers": [
+      "80",
+      "85",
+      "90",
+      "100"
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Welche Klasse kann die Fähigkeit Verhexen erlernen?",
+    "category": "Klassen",
+    "answers": [
+      "Schamane",
+      "Hexenmeister",
+      "Magier",
+      "Schurke",
+      "Priester"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "Welches Reittier hat die Beschreibung \"Ganz viele Dumme, ein Gedanke\"?",
+    "category": "Mounts",
+    "answers": [
+      "Sarges Geschichte",
+      "Segelnder Zauberfoliant",
+      "Das Schwarmbewusstsein",
+      "Chopper des Roboingenieurs"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "Die Dächer in den Stadtteilen von Sturmwind haben verschiedene Farben. Aber welche Farbe gibt es darunter nicht?",
+    "category": "Gute Frage",
+    "answers": [
+      "blau",
+      "schwarz",
+      "braun",
+      "rot",
+      "gelb"
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Wie heißt der Erfolg, den man beim ersten Friseurbesuch erhält?",
+    "category": "Erfolge",
+    "answers": [
+      "Neuer Look",
+      "Ich bin so schön",
+      "Rasur und Haarschnitt",
+      "Leeeeeeeeeeeeeroy...?"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welche Ruffraktion gibt es tatsächlich?",
+    "category": "Fraktionen",
+    "answers": [
+      "Flickmeister",
+      "Rabenkrone",
+      "Argentumritter",
+      "Die Schwarze Prinzessin"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "In welchem Dungeon trifft man nicht auf Millhaus Manasturm?",
+    "category": "Fraktionen",
+    "answers": [
+      "Die Arkatraz",
+      "Sturm auf die Violette Festung",
+      "Der Steinerne Kern",
+      "Die Andre Seite",
+      "Prüfung des Champions"
+    ],
+    "answerId": 4
+  },
+  {
+    "question": "Bei welchem Bosskampf ist folgendes Zitat zu hören: \"Ich bin der strahlende Traum.  Das Monster in Euren Albträumen. Der Verderber mit den tausend Gesichtern.\"?",
+    "category": "Zitate",
+    "answers": [
+      "Ragnaros",
+      "N'Zoth der  Verderber",
+      "Kil'jaeden",
+      "Yogg-Saron"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Wo befindet sich das Schattenhochland?",
+    "category": "Geographie",
+    "answers": [
+      "Scherbenwelt",
+      "Östliche Königreiche",
+      "Kalimdor",
+      "Draenor"
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Wem begegnet man beim verwenden des Spielzeugs \"Kolbenzangs megapräziser Simulationsoptiksucher\"?",
+    "category": "Spielzeuge",
+    "answers": [
+      "Haris Pilton",
+      "Hochtüftler Mekkadrill",
+      "Handelspprinz Gallywix",
+      "Todesschwinge"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Welches Emote gibt es tatsächlich?",
+    "category": "Emotes",
+    "answers": [
+      "/kotzen",
+      "/furzen",
+      "/fete",
+      "/party",
+      "/sterben"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welche Quest gibt es nicht?",
+    "category": "Quests",
+    "answers": [
+      "Der Stein der Weisen",
+      "Pflanzen gegen Ghule",
+      "Sprecht zu der Hand",
+      "Beamtenmikado"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "Welchen Trollstamm gibt es nicht?",
+    "category": "Völker",
+    "answers": [
+      "Drakkari",
+      "Farraki",
+      "Amani",
+      "Dazari"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Welches Elfenvolk gibt es nicht?",
+    "category": "Völker",
+    "answers": [
+      "Shal'dorei",
+      "Lun'dorei",
+      "Ren'dorei",
+      "Kaldorei",
+      "Quel'dorei",
+      "Sin'dorei"
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Der Argentumkreuzzug ist ein Bündnis der Argentumdämmerung mit ...?",
+    "category": "Geschichte",
+    "answers": [
+      "dem Orden der Silbernen Hand",
+      "den Rittern der Schwarzen Klinge",
+      "den Kirin Tor",
+      "dem Scharlachroten Kreuzzug"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "Seit welcher Erweiterung gibt es das Schwarzmarktauktionshaus?",
+    "category": "Features",
+    "answers": [
+      "Cataclysm",
+      "Legion",
+      "Mists of Pandaria",
+      "Warlords of Draenor"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Wie viele Klassen gibt es aktuell?",
+    "category": "Features",
+    "answers": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welchen Begleiter kann nur der Dämonlogie-Hexenmeister beschwören?",
+    "category": "Klassen",
+    "answers": [
+      "Teufelswache",
+      "Teufelsjäger",
+      "Höllenfeuerbestie",
+      "Verdammniswache"
+    ],
+    "answerId": 0
+  },
+  {
+    "question": "Wie heißt die Hauptstadt von Kul Tiras?",
+    "category": "Geographie",
+    "answers": [
+      "Tol Dagor",
+      "Freihafen",
+      "Tiragardesund",
+      "Boralus"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "In welchem Gebiet befand sich Dalaran noch nicht?",
+    "category": "Geographie",
+    "answers": [
+      "Vorgebirge des Hügellands",
+      "Gebirgspass der Totenwinde",
+      "Kristallsangwald",
+      "Theramore",
+      "Verheerte Inseln"
+    ],
+    "answerId": 3
+  },
+  {
+    "question": "Welchen Drachenschwarm gibt es nicht?",
+    "category": "Features",
+    "answers": [
+      "Rot",
+      "Blau",
+      "Bronze",
+      "Schwarz",
+      "Violett",
+      "Grün",
+      "Ewig"
+    ],
+    "answerId": 4
+  },
+  {
+    "question": "Welcher Gott gehört nicht zu den Göttern Pandarias?",
+    "category": "Geschichte",
+    "answers": [
+      "Xuen",
+      "Q'onzu",
+      "Niuzao",
+      "Chi-Ji",
+      "Yu'lon"
+    ],
+    "answerId": 1
+  },
+  {
+    "question": "Welche Klasse kann die meisten Waffentypen benutzen?",
+    "category": "Klassen",
+    "answers": [
+      "Druide",
+      "Jäger",
+      "Krieger",
+      "Schurke"
+    ],
+    "answerId": 2
+  },
+  {
+    "question": "Welche Klasse kann einen Sturz aus großer Höhe nicht überleben?",
+    "category": "Features",
+    "answers": [
+      "Druide",
+      "Magier",
+      "Priester",
+      "Dämonenjäger",
+      "Paladin",
+      "Krieger",
+      "Jäger",
+      "Hexenmeister"
+    ],
+    "answerId": 7
+  }
+]

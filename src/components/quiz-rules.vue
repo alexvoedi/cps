@@ -17,6 +17,7 @@ const quiz = useQuizStore()
 
       <ul class="space-y-3 text-lg">
         <li>Es gibt <b>insgesamt {{ quiz.questionCount }} Fragen</b>.</li>
+        <li>Jede Frage bezieht sich wenn nicht anders angegeben auf die aktuellste Version von WoW.</li>
         <li>Es gibt <b>nur eine richtige Antwort</b>.</li>
         <li>Die Zeit zum Beantworten einer Frage beträgt <b>{{ quiz.countdownDuration }} Sekunden</b>.</li>
         <li>Zu Beginn und nach jeder zehnten Antwort wird der Zwischenstand gezeigt.</li>
