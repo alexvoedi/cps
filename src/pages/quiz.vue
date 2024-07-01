@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { v7 as uuidv7 } from 'uuid'
+import QrcodeVue from 'qrcode.vue'
 import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
 import { onData } from '../games/quiz/onData'
@@ -9,6 +10,7 @@ import { useQuizStore } from '../store/quiz'
 
 const params = useUrlSearchParams<{
   id?: string
+  hostId?: string
 }>()
 
 if (!params.id) {
@@ -49,13 +51,40 @@ function initPeer() {
 
   peer.init(events)
 }
+
+const url = computed(() => {
+  const url = new URL('/cps/quiz', window.location.origin)
+
+  const query = new URLSearchParams()
+
+  if (params.hostId) {
+    query.set('hostId', params.hostId)
+  }
+
+  url.search = query.toString()
+
+  return url.toString()
+})
 </script>
 
 <template>
   <default-layout>
     <div class="flex flex-col h-full overflow-hidden">
       <quiz-screen v-if="ready" />
-      <name-card v-else @set-name="initPeer" />
+      <div v-else class="m-auto space-y-16">
+        <name-card @set-name="initPeer" />
+        <div v-if="params.hostId" class="flex items-center justify-center">
+          <QrcodeVue
+            :value="url"
+            :size="300"
+            :margin="8"
+            background="rgba(255, 255, 255, 0.8)"
+            foreground="black"
+
+            level="H"
+          />
+        </div>
+      </div>
     </div>
   </default-layout>
 </template>

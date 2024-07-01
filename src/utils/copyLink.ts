@@ -1,9 +1,9 @@
-export function copyLink(id: string) {
+export function copyLink(hostId: string) {
   const url = new URL('/cps/quiz', window.location.origin)
 
   const query = new URLSearchParams()
 
-  query.set('hostId', id)
+  query.set('hostId', hostId)
 
   url.search = query.toString()
 

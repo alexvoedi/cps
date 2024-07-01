@@ -120,6 +120,9 @@ const fanfareSound = new Audio('/cps/quest_complete.ogg')
 const theEnd = new Audio('/cps/the-end.mp3')
 
 function finish() {
+  fanfareSound.volume = 0.5
+  theEnd.volume = 0.75
+
   fanfareSound.play()
 
   setTimeout(() => {
