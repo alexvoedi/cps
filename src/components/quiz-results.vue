@@ -118,8 +118,8 @@ const theEnd = new Audio('/cps/the-end.mp3')
 let confettiInterval: number
 
 function finish() {
-  fanfareSound.volume = 0.2
-  theEnd.volume = 0.2
+  fanfareSound.volume = 0.35
+  theEnd.volume = 0.35
 
   fanfareSound.play()
 
