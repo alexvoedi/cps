@@ -6,7 +6,7 @@
       "9.999.999",
       "10.000.000"
     ],
-    "answerId": 2
+    "answerId": 0
   },
   {
     "question": "Welches Gebiet liegt direkt südlich der Sengenden Schlucht?",
@@ -75,7 +75,7 @@
       "Das Schwarmbewusstsein",
       "Chopper des Roboingenieurs"
     ],
-    "answerId": 0
+    "answerId": 2
   },
   {
     "question": "Die Dächer in den Stadtteilen von Sturmwind haben verschiedene Farben. Aber welche Farbe gibt es darunter nicht?",
@@ -129,10 +129,10 @@
     "answers": [
       "Ragnaros",
       "N'Zoth der  Verderber",
+      "Yogg-Saron",
       "Kil'jaeden",
-      "Yogg-Saron"
     ],
-    "answerId": 3
+    "answerId": 2
   },
   {
     "question": "Wo befindet sich das Schattenhochland?",
@@ -173,7 +173,7 @@
     "category": "Quests",
     "answers": [
       "Der Stein der Weisen",
-      "Pflanzen gegen Ghule",
+      "Pfui Spinne",
       "Sprecht zu der Hand",
       "Beamtenmikado"
     ],
@@ -309,7 +309,7 @@
   },
   {
     "question": "Welche Klasse kann einen Sturz aus großer Höhe nicht überleben?",
-    "category": "Features",
+    "category": "Klassen",
     "answers": [
       "Druide",
       "Magier",
@@ -381,7 +381,7 @@
       "I-shartsch",
       "Uai-sha-ritsch",
       "I-sha-ritsch",
-      "Yah-sha-ratsch"
+      "Ja-sha-ratsch"
     ],
     "answerId": 3
   },
@@ -489,12 +489,12 @@
     "question": "Welcher Beruf kann einen Teufelskernhundharnisch herstellen?",
     "category": "Berufe",
     "answers": [
-      "Schmiedekunst",
       "Lederverarbeitung",
       "Ingenieurskunst",
+      "Schmiedekunst",
       "Verzauberkunst"
     ],
-    "answerId": 0
+    "answerId": 2
   },
   {
     "question": "Welche Klasse kann keinen Gruppen-Stärkungszauber wirken?",
@@ -515,7 +515,8 @@
       "Topper McNabb",
       "Miggi",
       "Dashel Steinfaust"
-    ]
+    ],
+    "answerId": 1,
   },
   {
     "question": "Was ist das Volksreittier der Worgen?",
