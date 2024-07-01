@@ -2,17 +2,16 @@ import { useUrlSearchParams } from '@vueuse/core'
 import type { DataConnection } from 'peerjs'
 import Peer from 'peerjs'
 import { defineStore } from 'pinia'
-import { v7 as uuidv7 } from 'uuid'
 import { useHost } from '@/composables/useHost'
 
 interface PeerStore {
-  id: string
+  id: string | null
   connections: DataConnection[]
 }
 
 export const usePeerStore = defineStore('peer-store', {
   state: (): PeerStore => ({
-    id: `cps-${uuidv7()}`,
+    id: null,
     connections: [],
   }),
 
@@ -24,9 +23,15 @@ export const usePeerStore = defineStore('peer-store', {
     }) {
       const host = useHost()
 
-      const peer = new Peer(this.id, {
-        debug: 0,
+      const peer = new Peer(this.id || '', {
+        debug: 3,
       })
+
+      if (host.value) {
+        peer.on('open', (id) => {
+          this.id = id
+        })
+      }
 
       if (host.value) {
         this.createHostPeer(peer, events)
@@ -43,13 +48,10 @@ export const usePeerStore = defineStore('peer-store', {
     }) {
       const host = useHost()
       const params = useUrlSearchParams<{
-        id?: string
         hostId?: string
       }>()
 
       peer.on('open', (id) => {
-        params.id = id
-
         if (!host.value && params.hostId) {
           const conn = peer.connect(params.hostId)
 

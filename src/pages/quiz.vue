@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { v7 as uuidv7 } from 'uuid'
 import QrcodeVue from 'qrcode.vue'
 import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
@@ -9,13 +8,8 @@ import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 
 const params = useUrlSearchParams<{
-  id?: string
   hostId?: string
 }>()
-
-if (!params.id) {
-  params.id = `cps-${uuidv7()}`
-}
 
 const base = useBaseStore()
 const peer = usePeerStore()
@@ -72,7 +66,7 @@ const url = computed(() => {
     <div class="flex flex-col h-full overflow-hidden">
       <quiz-screen v-if="ready" />
       <div v-else class="m-auto space-y-16">
-        <name-card @set-name="initPeer" />
+        <name-card @set-name="initPeer()" />
         <div v-if="params.hostId" class="flex items-center justify-center">
           <QrcodeVue
             :value="url"

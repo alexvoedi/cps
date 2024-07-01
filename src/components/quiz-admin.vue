@@ -2,18 +2,16 @@
 import { useMessage } from 'naive-ui'
 import { useQuizStore } from '../store/quiz'
 import { copyLink } from '../utils/copyLink'
-
-const params = useUrlSearchParams<{
-  id?: string
-}>()
+import { usePeerStore } from '../store/peer'
 
 const message = useMessage()
 
+const peer = usePeerStore()
 const quiz = useQuizStore()
 
 function copyGameUrl() {
-  if (params.id) {
-    copyLink(params.id)
+  if (peer.id) {
+    copyLink(peer.id)
     message.info('Link copied to clipboard')
   }
 }
