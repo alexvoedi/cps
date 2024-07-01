@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import { useBaseStore } from '../store/base'
-
-const emit = defineEmits<{
-  (e: 'setName', name: string): void
-}>()
+import { usePeerStore } from '../store/peer'
+import { MessageType } from '../enums/MessageType'
 
 const base = useBaseStore()
+const message = useMessage()
+const peer = usePeerStore()
 
-const name = ref<string>('')
+const name = ref<string | null>(base.name)
 
 function submit() {
   if (!name.value)
@@ -18,7 +19,11 @@ function submit() {
     return
 
   base.setName(name.value)
-  emit('setName', name.value)
+  peer.send({
+    type: MessageType.Admin,
+    name: name.value,
+  })
+  message.success('Name gespeichert')
 }
 </script>
 

@@ -36,7 +36,7 @@ if (!host.value) {
   })
 }
 
-function initPeer() {
+onMounted(() => {
   const events = onData(host.value, {
     peer,
     quiz,
@@ -44,7 +44,7 @@ function initPeer() {
   })
 
   peer.init(events)
-}
+})
 
 const url = computed(() => {
   const url = new URL('/cps/quiz', window.location.origin)
@@ -65,8 +65,10 @@ const url = computed(() => {
   <default-layout>
     <div class="flex flex-col h-full overflow-hidden">
       <quiz-screen v-if="ready" />
+
       <div v-else class="m-auto space-y-16">
-        <name-card @set-name="initPeer()" />
+        <name-card v-if="!base.name" />
+
         <div v-if="params.hostId" class="flex items-center justify-center">
           <QrcodeVue
             :value="url"

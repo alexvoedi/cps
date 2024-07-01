@@ -5,7 +5,7 @@ interface BaseStore {
 }
 
 export const useBaseStore = defineStore('base', {
-  state: (): BaseStore => ({
+  state: (): Ref<BaseStore> => useSessionStorage('base', {
     name: null,
   }),
 

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
+import { useMobile } from '../composables/useMobile'
 
 const route = useRoute()
+const mobile = useMobile()
 
 function renderIcon(icon: string) {
   return h('span', {
@@ -39,13 +40,18 @@ const menuOptions: MenuOption[] = [
     key: '/quiz',
     icon: () => renderIcon('ico-mdi-head-question'),
   },
+  {
+    label: () => h(RouterLink, {
+      to: '/settings',
+    }, {
+      default: () => 'Einstellungen',
+    }),
+    key: '/settings',
+    icon: () => renderIcon('ico-mdi-cog'),
+  },
 ]
 
 const activeItem = computed(() => route.path)
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-
-const mobile = ref(breakpoints.smallerOrEqual('md'))
 </script>
 
 <template>
@@ -54,22 +60,23 @@ const mobile = ref(breakpoints.smallerOrEqual('md'))
       :options="menuOptions"
       :value="activeItem"
       mode="horizontal"
+      responsive
     />
   </n-layout-header>
 
   <n-layout-sider
     v-else
+    :collapsed-width="64"
     class="bg-color"
     bordered
     collapse-mode="width"
-    :collapsed-width="64"
     collapsed
   >
     <n-menu
       :options="menuOptions"
       :value="activeItem"
-      collapsed
       :collapsed-width="64"
+      collapsed
       collapse-mode="width"
     />
   </n-layout-sider>

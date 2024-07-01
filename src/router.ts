@@ -18,6 +18,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/quiz',
     component: () => import('./pages/quiz.vue'),
   },
+  {
+    path: '/settings',
+    component: () => import('./pages/settings.vue'),
+  },
 ]
 
 const router = createRouter({

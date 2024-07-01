@@ -3,8 +3,10 @@ import JSConfetti from 'js-confetti'
 import type { DataTableColumns } from 'naive-ui'
 import { useQuizStore } from '../store/quiz'
 import { calcPoints } from '../utils/calcPoints'
+import { useMobile } from '../composables/useMobile'
 
 const quiz = useQuizStore()
+const mobile = useMobile()
 
 const data = computed(() => {
   const playerResults: {
@@ -65,21 +67,18 @@ const columns = reactive<DataTableColumns>([
     title: 'Platz',
     key: 'rank',
     align: 'center',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
   {
     title: 'Name',
     key: 'name',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
   {
     title: 'Punkte',
     key: 'points',
     align: 'center',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
   {
     title() {
@@ -89,8 +88,7 @@ const columns = reactive<DataTableColumns>([
     },
     key: 'correct',
     align: 'center',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
   {
     title() {
@@ -100,8 +98,7 @@ const columns = reactive<DataTableColumns>([
     },
     key: 'wrong',
     align: 'center',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
   {
     title() {
@@ -111,13 +108,14 @@ const columns = reactive<DataTableColumns>([
     },
     key: 'notAnswered',
     align: 'center',
-    className: 'text-lg',
-    minWidth: 64,
+    className: mobile ? 'text-inherit' : 'text-lg',
   },
 ])
 
 const fanfareSound = new Audio('/cps/quest_complete.ogg')
 const theEnd = new Audio('/cps/the-end.mp3')
+
+let confettiInterval: number
 
 function finish() {
   fanfareSound.volume = 0.2
@@ -137,7 +135,7 @@ function finish() {
     confettiNumber: 200,
   })
 
-  setInterval(() => {
+  confettiInterval = window.setInterval(() => {
     jsConfetti.addConfetti({
       emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸', '🎉', '🎊', '🎈', '🎁', '🎀', '🪅', '🎆', '🎇', '🧨', '🎂', '🍰', '🧁', '🍭', '🍬'],
       emojiSize: 32,
@@ -150,6 +148,10 @@ onMounted(() => {
   if (quiz.currentQuestionIndex === quiz.questionCount - 1) {
     finish()
   }
+})
+
+onUnmounted(() => {
+  clearInterval(confettiInterval)
 })
 
 function toggleSound() {
@@ -184,7 +186,11 @@ onUnmounted(() => {
         </n-button>
       </h2>
 
-      <n-data-table :columns="columns" :data="data" />
+      <n-data-table
+        :columns="columns"
+        :data="data"
+        :size="mobile ? 'small' : 'large'"
+      />
     </div>
   </div>
 </template>
