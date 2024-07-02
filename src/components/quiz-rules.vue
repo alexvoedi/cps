@@ -20,7 +20,7 @@ const quiz = useQuizStore()
         <li>Jede Frage bezieht sich wenn nicht anders angegeben auf die aktuellste Version von WoW.</li>
         <li>Es gibt <b>nur eine richtige Antwort</b>.</li>
         <li>Die Zeit zum Beantworten einer Frage hängt von der Anzahl der möglichen Antworten ab.</li>
-        <li>Zu Beginn und nach jeder zehnten Antwort wird der Zwischenstand gezeigt.</li>
+        <li>Zu Beginn und nach jeder zehnten Frage wird der Zwischenstand gezeigt.</li>
         <li>
           <span>Die Punktevergabe erfolgt wie folgt:</span>
           <ul class="space-y-1">
@@ -30,8 +30,9 @@ const quiz = useQuizStore()
             <li>Jede in Folge richtig beantwortete Frage gibt +10 Zusatzpunkte. Falsch oder nicht beantwortete Fragen setzen die Zusatzpunkte auf 0 zurück.</li>
           </ul>
         </li>
-        <li>Wer nach Frage der letzten Frage die meisten Punkte hat gewinnt.</li>
         <li>Es sind keine Hilfsmittel erlaubt.</li>
+        <li>Wer nach der letzten Frage die meisten Punkte hat gewinnt.</li>
+        <li>Gilden- und Raidleiter sind von Gewinnen ausgeschlossen.</li>
       </ul>
     </div>
   </quiz-card>
