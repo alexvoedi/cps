@@ -17,7 +17,7 @@ export function getNextStateForShowQuestionResults(quiz: ReturnType<typeof useQu
 
 export function getNextStateForShowResults(quiz: ReturnType<typeof useQuizStore>) {
   if (quiz.currentQuestionIndex === null) {
-    return QuizState.StartQuiz
+    return QuizState.NextQuestion
   }
   else if (quiz.currentQuestionIndex === quiz.questionCount - 1) {
     return QuizState.ShowResults

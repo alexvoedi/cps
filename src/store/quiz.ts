@@ -118,7 +118,6 @@ export const useQuizStore = defineStore('quiz-store', {
         case QuizState.LockAnswers:
           this.fillPlayerAnswers()
           this.stopCountdown()
-          this.resetCountdown()
           break
         case QuizState.ShowCorrectAnswer:
           break
@@ -158,8 +157,8 @@ export const useQuizStore = defineStore('quiz-store', {
 
     nextState() {
       const nextStateMap: Record<QuizState, QuizState> = {
-        [QuizState.Waiting]: QuizState.ShowResults,
-        [QuizState.StartQuiz]: QuizState.NextQuestion,
+        [QuizState.Waiting]: QuizState.StartQuiz,
+        [QuizState.StartQuiz]: QuizState.ShowResults,
         [QuizState.ShowQuestion]: QuizState.ShowAnswers,
         [QuizState.ShowAnswers]: QuizState.LockAnswers,
         [QuizState.LockAnswers]: QuizState.ShowCorrectAnswer,
