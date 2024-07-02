@@ -1,6 +1,6 @@
 /**
  * correct answer: 100 points
- * wrong answer: -50 points
+ * wrong answer: -30 points
  * not answered: 0 points
  * for every consecutive correct answer: +10 points
  */
@@ -14,7 +14,7 @@ export function calcPoints(answers: Array<boolean | null>) {
       streak++
     }
     else if (answer === false) {
-      points -= 50
+      points -= 30
       streak = 0
     }
     else {

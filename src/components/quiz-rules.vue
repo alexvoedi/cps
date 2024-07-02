@@ -25,7 +25,7 @@ const quiz = useQuizStore()
           <span>Die Punktevergabe erfolgt wie folgt:</span>
           <ul class="space-y-1">
             <li>Jede richtig beantwortete Frage gibt +100 Punkte.</li>
-            <li>Jede falsch beantwortet Frage gibt -50 Punkte.</li>
+            <li>Jede falsch beantwortet Frage gibt -30 Punkte.</li>
             <li>Jede nicht beantwortete Frage gibt 0 Punkte.</li>
             <li>Jede in Folge richtig beantwortete Frage gibt +10 Zusatzpunkte. Falsch oder nicht beantwortete Fragen setzen die Zusatzpunkte auf 0 zurück.</li>
           </ul>

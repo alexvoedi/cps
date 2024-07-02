@@ -4,7 +4,8 @@
     "category": "Gute Frage",
     "answers": [
       "9.999.999",
-      "10.000.000"
+      "10.000.000",
+      "Keines der genannten"
     ],
     "answerId": 0
   },
@@ -78,7 +79,7 @@
     "answerId": 2
   },
   {
-    "question": "Die Dächer in den Stadtteilen von Sturmwind haben verschiedene Farben. Aber welche Farbe gibt es darunter nicht?",
+    "question": "Die Dächer in den Stadtteilen von Sturmwind haben verschiedene Farben. Welche Farbe gibt es darunter nicht?",
     "category": "Gute Frage",
     "answers": [
       "blau",
@@ -107,7 +108,8 @@
       "Flickmeister",
       "Rabenkrone",
       "Argentumritter",
-      "Die Schwarze Prinzessin"
+      "Die Schwarze Prinzessin",
+      "Keines der genannten"
     ],
     "answerId": 0
   },
@@ -141,7 +143,8 @@
       "Scherbenwelt",
       "Östliche Königreiche",
       "Kalimdor",
-      "Draenor"
+      "Draenor",
+      "Keines der genannten"
     ],
     "answerId": 1
   },
@@ -186,7 +189,8 @@
       "Drakkari",
       "Farraki",
       "Amani",
-      "Dazari"
+      "Dazari",
+      "Keines der genannten"
     ],
     "answerId": 3
   },
@@ -232,7 +236,8 @@
       "11",
       "12",
       "13",
-      "14"
+      "14",
+      "Keines der genannten"
     ],
     "answerId": 2
   },
@@ -254,7 +259,8 @@
       "Tol Dagor",
       "Freihafen",
       "Tiragardesund",
-      "Boralus"
+      "Boralus",
+      "Keines der genannten"
     ],
     "answerId": 3
   },
@@ -317,7 +323,8 @@
       "Dämonenjäger",
       "Paladin",
       "Jäger",
-      "Hexenmeister"
+      "Hexenmeister",
+      "Keines der genannten"
     ],
     "answerId": 6
   },
@@ -326,7 +333,9 @@
     "category": "Geschichte",
     "answers": [
       "Rot",
-      "Grün"
+      "Grün",
+      "Blau",
+      "Pink"
     ],
     "answerId": 0
   },
@@ -370,7 +379,8 @@
       "Sholazarbecken",
       "Krater von Un'Goro",
       "Schlingendorntal",
-      "Feralas"
+      "Feralas",
+      "Keines der genannten"
     ],
     "answerId": 0
   },
@@ -407,7 +417,7 @@
     "answerId": 0
   },
   {
-    "question": "Was gehört nicht in die Kategorie Abzeichen?",
+    "question": "Was gehört nicht zur Kategorie Abzeichen?",
     "category": "Features",
     "answers": [
       "Blindes Auge",
@@ -419,18 +429,19 @@
     "answerId": 1
   },
   {
-    "question": "Als Mentor eingetragene Spieler können neue Spieler an welchem Symbol erkennen?",
+    "question": "Mentoren können Neulinge an welchem Symbol erkennen?",
     "category": "Features",
     "answers": [
       "Grüne Flagge",
       "Schneeflocke",
       "Murloc",
-      "Holzschwert"
+      "Holzschwert",
+      "Keines der genannten"
     ],
     "answerId": 2
   },
   {
-    "question": "Das Zitat \"Wir werden niemals Sklaven sein!\" stammt von:",
+    "question": "Das Zitat \"Wir werden niemals Sklaven sein!\" stammt von ...?",
     "category": "Geschichte",
     "answers": [
       "Grommash Höllschrei",
@@ -459,7 +470,8 @@
     "answers": [
       "Cho der Lehrensucher",
       "Chen Sturmbräu",
-      "Taran Zhu"
+      "Taran Zhu",
+      "Jobst"
     ],
     "answerId": 1
   },
@@ -481,7 +493,8 @@
       "Der Lichkönig",
       "Argus, der Zerrütter",
       "Illidan Sturmgrimm",
-      "Archimonde"
+      "Archimonde",
+      "Keines der genannten"
     ],
     "answerId": 1
   },
@@ -525,7 +538,8 @@
       "Wolf",
       "Pferd",
       "Widder",
-      "Säbler"
+      "Säbler",
+      "Keines der genannten"
     ],
     "answerId": 1
   },
@@ -569,7 +583,8 @@
       "Tag der Toten",
       "Piratentag",
       "T-Shirt-Tag",
-      "Tag der Magie"
+      "Tag der Magie",
+      "Keines der genannten"
     ],
     "answerId": 3
   }

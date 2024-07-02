@@ -14,10 +14,10 @@ describe('calcPoints', (it) => {
     expect(points).toBe(100)
   })
 
-  it('should return -50 for a wrong answer', ({ expect }) => {
+  it('should return -30 for a wrong answer', ({ expect }) => {
     const answers = [false]
     const points = calcPoints(answers)
-    expect(points).toBe(-50)
+    expect(points).toBe(-30)
   })
 
   it('should return 0 for a not answered question', ({ expect }) => {
@@ -32,9 +32,9 @@ describe('calcPoints', (it) => {
     expect(points).toBe(210)
   })
 
-  it('should return 370 for two consecutive correct answers, one wrong answer and two consecutive correct answers', ({ expect }) => {
+  it('should return 390 for two consecutive correct answers, one wrong answer and two consecutive correct answers', ({ expect }) => {
     const answers = [true, true, false, true, true]
     const points = calcPoints(answers)
-    expect(points).toBe(370)
+    expect(points).toBe(390)
   })
 })
