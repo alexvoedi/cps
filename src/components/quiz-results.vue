@@ -8,14 +8,52 @@ import { useMobile } from '../composables/useMobile'
 const quiz = useQuizStore()
 const mobile = useMobile()
 
+interface Player {
+  name: string
+  correct: number
+  wrong: number
+  notAnswered: number
+  points: number
+  rank: string | number
+  price?: number
+}
+
+const priceGoldFactor = 0.7
+const goldPerPlayer = 1_500
+const totalPriceGold = goldPerPlayer * quiz.players.length
+
+const firstPlace = Math.floor(totalPriceGold * priceGoldFactor)
+const secondPlace = (totalPriceGold - firstPlace) * priceGoldFactor
+const thirdPlace = totalPriceGold - (firstPlace + secondPlace)
+
+function distributePriceGold(players: Player[]) {
+  const firstPlacePlayers = players.filter(player => player.rank === '🥇')
+  const secondPlacePlayers = players.filter(player => player.rank === '🥈')
+  const thirdPlacePlayers = players.filter(player => player.rank === '🥉')
+
+  const firstPlaceCount = firstPlacePlayers.length > 0 ? firstPlacePlayers.length : 1
+  const secondPlaceCount = secondPlacePlayers.length > 0 ? secondPlacePlayers.length : 1
+  const thirdPlaceCount = thirdPlacePlayers.length > 0 ? thirdPlacePlayers.length : 1
+
+  const firstPlaceGold = firstPlace / firstPlaceCount
+  const secondPlaceGold = secondPlace / secondPlaceCount
+  const thirdPlaceGold = thirdPlace / thirdPlaceCount
+
+  players.forEach((player) => {
+    if (player.rank === '🥇') {
+      player.price = firstPlaceGold
+    }
+    else if (player.rank === '🥈') {
+      player.price = secondPlaceGold
+    }
+    else if (player.rank === '🥉') {
+      player.price = thirdPlaceGold
+    }
+  })
+}
+
 const data = computed(() => {
-  const playerResults: {
-    name: string
-    correct: number
-    wrong: number
-    notAnswered: number
-    points: number
-  }[] = quiz.players.map((player) => {
+  const playerResults: Player[] = quiz.players.map((player) => {
     const results = quiz.getPlayerResults(player.id)
     const answerArray = quiz.getPlayerAnswerArray(player.id)
 
@@ -23,6 +61,7 @@ const data = computed(() => {
 
     return {
       points,
+      rank: '',
       ...player,
       ...results,
     }
@@ -38,79 +77,89 @@ const data = computed(() => {
     }
 
     if (rankCounter === 1) {
-      Object.assign(player, {
-        rank: '🥇',
-      })
+      player.rank = '🥇'
     }
     else if (rankCounter === 2) {
-      Object.assign(player, {
-        rank: '🥈',
-      })
+      player.rank = '🥈'
     }
     else if (rankCounter === 3) {
-      Object.assign(player, {
-        rank: '🥉',
-      })
+      player.rank = '🥉'
     }
     else {
-      Object.assign(player, {
-        rank: rankCounter,
-      })
+      player.rank = rankCounter
     }
   })
+
+  distributePriceGold(sorted)
 
   return sorted
 })
 
-const columns = reactive<DataTableColumns>([
-  {
-    title: 'Platz',
-    key: 'rank',
-    align: 'center',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-  {
-    title: 'Name',
-    key: 'name',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-  {
-    title: 'Punkte',
-    key: 'points',
-    align: 'center',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-  {
-    title() {
-      return h('span', {
-        class: 'ico-mdi-check text-3xl text-green-6',
-      })
+const columns = computed(() => {
+  const columns: DataTableColumns<Player> = [
+    {
+      title: 'Platz',
+      key: 'rank',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
     },
-    key: 'correct',
-    align: 'center',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-  {
-    title() {
-      return h('span', {
-        class: 'ico-mdi-close text-3xl text-red-6',
-      })
+    {
+      title: 'Name',
+      key: 'name',
+      className: mobile ? 'text-inherit' : 'text-lg',
     },
-    key: 'wrong',
-    align: 'center',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-  {
-    title() {
-      return h('span', {
-        class: 'ico-mdi-help text-2xl text-true-gray-4',
-      })
+    {
+      title: 'Punkte',
+      key: 'points',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
     },
-    key: 'notAnswered',
-    align: 'center',
-    className: mobile ? 'text-inherit' : 'text-lg',
-  },
-])
+    {
+      title() {
+        return h('span', {
+          class: 'ico-mdi-check text-3xl text-green-6',
+        })
+      },
+      key: 'correct',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
+    },
+    {
+      title() {
+        return h('span', {
+          class: 'ico-mdi-close text-3xl text-red-6',
+        })
+      },
+      key: 'wrong',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
+    },
+    {
+      title() {
+        return h('span', {
+          class: 'ico-mdi-help text-2xl text-true-gray-4',
+        })
+      },
+      key: 'notAnswered',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
+    },
+  ]
+
+  if (quiz.currentQuestionIndex === quiz.questionCount - 1) {
+    columns.splice(3, 0, {
+      title: 'Preisgold',
+      key: 'price',
+      align: 'center',
+      className: mobile ? 'text-inherit' : 'text-lg',
+      render(row) {
+        return row.price ? `${row.price.toFixed(0)} 🪙` : '-'
+      },
+    })
+  }
+
+  return columns
+})
 
 const fanfareSound = new Audio('/cps/quest_complete.ogg')
 const theEnd = new Audio('/cps/the-end.mp3')
