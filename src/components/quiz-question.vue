@@ -14,7 +14,7 @@ const showQuestionText = computed(() => [
 </script>
 
 <template>
-  <div v-if="showQuestionText" class="md:p-4 overflow-hidden m-auto min-w-360px md:min-w-480px">
+  <div v-if="showQuestionText" class="md:p-4 overflow-hidden m-auto min-w-360px md:min-w-480px max-w-1200px">
     <div class="bg-dark-9 bg-opacity-80">
       <quiz-countdown />
 

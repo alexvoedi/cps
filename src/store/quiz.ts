@@ -13,7 +13,6 @@ export interface QuizStore {
   questionCount: number
   questionIds: number[]
   currentQuestionId: number | null
-  countdownDuration: number
   countdownStart: Date | null
   countdown: number | undefined
   players: QuizPlayer[]
@@ -23,10 +22,9 @@ export interface QuizStore {
 export const useQuizStore = defineStore('quiz-store', {
   state: (): QuizStore => ({
     state: QuizState.Waiting,
-    questionCount: 2,
+    questionCount: 50,
     questionIds: [],
     currentQuestionId: null,
-    countdownDuration: 15,
     countdownStart: null,
     players: [],
     currentAnswerId: useLocalStorage('currentAnswerId', null, {
@@ -45,6 +43,7 @@ export const useQuizStore = defineStore('quiz-store', {
   actions: {
     init() {
       this.questionIds = getRandomIndices(Questions, this.questionCount)
+      this.questionCount = this.questionIds.length
     },
 
     setQuestion(questionId: number) {
@@ -273,7 +272,11 @@ export const useQuizStore = defineStore('quiz-store', {
 
     fillPlayerAnswers() {
       this.players.forEach((player) => {
-        if (player.answers.length < this.questionCount) {
+        if (this.currentQuestionIndex === null) {
+          return
+        }
+
+        if (player.answers.length < this.currentQuestionIndex + 1) {
           player.answers.push(null)
         }
       })
@@ -354,6 +357,16 @@ export const useQuizStore = defineStore('quiz-store', {
       }
 
       return state.questionIds.indexOf(state.currentQuestionId)
+    },
+
+    countdownDuration(): number {
+      if (!this.currentQuestion) {
+        return 15
+      }
+
+      const answerCount = this.currentQuestion.answers.length
+
+      return 10 + answerCount * 2.5
     },
   },
 })

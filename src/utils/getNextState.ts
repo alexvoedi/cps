@@ -8,11 +8,11 @@ export function getNextStateForShowQuestionResults(quiz: ReturnType<typeof useQu
   else if (quiz.currentQuestionIndex === 0) {
     return QuizState.NextQuestion
   }
-  else if (quiz.currentQuestionIndex % 10 === 0) {
-    return QuizState.ShowResults
-  }
   else if (quiz.currentQuestionIndex === quiz.questionCount - 1) {
     return QuizState.EndQuiz
+  }
+  else if ((quiz.currentQuestionIndex + 1) % 10 === 0) {
+    return QuizState.ShowResults
   }
   else {
     return QuizState.NextQuestion

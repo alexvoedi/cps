@@ -72,7 +72,14 @@ function countPlayers() {
 }
 
 const percentage = computed(() => {
-  return countAnswers() / countPlayers()
+  const answers = countAnswers()
+  const players = countPlayers()
+
+  if (players === 0) {
+    return 0
+  }
+
+  return answers / players
 })
 
 const percentageString = computed(() => {
