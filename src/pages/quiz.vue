@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import QrcodeVue from 'qrcode.vue'
+// import QrcodeVue from 'qrcode.vue'
 import { useHost } from '../composables/useHost'
 import { MessageType } from '../enums/MessageType'
 import { onData } from '../games/quiz/onData'
@@ -7,9 +7,9 @@ import { useBaseStore } from '../store/base'
 import { usePeerStore } from '../store/peer'
 import { useQuizStore } from '../store/quiz'
 
-const params = useUrlSearchParams<{
-  hostId?: string
-}>()
+// const params = useUrlSearchParams<{
+//   hostId?: string
+// }>()
 
 const base = useBaseStore()
 const peer = usePeerStore()
@@ -46,19 +46,19 @@ onMounted(() => {
   peer.init(events)
 })
 
-const url = computed(() => {
-  const url = new URL('/cps/quiz', window.location.origin)
+// const url = computed(() => {
+//   const url = new URL('/cps/quiz', window.location.origin)
 
-  const query = new URLSearchParams()
+//   const query = new URLSearchParams()
 
-  if (params.hostId) {
-    query.set('hostId', params.hostId)
-  }
+//   if (params.hostId) {
+//     query.set('hostId', params.hostId)
+//   }
 
-  url.search = query.toString()
+//   url.search = query.toString()
 
-  return url.toString()
-})
+//   return url.toString()
+// })
 </script>
 
 <template>
@@ -69,7 +69,7 @@ const url = computed(() => {
       <div v-else class="m-auto space-y-16">
         <name-card v-if="!base.name" />
 
-        <div v-if="params.hostId" class="flex items-center justify-center">
+        <!-- <div v-if="params.hostId" class="flex items-center justify-center">
           <QrcodeVue
             :value="url"
             :size="300"
@@ -79,7 +79,7 @@ const url = computed(() => {
 
             level="H"
           />
-        </div>
+        </div> -->
       </div>
     </div>
   </default-layout>
