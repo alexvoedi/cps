@@ -1,19 +1,15 @@
 import { defineStore } from 'pinia'
 
 interface BaseStore {
-  name: string | null
+  video: Ref<boolean>
 }
 
 export const useBaseStore = defineStore('base', {
-  state: (): Ref<BaseStore> => useSessionStorage('base', {
-    name: null,
+  state: (): BaseStore => ({
+    video: useLocalStorage('base/video', true),
   }),
 
-  actions: {
-    setName(name: string) {
-      this.name = name
-    },
-  },
+  actions: {},
 
   getters: {},
 })

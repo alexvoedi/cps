@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import { useBaseStore } from '../store/base'
+
+const baseStore = useBaseStore()
 </script>
 
 <template>
-  <default-layout>
-    <div class="flex flex-col h-full ">
-      <div class=" bg-dark-9 m-auto bg-opacity-80 p-12 overflow-hidden space-y-2">
-        <h2 class="text-lg font-bold">
-          Spielername
-        </h2>
-
-        <name-input />
-      </div>
-    </div>
-  </default-layout>
+  <div class="bg-dark-9 m-auto bg-opacity-80 p-8 overflow-hidden space-y-2">
+    <n-form label-placement="left" :show-feedback="false">
+      <n-form-item label="Hintergrundvideo">
+        <n-switch v-model:value="baseStore.video" />
+      </n-form-item>
+    </n-form>
+  </div>
 </template>
 
 <style>

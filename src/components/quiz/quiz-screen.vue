@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useQuizStore } from '../store/quiz'
-import { QuizState } from '../enums/QuizState'
-import { useHost } from '../composables/useHost'
+import { useQuizStore } from '../../store/quiz'
+import { QuizState } from '../../enums/QuizState'
+import { useHost } from '../../composables/useHost'
 
 const quiz = useQuizStore()
 const host = useHost()

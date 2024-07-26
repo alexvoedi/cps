@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
+import vue3GoogleLogin from 'vue3-google-login'
 import { router } from './router'
 
 import App from './App.vue'

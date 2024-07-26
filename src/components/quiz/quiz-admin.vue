@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
-import { useQuizStore } from '../store/quiz'
-import { copyLink } from '../utils/copyLink'
-import { usePeerStore } from '../store/peer'
+import { useQuizStore } from '../../store/quiz'
+import { copyLink } from '../../utils/copyLink'
+import { usePeerStore } from '../../store/peer'
 
 const message = useMessage()
 

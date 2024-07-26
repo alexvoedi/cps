@@ -62,14 +62,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <default-layout>
-    <div class="flex flex-col h-full overflow-hidden">
-      <quiz-screen v-if="ready" />
+  <div class="flex flex-col h-full overflow-hidden">
+    <quiz-screen v-if="ready" />
 
-      <div v-else class="m-auto space-y-16">
-        <name-card v-if="!base.name" />
+    <div v-else class="m-auto space-y-16">
+      <name-card v-if="!base.name" />
 
-        <!-- <div v-if="params.hostId" class="flex items-center justify-center">
+      <!-- <div v-if="params.hostId" class="flex items-center justify-center">
           <QrcodeVue
             :value="url"
             :size="300"
@@ -80,7 +79,6 @@ onMounted(() => {
             level="H"
           />
         </div> -->
-      </div>
     </div>
-  </default-layout>
+  </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { QuizState } from '../enums/QuizState'
-import { useQuizStore } from '../store/quiz'
+import { QuizState } from '../../enums/QuizState'
+import { useQuizStore } from '../../store/quiz'
 
 const quiz = useQuizStore()
 

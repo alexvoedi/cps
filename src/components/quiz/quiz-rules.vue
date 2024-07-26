@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuizStore } from '../store/quiz'
+import { useQuizStore } from '../../store/quiz'
 
 const quiz = useQuizStore()
 </script>
