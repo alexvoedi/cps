@@ -2,13 +2,14 @@
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { googleTokenLogin } from 'vue3-google-login'
-import ky from 'ky'
 import { useMobile } from '../composables/useMobile'
 import { useUserStore } from '../store/user'
+import { useBaseStore } from '../store/base'
 
 const route = useRoute()
 const mobile = useMobile()
 const userStore = useUserStore()
+const baseStore = useBaseStore()
 
 function renderIcon(icon: string) {
   return () => h('span', {
@@ -64,7 +65,7 @@ const menuOptions = computed<MenuOption[]>(() => [
   },
   {
     label: 'Login',
-    show: !userStore.isLoggedIn,
+    show: !userStore.isLoggedIn && baseStore.backendHealthy,
     key: '/login',
     icon: renderIcon('ico-mdi-login'),
     onClick: async () => {
@@ -79,7 +80,7 @@ const menuOptions = computed<MenuOption[]>(() => [
   },
   {
     label: 'Logout',
-    show: userStore.isLoggedIn,
+    show: userStore.isLoggedIn && baseStore.backendHealthy,
     key: '/logout',
     icon: renderIcon('ico-mdi-logout'),
     onClick: () => {

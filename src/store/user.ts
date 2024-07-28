@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import ky from 'ky'
-import { useCookies } from '@vueuse/integrations/useCookies'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
