@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseLayout: typeof import('./../layouts/base-layout.vue')['default']
     BingoBingoBoard: typeof import('./../components/bingo/bingo-board.vue')['default']
     BingoBingoCell: typeof import('./../components/bingo/bingo-cell.vue')['default']
     BingoBingoGame: typeof import('./../components/bingo/bingo-game.vue')['default']
