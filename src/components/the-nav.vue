@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuOption } from 'naive-ui'
+import { type MenuOption, useMessage } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { googleTokenLogin } from 'vue3-google-login'
 import { useMobile } from '../composables/useMobile'
@@ -8,6 +8,7 @@ import { useBaseStore } from '../store/base'
 
 const route = useRoute()
 const mobile = useMobile()
+const message = useMessage()
 const userStore = useUserStore()
 const baseStore = useBaseStore()
 
@@ -51,7 +52,8 @@ const menuOptions = computed<MenuOption[]>(() => [
     }, {
       default: () => 'Raid',
     }),
-    key: '/about',
+    show: userStore.isLoggedIn,
+    key: '/raid',
     icon: renderIcon('ico-mdi-sword-cross'),
   },
   {
@@ -62,6 +64,16 @@ const menuOptions = computed<MenuOption[]>(() => [
     }),
     key: '/settings',
     icon: renderIcon('ico-mdi-cog'),
+  },
+  {
+    label: () => h(RouterLink, {
+      to: '/admin',
+    }, {
+      default: () => 'Admin',
+    }),
+    show: userStore.isAdmin,
+    key: '/admin',
+    icon: renderIcon('ico-mdi-shield-account'),
   },
   {
     label: 'Login',
@@ -75,6 +87,7 @@ const menuOptions = computed<MenuOption[]>(() => [
 
       if (access_token) {
         userStore.login(access_token)
+        message.success('Login erfolgreich')
       }
     },
   },
@@ -85,6 +98,7 @@ const menuOptions = computed<MenuOption[]>(() => [
     icon: renderIcon('ico-mdi-logout'),
     onClick: () => {
       userStore.logout()
+      message.success('Logout erfolgreich')
     },
   },
 ])

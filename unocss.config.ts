@@ -30,4 +30,21 @@ export default defineConfig({
     'grid-cols-5',
     'grid-cols-6',
   ],
+  theme: {
+    colors: {
+      warrior: '#C79C6E',
+      paladin: '#F58CBA',
+      hunter: '#ABD473',
+      rogue: '#FFF569',
+      priest: '#FFFFFF',
+      shaman: '#0070DE',
+      mage: '#69CCF0',
+      warlock: '#9482C9',
+      monk: '#00FF96',
+      druid: '#FF7D0A',
+      demonhunter: '#A330C9',
+      deathknight: '#C41F3B',
+      evoker: '#33937F',
+    },
+  },
 })

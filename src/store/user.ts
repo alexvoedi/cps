@@ -1,14 +1,17 @@
 import { defineStore } from 'pinia'
 import ky from 'ky'
+import { UserRole } from '@/enums/UserRole'
+import type { User } from '@/types/User'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: useSessionStorage('user', null),
+    user: useSessionStorage<null | User>('user', null),
   }),
 
   actions: {
     async login(token: string) {
-      const result = await ky.post(`${import.meta.env.VITE_BACKEND_URL}/auth/google/login`, {
+      const result = await ky.post(`auth/google/login`, {
+        prefixUrl: import.meta.env.VITE_BACKEND_URL,
         json: {
           token,
         },
@@ -19,14 +22,12 @@ export const useUserStore = defineStore('user', {
     },
 
     async logout() {
-      const result = await ky.post('auth/google/logout', {
+      this.user = null
+
+      await ky.post('auth/google/logout', {
         credentials: 'include',
         prefixUrl: import.meta.env.VITE_BACKEND_URL,
       })
-
-      if (result.ok) {
-        this.user = null
-      }
     },
 
     async update() {
@@ -51,5 +52,6 @@ export const useUserStore = defineStore('user', {
 
   getters: {
     isLoggedIn: state => !!state.user,
+    isAdmin: state => state.user?.role === UserRole.Admin,
   },
 })

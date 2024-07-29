@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { darkTheme, useMessage } from 'naive-ui'
+import { darkTheme } from 'naive-ui'
 </script>
 
 <template>

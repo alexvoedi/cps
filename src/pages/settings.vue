@@ -5,13 +5,15 @@ const baseStore = useBaseStore()
 </script>
 
 <template>
-  <div class="bg-dark-9 m-auto bg-opacity-80 p-8 overflow-hidden space-y-2">
-    <n-form label-placement="left" :show-feedback="false">
-      <n-form-item label="Hintergrundvideo">
-        <n-switch v-model:value="baseStore.video" />
-      </n-form-item>
-    </n-form>
-  </div>
+  <centered-layout>
+    <n-card title="Einstellungen" class="max-w-160">
+      <n-form label-placement="left" :show-feedback="false">
+        <n-form-item label="Hintergrundvideo">
+          <n-switch v-model:value="baseStore.video" />
+        </n-form-item>
+      </n-form>
+    </n-card>
+  </centered-layout>
 </template>
 
 <style>

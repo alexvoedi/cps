@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import ky from 'ky'
-import { createDiscreteApi, darkTheme } from 'naive-ui'
 
 interface BaseStore {
   backendHealthy: boolean

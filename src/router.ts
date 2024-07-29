@@ -27,6 +27,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings',
     component: () => import('./pages/settings.vue'),
   },
+  {
+    path: '/admin',
+    component: () => import('./pages/admin.vue'),
+  },
 ]
 
 const router = createRouter({
