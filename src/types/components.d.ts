@@ -86,6 +86,7 @@ declare module 'vue' {
     RaidSquad: typeof import('./../components/raid/squad.vue')['default']
     RaidSuicideKing: typeof import('./../components/raid/suicide-king.vue')['default']
     RaidSuicideKingEntry: typeof import('./../components/raid/suicide-king-entry.vue')['default']
+    RaidSuicideKingHistory: typeof import('./../components/raid/suicide-king-history.vue')['default']
     RaidSuicideKingTset: typeof import('./../components/raid/suicide-king-tset.vue')['default']
     RoleSelect: typeof import('./../components/role-select.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

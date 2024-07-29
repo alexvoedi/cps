@@ -3,16 +3,19 @@ import { defineStore } from 'pinia'
 import type { Character } from '@/types/Character'
 import type { CreateCharacterDto } from '@/types/dtos/create-character.dto'
 import type { SuicideKingList } from '@/types/SuicideKingList'
+import type { SuicideKingHistory } from '@/types/SuicideKingHistory'
 
 interface RaidStore {
   characters: Character[]
   suicideKing: SuicideKingList
+  suicideKingHistory: SuicideKingHistory
 }
 
 export const useRaidStore = defineStore('raid', {
   state: (): RaidStore => ({
     characters: [],
     suicideKing: [],
+    suicideKingHistory: [],
   }),
 
   actions: {

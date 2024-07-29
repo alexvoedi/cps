@@ -24,15 +24,7 @@ socket.on('update-raid-list', (data) => {
   raidStore.characters = data
 })
 
-socket.on('update-suicide-king', (data) => {
-  raidStore.suicideKing = data
-})
-
-socket.on('move-character', (data) => {
-  raidStore.suicideKing = data
-})
-
-socket.on('add-to-suicide-king', (data) => {
+socket.on('update-suicide-king-list', (data) => {
   raidStore.suicideKing = data
 })
 
