@@ -52,7 +52,6 @@ const menuOptions = computed<MenuOption[]>(() => [
     }, {
       default: () => 'Raid',
     }),
-    show: userStore.isLoggedIn,
     key: '/raid',
     icon: renderIcon('ico-mdi-sword-cross'),
   },

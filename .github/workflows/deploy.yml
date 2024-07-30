@@ -61,6 +61,7 @@ jobs:
     env:
       VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
       VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
+      VITE_WEBSOCKET_PATH: ${{ vars.VITE_WEBSOCKET_PATH }}
       VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
     needs:
       - lint
