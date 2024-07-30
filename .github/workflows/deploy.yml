@@ -20,9 +20,7 @@ jobs:
     steps:
       - name: Log variables
         run: |
-          echo $VITE_BACKEND_URL
-          echo $VITE_GOOGLE_AUTH_CLIENT_ID
-          echo $VITE_WEBSOCKET_URL
+          echo ${{ vars }}
 
       - name: Checkout
         uses: actions/checkout@v4
