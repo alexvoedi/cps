@@ -1,10 +1,5 @@
 name: Run GitHub Action
 
-env:
-  VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
-  VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
-  VITE_WEBSOCKET_URL: ${{ secrets.VITE_WEBSOCKET_URL }}
-
 on:
   push:
     branches:
@@ -17,6 +12,10 @@ on:
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
+    env:
+      VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
+      VITE_WEBSOCKET_URL: ${{ secrets.VITE_WEBSOCKET_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
