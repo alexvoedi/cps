@@ -116,7 +116,7 @@ function onPlayerOpen({ peer, base }: {
   return (_: string) => {
     peer.send({
       type: MessageType.Admin,
-      name: base.name,
+      name: base, // fix this
     })
   }
 }
