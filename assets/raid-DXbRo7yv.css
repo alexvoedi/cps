@@ -1,0 +1,1 @@
+.fade-move,.fade-enter-active,.fade-leave-active{transition:all .5s cubic-bezier(.55,0,.1,1)}.fade-enter-from,.fade-leave-to{opacity:0;transform:scaleY(.01) translate(30px)}.fade-leave-active{position:absolute}
