@@ -10,23 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-dependencies:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Update Dependencies
-        run: |
-          npx taze minor -w
-          npx pnpm update
-
-      - name: Commit Changes
-        run: |
-          git config --local user.email "alexander.voedisch@gmail.com"
-          git config --local user.name "Alexander Vödisch"
-          git diff --quiet || git commit -am "chore: update dependencies"
-
   check-types:
     runs-on: ubuntu-latest
     needs: update-dependencies
@@ -79,9 +62,9 @@ jobs:
       - run-tests
       - check-types
     env:
-      VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
-      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ vars.VITE_GOOGLE_AUTH_CLIENT_ID }}
-      VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
+      VITE_BACKEND_URL: ${{ env.VITE_BACKEND_URL }}
+      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ env.VITE_GOOGLE_AUTH_CLIENT_ID }}
+      VITE_WEBSOCKET_URL: ${{ env.VITE_WEBSOCKET_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
