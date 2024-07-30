@@ -34,7 +34,7 @@ async function load() {
 
 <template>
   <n-infinite-scroll class="max-h-25dvh" :distance="100" @load="load">
-    <n-list class="overflow-y-auto" hoverable>
+    <n-list class="overflow-y-auto overflow-x-hidden" hoverable>
       <transition-group name="fade">
         <div
           v-for="event of events"
