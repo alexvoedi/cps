@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import type { MenuOption } from 'naive-ui'
+import { type MenuOption, useMessage } from 'naive-ui'
 import { RouterLink } from 'vue-router'
+import { googleTokenLogin } from 'vue3-google-login'
 import { useMobile } from '../composables/useMobile'
+import { useUserStore } from '../store/user'
+import { useBaseStore } from '../store/base'
 
 const route = useRoute()
 const mobile = useMobile()
+const message = useMessage()
+const userStore = useUserStore()
+const baseStore = useBaseStore()
 
 function renderIcon(icon: string) {
-  return h('span', {
+  return () => h('span', {
     class: icon,
   })
 }
 
-const menuOptions: MenuOption[] = [
+const menuOptions = computed<MenuOption[]>(() => [
   {
     label: () => h(RouterLink, {
       to: '/',
@@ -20,25 +26,35 @@ const menuOptions: MenuOption[] = [
       default: () => 'Home',
     }),
     key: '/',
-    icon: () => renderIcon('ico-mdi-home'),
+    icon: renderIcon('ico-mdi-home'),
   },
+  // {
+  //   label: () => h(RouterLink, {
+  //     to: '/bingo',
+  //   }, {
+  //     default: () => 'Bingo',
+  //   }),
+  //   key: '/bingo',
+  //   icon: () => renderIcon('ico-ic:baseline-grid-on'),
+  // },
+  // {
+  //   label: () => h(RouterLink, {
+  //     to: '/quiz',
+  //   }, {
+  //     default: () => 'Quiz',
+  //   }),
+  //   key: '/quiz',
+  //   icon: () => renderIcon('ico-mdi-head-question'),
+  // },
   {
     label: () => h(RouterLink, {
-      to: '/bingo',
+      to: '/raid',
     }, {
-      default: () => 'Bingo',
+      default: () => 'Raid',
     }),
-    key: '/bingo',
-    icon: () => renderIcon('ico-ic:baseline-grid-on'),
-  },
-  {
-    label: () => h(RouterLink, {
-      to: '/quiz',
-    }, {
-      default: () => 'Quiz',
-    }),
-    key: '/quiz',
-    icon: () => renderIcon('ico-mdi-head-question'),
+    show: userStore.isLoggedIn,
+    key: '/raid',
+    icon: renderIcon('ico-mdi-sword-cross'),
   },
   {
     label: () => h(RouterLink, {
@@ -47,9 +63,45 @@ const menuOptions: MenuOption[] = [
       default: () => 'Einstellungen',
     }),
     key: '/settings',
-    icon: () => renderIcon('ico-mdi-cog'),
+    icon: renderIcon('ico-mdi-cog'),
   },
-]
+  {
+    label: () => h(RouterLink, {
+      to: '/admin',
+    }, {
+      default: () => 'Admin',
+    }),
+    show: userStore.isAdmin,
+    key: '/admin',
+    icon: renderIcon('ico-mdi-shield-account'),
+  },
+  {
+    label: 'Login',
+    show: !userStore.isLoggedIn && baseStore.backendHealthy,
+    key: '/login',
+    icon: renderIcon('ico-mdi-login'),
+    onClick: async () => {
+      const { access_token } = await googleTokenLogin({
+        clientId: import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID,
+      })
+
+      if (access_token) {
+        userStore.login(access_token)
+        message.success('Login erfolgreich')
+      }
+    },
+  },
+  {
+    label: 'Logout',
+    show: userStore.isLoggedIn && baseStore.backendHealthy,
+    key: '/logout',
+    icon: renderIcon('ico-mdi-logout'),
+    onClick: () => {
+      userStore.logout()
+      message.success('Logout erfolgreich')
+    },
+  },
+])
 
 const activeItem = computed(() => route.path)
 </script>

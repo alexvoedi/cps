@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
-
-useTitle('CPS')
 </script>
 
 <template>
@@ -10,13 +8,13 @@ useTitle('CPS')
   >
     <n-message-provider>
       <n-dialog-provider>
-        <router-view />
+        <base-layout />
       </n-dialog-provider>
     </n-message-provider>
   </n-config-provider>
 </template>
 
-<style lang="postcss">
+<style>
 html, body, #app {
   height: 100dvh;
 }

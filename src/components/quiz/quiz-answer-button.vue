@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useHost } from '../composables/useHost'
-import { MessageType } from '../enums/MessageType'
-import { QuizState } from '../enums/QuizState'
-import { usePeerStore } from '../store/peer'
-import { useQuizStore } from '../store/quiz'
+import { useHost } from '../../composables/useHost'
+import { MessageType } from '../../enums/MessageType'
+import { QuizState } from '../../enums/QuizState'
+import { usePeerStore } from '../../store/peer'
+import { useQuizStore } from '../../store/quiz'
 
 const props = defineProps<{
   text: string

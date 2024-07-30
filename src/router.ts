@@ -19,8 +19,17 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('./pages/quiz.vue'),
   },
   {
+    path: '/raid',
+    component: () => import('./pages/raid.vue'),
+    children: [],
+  },
+  {
     path: '/settings',
     component: () => import('./pages/settings.vue'),
+  },
+  {
+    path: '/admin',
+    component: () => import('./pages/admin.vue'),
   },
 ]
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
-import type { Cell } from '../classes/Cell'
+import type { Cell } from '../../classes/Cell'
 
 const props = defineProps<{
   cell: Cell

@@ -1,9 +1,11 @@
 <script setup lang="ts">
-useTitle('CPS | Bingo')
+
 </script>
 
 <template>
-  <bingo-game />
+  <h1>Admin</h1>
+
+  <admin-user-list />
 </template>
 
 <style>

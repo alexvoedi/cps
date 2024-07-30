@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { type DataTableColumns, NButton } from 'naive-ui'
-import { useQuizStore } from '../store/quiz'
-import type { QuizPlayer } from '../types/QuizPlayer'
-import { usePeerStore } from '../store/peer'
+import { useQuizStore } from '../../store/quiz'
+import type { QuizPlayer } from '../../types/QuizPlayer'
+import { usePeerStore } from '../../store/peer'
 
 const peer = usePeerStore()
 const quiz = useQuizStore()

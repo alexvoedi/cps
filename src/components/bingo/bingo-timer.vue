@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDialog } from 'naive-ui'
-import { useTimer } from '../composables/useTimer'
+import { useTimer } from '../../composables/useTimer'
 
 const {
   formattedTime,

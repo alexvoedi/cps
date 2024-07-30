@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cell } from '../classes/Cell'
+import type { Cell } from '../../classes/Cell'
 
 const props = defineProps<{
   cells: Cell[]

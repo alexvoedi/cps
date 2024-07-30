@@ -18,7 +18,7 @@ jobs:
 
       - name: Update Dependencies
         run: |
-          npx taze minor
+          npx taze minor -w
           npx pnpm update
 
       - name: Commit Changes

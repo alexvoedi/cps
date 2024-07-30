@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import JSConfetti from 'js-confetti'
 import type { DataTableColumns } from 'naive-ui'
-import { useQuizStore } from '../store/quiz'
-import { calcPoints } from '../utils/calcPoints'
-import { useMobile } from '../composables/useMobile'
+import { useQuizStore } from '../../store/quiz'
+import { calcPoints } from '../../utils/calcPoints'
+import { useMobile } from '../../composables/useMobile'
 
 const quiz = useQuizStore()
 const mobile = useMobile()

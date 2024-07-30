@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDialog } from 'naive-ui'
-import { useBingo } from '../composables/useBingo'
+import { useBingo } from '../../composables/useBingo'
 
 const { cells, size, resetCells, mostRecentVersion, newSeed } = useBingo()
 
