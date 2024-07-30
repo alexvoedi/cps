@@ -1,1 +1,0 @@
-import{d as o,u as n,o as a,a as t,r as s}from"./index-DnU4lx4K.js";const p=o({__name:"bingo",setup(r){return n("CPS | Bingo"),(_,c)=>{const e=s("bingo-game");return a(),t(e)}}});export{p as default};
