@@ -21,6 +21,8 @@ jobs:
       - name: Log variables
         run: |
           echo ${{ vars }}
+          echo ${{ env }}
+          echo ${{ var }}
 
       - name: Checkout
         uses: actions/checkout@v4
