@@ -9,6 +9,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
+  VITE_GOOGLE_AUTH_CLIENT_ID: ${{ vars.VITE_GOOGLE_AUTH_CLIENT_ID }}
+  VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
+
 jobs:
   check-types:
     runs-on: ubuntu-latest
@@ -61,10 +66,6 @@ jobs:
       - lint
       - run-tests
       - check-types
-    env:
-      VITE_BACKEND_URL: ${{ env.VITE_BACKEND_URL }}
-      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ env.VITE_GOOGLE_AUTH_CLIENT_ID }}
-      VITE_WEBSOCKET_URL: ${{ env.VITE_WEBSOCKET_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
