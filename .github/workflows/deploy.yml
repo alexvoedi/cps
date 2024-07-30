@@ -19,12 +19,6 @@ jobs:
     environment: build
     runs-on: ubuntu-latest
     steps:
-      - name: Log variables
-        run: |
-          echo ${{ vars.VITE_BACKEND_URL }}
-          echo ${{ vars.VITE_WEBSOCKET_URL }}
-          echo ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
-
       - name: Checkout
         uses: actions/checkout@v4
 
