@@ -9,11 +9,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
-  VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
-  VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
-
 jobs:
   check-types:
     environment: build
@@ -63,6 +58,10 @@ jobs:
   build:
     environment: build
     runs-on: ubuntu-latest
+    env:
+      VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
+      VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
+      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
     needs:
       - lint
       - run-tests
