@@ -24,10 +24,6 @@ jobs:
         run: |
           npx taze minor -w
           npx pnpm update
-          # print env variables to console
-          echo "VITE_BACKEND_URL: $VITE_BACKEND_URL"
-          echo "VITE_GOOGLE_AUTH_CLIENT_ID: $VITE_GOOGLE_AUTH_CLIENT_ID"
-          echo "VITE_WEBSOCKET_URL: $VITE_WEBSOCKET_URL"
 
       - name: Commit Changes
         run: |
