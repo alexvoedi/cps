@@ -18,6 +18,12 @@ jobs:
   check-types:
     runs-on: ubuntu-latest
     steps:
+      - name: Log variables
+        run: |
+          echo $VITE_BACKEND_URL
+          echo $VITE_GOOGLE_AUTH_CLIENT_ID
+          echo $VITE_WEBSOCKET_URL
+
       - name: Checkout
         uses: actions/checkout@v4
 
