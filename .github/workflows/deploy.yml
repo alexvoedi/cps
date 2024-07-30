@@ -79,9 +79,9 @@ jobs:
       - run-tests
       - check-types
     env:
-      VITE_BACKEND_URL: ${{ var.VITE_BACKEND_URL }}
-      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ var.VITE_GOOGLE_AUTH_CLIENT_ID }}
-      VITE_WEBSOCKET_URL: ${{ var.VITE_WEBSOCKET_URL }}
+      VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
+      VITE_GOOGLE_AUTH_CLIENT_ID: ${{ vars.VITE_GOOGLE_AUTH_CLIENT_ID }}
+      VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
