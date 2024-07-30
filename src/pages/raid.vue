@@ -28,6 +28,14 @@ socket.on('update-suicide-king-list', (data) => {
   raidStore.suicideKing = data
 })
 
+socket.on('update-suicide-king-history', (data) => {
+  raidStore.suicideKingHistory = data
+})
+
+socket.on('add-suicide-king-history-entry', (data) => {
+  raidStore.suicideKingHistory.unshift(...data)
+})
+
 provide(socketKey, socket)
 
 socket.send('Hello, server!')

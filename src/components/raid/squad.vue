@@ -53,7 +53,6 @@ const columns = computed<DataTableColumns<Character>>(() => [
             onPositiveClick: async () => {
               raidStore.deleteCharacter(character.id)
             },
-            onNegativeClick: () => {},
           })
         },
       }, {

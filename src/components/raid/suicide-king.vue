@@ -173,6 +173,10 @@ function resetNeed() {
       </VueDraggable>
     </div>
   </div>
+
+  <n-divider class="m-0!" />
+
+  <raid-suicide-king-history />
 </template>
 
 <style>

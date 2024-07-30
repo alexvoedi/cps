@@ -98,8 +98,6 @@ async function createCharacter() {
       }
 
       message.success('Charakter erstellt')
-
-      show.value = false
     }
   })
 }
