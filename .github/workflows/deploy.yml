@@ -22,6 +22,7 @@ jobs:
         run: |
           echo ${{ vars }}
           echo ${{ env }}
+          echo ${{ secrets }}
 
       - name: Checkout
         uses: actions/checkout@v4
