@@ -16,6 +16,7 @@ env:
 
 jobs:
   check-types:
+    environment: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: Log variables
