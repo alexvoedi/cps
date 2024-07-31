@@ -7,3 +7,5 @@ export interface Character {
   class: CharacterClass
   roles: CharacterRole[]
 }
+
+export type CharacterList = Character[]

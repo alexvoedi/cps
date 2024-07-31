@@ -53,16 +53,19 @@ export const useRaidStore = defineStore('raid', {
       return this.characters.find(c => c.id === id)
     },
 
-    getCharacterSuicideKingPosition(characterId: string) {
-      return this.suicideKing.find(s => s.characterId === characterId)?.position
+    getCharacterFromSuicideKing(id: string) {
+      return this.suicideKing.find(s => s.characterId === id)
     },
   },
 
   getters: {
-    charactersWithoutPosition: (state) => {
-      // get characters which are not in suicide king list
+    inactiveCharacters: (state) => {
       return state.characters.filter(
-        character => !state.suicideKing.some(suicideKing => suicideKing.characterId === character.id),
+        (character) => {
+          const suicideKingEntry = state.suicideKing.find(suicideKing => suicideKing.characterId === character.id)
+
+          return !suicideKingEntry || (suicideKingEntry && !suicideKingEntry.active)
+        },
       )
     },
   },

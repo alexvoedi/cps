@@ -19,6 +19,7 @@ interface ModelType {
 const message = useMessage()
 
 const formRef = ref<FormInst | null>(null)
+const nameInputRef = ref<HTMLInputElement | null>(null)
 
 const model = ref<ModelType>({
   name: null,
@@ -98,6 +99,9 @@ async function createCharacter() {
       }
 
       message.success('Charakter erstellt')
+
+      // focus input
+      nameInputRef.value?.focus()
     }
   })
 }
@@ -120,7 +124,7 @@ async function createCharacter() {
     >
       <n-form ref="formRef" :model="model" :rules="rules" class="space-y-4">
         <n-form-item label="Name" path="name">
-          <n-input v-model:value="model.name" placeholder="Name" />
+          <n-input ref="nameInputRef" v-model:value="model.name" placeholder="Name" />
         </n-form-item>
 
         <n-form-item label="Klasse" path="class">

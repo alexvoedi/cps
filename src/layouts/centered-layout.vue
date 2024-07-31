@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="p-4 flex flex-col items-center justify-center h-full">
+  <div class="p-4 flex flex-col items-center h-full">
     <slot />
   </div>
 </template>

@@ -48,7 +48,7 @@ socket.send('Hello, server!')
 
 <template>
   <centered-layout>
-    <n-card class="max-w-360" content-class="p-0!">
+    <n-card class="max-w-360 h-full" content-class="p-0!">
       <n-tabs
         v-model:value="query"
         :default-value="query"
@@ -58,11 +58,12 @@ socket.send('Hello, server!')
         size="large"
         animated
         pane-class="p-0!"
+        class="h-full"
       >
         <n-tab-pane name="squad" tab="Kader">
           <raid-squad />
         </n-tab-pane>
-        <n-tab-pane name="suicide-king" tab=" Suicide King">
+        <n-tab-pane name="suicide-king" tab="Suicide King">
           <raid-suicide-king />
         </n-tab-pane>
         <n-tab-pane name="contribution" tab="Raidbeitrag">

@@ -5,6 +5,8 @@ import { useMessage } from 'naive-ui'
 import { useRaidStore } from '../../store/raid'
 import { socketKey } from '../../injections/socket'
 import { ListType } from '../../enums/ListType'
+import type { PlayerNeed } from '../../enums/PlayerNeed'
+import { calculateNewOrderedListPosition } from '../../utils/calculateNewOrderedListPosition'
 
 const raidStore = useRaidStore()
 const message = useMessage()
@@ -13,13 +15,14 @@ const socket = inject(socketKey)
 
 const characterList = ref<string[]>([])
 const suicideKingList = ref<string[]>([])
-const needList = ref<Map<string, { need?: boolean, transmog?: boolean }>>(new Map())
+const needList = ref<Map<string, PlayerNeed | null>>(new Map())
 
 const transition = ref(true)
+const showInactive = ref(true)
 
-watch(() => raidStore.charactersWithoutPosition, () => {
+watch(() => raidStore.inactiveCharacters, () => {
   transition.value = true
-  characterList.value = raidStore.charactersWithoutPosition.map(character => character.id)
+  characterList.value = raidStore.inactiveCharacters.map(character => character.id)
 }, {
   immediate: true,
   deep: true,
@@ -27,7 +30,9 @@ watch(() => raidStore.charactersWithoutPosition, () => {
 
 watch(() => raidStore.suicideKing, async () => {
   transition.value = true
-  suicideKingList.value = raidStore.suicideKing.map(suicideKing => suicideKing.characterId)
+  suicideKingList.value = raidStore.suicideKing
+    .filter(suicideKing => suicideKing.active)
+    .map(suicideKing => suicideKing.characterId)
 }, {
   immediate: true,
   deep: true,
@@ -38,15 +43,27 @@ async function handleAddToSuicideKing(e: Event) {
     return message.error('Socket not connected')
   }
 
-  const { data, newIndex } = e as DraggableEvent<string>
+  const { data: characterId, newIndex } = e as DraggableEvent<string>
 
   if (newIndex === undefined)
     return
 
+  const {
+    fromPosition,
+    toPosition,
+  } = calculateNewOrderedListPosition({
+    characterId,
+    newIndex,
+    suicideKingOrderedList: suicideKingList.value,
+    suicideKingList: raidStore.suicideKing,
+    characterList: raidStore.characters,
+  })
+
   socket.emit('add-to-suicide-king', JSON.stringify({
-    characterId: data,
+    characterId,
     listType: ListType.SuicideKing,
-    position: newIndex + 1,
+    fromPosition,
+    toPosition,
   }))
 }
 
@@ -55,44 +72,49 @@ async function moveCharacter(e: Event) {
     return message.error('Socket not connected')
   }
 
-  const { data, oldIndex, newIndex } = e as DraggableEvent<string>
+  const { data: characterId, oldIndex, newIndex, from, to } = e as DraggableEvent<string>
 
-  if (newIndex === undefined || oldIndex === undefined || newIndex === oldIndex)
+  if (newIndex === undefined || oldIndex === undefined || oldIndex === newIndex || from !== to)
     return
 
+  const {
+    fromPosition,
+    toPosition,
+  } = calculateNewOrderedListPosition({
+    characterId,
+    oldIndex,
+    newIndex,
+    suicideKingOrderedList: [...suicideKingList.value],
+    suicideKingList: raidStore.suicideKing,
+    characterList: raidStore.characters,
+  })
+
   socket.emit('move-character', JSON.stringify({
-    characterId: data,
+    characterId,
     listType: ListType.SuicideKing,
-    fromPosition: oldIndex + 1,
-    toPosition: newIndex + 1,
+    fromPosition,
+    toPosition,
   }))
 }
 
-function handleRemoveFromSuicideKing() {
+function handleRemoveFromSuicideKing(e: Event) {
+  if (!socket) {
+    return message.error('Socket not connected')
+  }
 
+  const { data } = e as DraggableEvent<string>
+
+  socket.emit('set-character-inactive', JSON.stringify({
+    characterId: data,
+  }))
 }
 
-function setNeed(characterId: string, { need, transmog }: { need?: boolean, transmog?: boolean }) {
-  const character = needList.value.get(characterId)
-
-  if (character) {
-    if (need) {
-      character.need = !character.need
-    }
-
-    if (transmog) {
-      character.transmog = !character.transmog
-    }
-
-    if (!character.need && !character.transmog) {
-      needList.value.delete(characterId)
-    }
+function setNeed(characterId: string, value: PlayerNeed | null) {
+  if (value) {
+    needList.value.set(characterId, value)
   }
   else {
-    needList.value.set(characterId, {
-      need,
-      transmog,
-    })
+    needList.value.delete(characterId)
   }
 }
 
@@ -102,81 +124,90 @@ function resetNeed() {
 </script>
 
 <template>
-  <div class="w-full p-4 grid grid-cols-[1fr_2fr] gap-8 overflow-x-hidden">
-    <h2 class="text-2xl font-bold">
-      Ohne Position
-    </h2>
+  <div class="flex flex-col">
+    <div
+      class="flex-grow w-full h-full p-4 grid gap-x-8 gap-y-4 overflow-hidden transition" :class="[
+        showInactive ? 'grid-cols-[360px_1fr]' : 'grid-cols-[1fr]',
+      ]"
+    >
+      <transition>
+        <div v-if="showInactive">
+          <h2 class="text-2xl font-bold">
+            Inaktiv
+          </h2>
 
-    <h2 class="text-2xl font-bold">
-      Suicide King Liste
-    </h2>
+          <div class="flex align-center">
+            <n-button>
+              Inaktive aktivieren
+            </n-button>
+          </div>
 
-    <div class="space-y-2">
-      <div class="flex align-center">
-        <n-button
-          secondary
-          :disabled="needList.size === 0"
-          @click="resetNeed"
+          <VueDraggable
+            v-model="characterList"
+            :animation="300"
+            class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden transition"
+            group="suicide-king"
+          >
+            <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
+              <raid-suicide-king-entry
+                v-for="characterId in characterList"
+                :key="characterId"
+                :character-id="characterId"
+              />
+            </TransitionGroup>
+          </VueDraggable>
+        </div>
+      </transition>
+
+      <div>
+        <h2 class="text-2xl font-bold">
+          Suicide King
+        </h2>
+
+        <div class="flex align-center justify-end">
+          <n-button @click="showInactive = !showInactive">
+            toggle
+          </n-button>
+
+          <n-button
+            secondary
+            :disabled="needList.size === 0"
+            @click="resetNeed"
+          >
+            <span class="text-md font-bold">Bedarf zurücksetzen</span>
+          </n-button>
+        </div>
+
+        <VueDraggable
+          v-model="suicideKingList"
+          :animation="300"
+          class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden"
+          group="suicide-king"
+          @add="handleAddToSuicideKing"
+          @remove="handleRemoveFromSuicideKing"
+          @start="() => transition = false"
+          @end="async (e) => await moveCharacter(e)"
         >
-          <span class="text-md font-bold">Bedarf zurücksetzen</span>
-        </n-button>
+          <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
+            <raid-suicide-king-entry
+              v-for="characterId in suicideKingList"
+              :key="characterId"
+              :character-id="characterId"
+              :list-type="ListType.SuicideKing"
+              :need="needList.get(characterId)"
+              @set-need="(value: PlayerNeed | null) => setNeed(characterId, value)"
+            />
+          </TransitionGroup>
+        </VueDraggable>
       </div>
-
-      <VueDraggable
-        v-model="characterList"
-        :animation="300"
-        class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800"
-        group="suicide-king"
-      >
-        <raid-suicide-king-entry
-          v-for="characterId in characterList"
-          :key="characterId"
-          :character="raidStore.getCharacterById(characterId)"
-        />
-      </VueDraggable>
-    </div>
-
-    <div class="space-y-2">
-      <div class="flex align-center justify-end">
-        <n-button
-          secondary
-          :disabled="needList.size === 0"
-          @click="resetNeed"
-        >
-          <span class="text-md font-bold">Bedarf zurücksetzen</span>
-        </n-button>
-      </div>
-
-      <VueDraggable
-        v-model="suicideKingList"
-        :animation="300"
-        class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800"
-        group="suicide-king"
-        @add="handleAddToSuicideKing"
-        @remove="handleRemoveFromSuicideKing"
-        @start="() => transition = false"
-        @end="async (e) => {
-          await moveCharacter(e)
-        }"
-      >
-        <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
-          <raid-suicide-king-entry
-            v-for="characterId in suicideKingList"
-            :key="characterId"
-            :character="raidStore.getCharacterById(characterId)"
-            :position="raidStore.getCharacterSuicideKingPosition(characterId)"
-            :list-type="ListType.SuicideKing"
-            :need="needList.get(characterId)"
-            @set-need="(value) => setNeed(characterId, value)"
-          />
-        </TransitionGroup>
-      </VueDraggable>
     </div>
   </div>
 
-  <n-divider class="m-0!" />
+  <div>
+    <n-divider class="m-0!" />
 
-  <raid-suicide-king-history />
+    <raid-suicide-king-history />
+  </div>
 </template>
 
 <style>

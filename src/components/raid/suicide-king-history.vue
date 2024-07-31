@@ -46,10 +46,6 @@ async function load() {
       </transition-group>
     </n-list>
   </n-infinite-scroll>
-
-  <n-float-button :right="0">
-    <n-icon class="ico-mdi-arrow-up" />
-  </n-float-button>
 </template>
 
 <style>

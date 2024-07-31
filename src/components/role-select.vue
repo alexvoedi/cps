@@ -20,18 +20,26 @@ const options = ref<SelectOption[]>([
     value: CharacterRole.Tank,
   },
 ])
+
+const selectRef = ref<HTMLInputElement | null>(null)
+
+function handleUpdateValue() {
+  selectRef.value?.blur()
+}
 </script>
 
 <template>
   <n-select
+    ref="selectRef"
     v-model:value="value"
     :options="options"
-    tag
     multiple
     filterable
     placeholder="Bitte wähle mindestens eine Rolle..."
     clearable
     show-on-focus
+    clear-filter-after-select
+    @update:value="handleUpdateValue"
   />
 </template>
 
