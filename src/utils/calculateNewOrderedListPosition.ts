@@ -67,40 +67,28 @@ export function calculateNewOrderedListPosition({
 
   // get the position of the character before this index
   const previousSuicideKingCharacter = suicideKingList.find(
-    (item) => {
-      if (type === Type.New) {
-        return item.characterId === suicideKingOrderedList[newIndex - 1]
-      }
-      else if (type === Type.Activate) {
-        return item.characterId === suicideKingOrderedList[newIndex - 1]
-      }
-      else if (type === Type.Up) {
-        return item.characterId === suicideKingOrderedList[newIndex - 1]
-      }
-      else if (type === Type.Down) {
-        return item.characterId === suicideKingOrderedList[newIndex - 1]
-      }
-
-      throw new Error('Invalid type')
-    },
+    item => item.characterId === suicideKingOrderedList[newIndex - 1],
   )
 
   // position must be at least the position of the character before
   let toPosition = previousSuicideKingCharacter?.position ?? newIndex + 1
 
-  if (type === Type.New && previousSuicideKingCharacter) {
+  if (previousSuicideKingCharacter && (type === Type.New || type === Type.Up)) {
     toPosition += 1
   }
 
-  if (type === Type.Up && previousSuicideKingCharacter) {
+  if (
+    type === Type.Activate
+    && previousSuicideKingCharacter?.position
+    && suicideKingCharacter?.position
+    && previousSuicideKingCharacter.position < suicideKingCharacter.position
+  ) {
     toPosition += 1
   }
 
   let shouldIncrement = suicideKingList.some(suicideKing =>
     suicideKing.position === toPosition && suicideKing.characterId !== character.id && !suicideKing.active,
   )
-
-  // console.log(previousSuicideKingCharacter)
 
   while (
     shouldIncrement
