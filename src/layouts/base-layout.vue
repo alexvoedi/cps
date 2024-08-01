@@ -40,11 +40,13 @@ useTitle('CPS')
       }"
     >
       <n-layout-content :native-scrollbar="false" class="h-full" content-class="relative h-full">
-        <video v-if="baseStore.video" autoplay muted loop class="object-cover bottom-0 right-0 top-0 left-0 h-full w-full z-1 overflow-hidden" poster="/bg-image.webp" preload="auto">
-          <source src="/bg-video.mp4" type="video/mp4">
-        </video>
+        <div class="relative z-0">
+          <video v-if="baseStore.video" autoplay muted loop class="fixed object-cover bottom-0 right-0 top-0 left-0 h-full w-full z-1 overflow-hidden" poster="/bg-image.webp" preload="auto">
+            <source src="/bg-video.mp4" type="video/mp4">
+          </video>
 
-        <img v-else src="/bg-image.webp" class="object-cover bottom-0 right-0 top-0 left-0 h-full w-full z-1 overflow-hidden">
+          <img v-else src="/bg-image.webp" class="fixed object-cover bottom-0 right-0 top-0 left-0 h-full w-full z-1 overflow-hidden">
+        </div>
 
         <div class="absolute top-0 left-0 right-0 bottom-0">
           <router-view />

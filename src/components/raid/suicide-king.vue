@@ -7,8 +7,10 @@ import { socketKey } from '../../injections/socket'
 import { ListType } from '../../enums/ListType'
 import type { PlayerNeed } from '../../enums/PlayerNeed'
 import { calculateNewOrderedListPosition } from '../../utils/calculateNewOrderedListPosition'
+import { useUserStore } from '../../store/user'
 
 const raidStore = useRaidStore()
+const userStore = useUserStore()
 const message = useMessage()
 
 const socket = inject(socketKey)
@@ -124,14 +126,14 @@ function resetNeed() {
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex-grow flex flex-col">
     <div
       class="flex-grow w-full h-full p-4 grid gap-x-8 gap-y-4 overflow-hidden transition" :class="[
         showInactive ? 'grid-cols-[360px_1fr]' : 'grid-cols-[1fr]',
       ]"
     >
       <transition>
-        <div v-if="showInactive">
+        <div v-if="showInactive" class="flex flex-col">
           <h2 class="text-2xl font-bold">
             Inaktiv
           </h2>
@@ -145,8 +147,10 @@ function resetNeed() {
           <VueDraggable
             v-model="characterList"
             :animation="300"
-            class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden transition"
+            class="flex-grow flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden transition"
             group="suicide-king"
+            :disabled="!userStore.isRaidLead"
+            @start="() => transition = false"
           >
             <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
               <raid-suicide-king-entry
@@ -159,7 +163,7 @@ function resetNeed() {
         </div>
       </transition>
 
-      <div>
+      <div class="flex flex-col">
         <h2 class="text-2xl font-bold">
           Suicide King
         </h2>
@@ -181,11 +185,12 @@ function resetNeed() {
         <VueDraggable
           v-model="suicideKingList"
           :animation="300"
-          class="flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden"
+          class="flex-grow flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden"
           group="suicide-king"
+          :disabled="!userStore.isRaidLead"
+          @start="() => transition = false"
           @add="handleAddToSuicideKing"
           @remove="handleRemoveFromSuicideKing"
-          @start="() => transition = false"
           @end="async (e) => await moveCharacter(e)"
         >
           <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
@@ -203,11 +208,9 @@ function resetNeed() {
     </div>
   </div>
 
-  <div>
-    <n-divider class="m-0!" />
+  <n-divider class="m-0!" />
 
-    <raid-suicide-king-history />
-  </div>
+  <raid-suicide-king-history />
 </template>
 
 <style>

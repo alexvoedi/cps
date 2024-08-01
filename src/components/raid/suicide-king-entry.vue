@@ -5,6 +5,7 @@ import { socketKey } from '../../injections/socket'
 import { ListType } from '../../enums/ListType'
 import { useRaidStore } from '../../store/raid'
 import { PlayerNeed } from '../../enums/PlayerNeed'
+import { useUserStore } from '../../store/user'
 
 const props = defineProps<{
   characterId: string
@@ -22,6 +23,7 @@ const message = useMessage()
 const socket = inject(socketKey)
 
 const raidStore = useRaidStore()
+const userStore = useUserStore()
 
 const character = computed(() => raidStore.getCharacterById(props.characterId))
 const suicideKingEntry = computed(() => raidStore.getCharacterFromSuicideKing(props.characterId))
@@ -76,7 +78,13 @@ function toggleCharacterActive() {
 </script>
 
 <template>
-  <div v-if="character" class="cursor-move bg-true-gray-900 border border-true-gray-800 rounded overflow-hidden flex w-full justify-between items-center px-4 py-2">
+  <div
+    v-if="character"
+    class="bg-true-gray-900 border border-true-gray-800 rounded overflow-hidden flex w-full justify-between items-center px-4 py-2"
+    :class="{
+      'cursor-move': userStore.isRaidLead,
+    }"
+  >
     <div class="flex items-center gap-8">
       <span v-if="suicideKingEntry?.position" class="font-mono font-bold text-2xl pl-4">
         {{ suicideKingEntry.position }}
@@ -87,7 +95,7 @@ function toggleCharacterActive() {
       <span class="text-lg font-light text-nowrap">{{ character.name }}</span>
     </div>
 
-    <div class="flex items-center justify-center gap-3">
+    <div v-if="userStore.isRaidLead" class="flex items-center justify-center gap-3">
       <template v-if="suicideKingEntry">
         <n-tooltip>
           <template #trigger>

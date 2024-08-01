@@ -19,10 +19,17 @@ const socket = io(`${import.meta.env.VITE_WEBSOCKET_URL}/suicide-king`, {
   withCredentials: true,
   reconnectionDelay: 5000,
   reconnection: true,
+  auth: {
+    token: 123,
+  },
 })
 
 socket.on('connect', () => {
   message.success('Connected to server!')
+})
+
+socket.on('exception', (error: unknown) => {
+  message.error(JSON.stringify(error))
 })
 
 socket.on('update-raid-list', (data) => {
@@ -57,8 +64,9 @@ socket.send('Hello, server!')
         type="segment"
         size="large"
         animated
-        pane-class="p-0!"
+        pane-class="p-0! flex h-full flex-col"
         class="h-full"
+        pane-wrapper-class="h-full"
       >
         <n-tab-pane name="squad" tab="Kader">
           <raid-squad />

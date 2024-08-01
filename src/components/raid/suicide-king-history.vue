@@ -33,7 +33,7 @@ async function load() {
 </script>
 
 <template>
-  <n-infinite-scroll class="max-h-25dvh" :distance="100" @load="load">
+  <n-infinite-scroll class="max-h-25dvh min-h-280px" :distance="100" @load="load">
     <n-list class="overflow-y-auto overflow-x-hidden" hoverable>
       <transition-group name="fade">
         <div
