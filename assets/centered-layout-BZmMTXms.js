@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as s,c as t,bP as c}from"./index-BDk6w0z3.js";const n={},r={class:"p-4 flex flex-col items-center h-full"};function _(e,l){return s(),t("div",r,[c(e.$slots,"default")])}const i=o(n,[["render",_]]);export{i as _};
