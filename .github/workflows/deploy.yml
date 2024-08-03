@@ -15,7 +15,6 @@ env:
 
 jobs:
   check-types:
-    environment: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,7 +29,6 @@ jobs:
           npx pnpm run typecheck
 
   lint:
-    environment: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,7 +43,6 @@ jobs:
           npx pnpm run lint
 
   run-tests:
-    environment: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
