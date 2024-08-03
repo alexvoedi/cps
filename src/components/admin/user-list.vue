@@ -75,7 +75,3 @@ const columns = computed<DataTableColumns<User>>(() => [
     </n-card>
   </centered-layout>
 </template>
-
-<style>
-
-</style>

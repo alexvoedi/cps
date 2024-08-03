@@ -56,7 +56,3 @@ function reset() {
     </n-button>
   </div>
 </template>
-
-<style>
-
-</style>

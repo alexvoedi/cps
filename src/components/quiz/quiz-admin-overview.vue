@@ -77,7 +77,3 @@ const columns = reactive<DataTableColumns<QuizPlayer>>([
     class="bg-dark-9 bg-opacity-80"
   />
 </template>
-
-<style>
-
-</style>

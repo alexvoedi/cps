@@ -22,6 +22,3 @@ function getCell(row: number, col: number) {
     </div>
   </div>
 </template>
-
-<style>
-</style>

@@ -40,7 +40,3 @@ const highlightCorrectAnswer = computed(() => [
     </div>
   </div>
 </template>
-
-<style>
-
-</style>

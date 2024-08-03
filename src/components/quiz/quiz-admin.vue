@@ -52,7 +52,3 @@ function copyGameUrl() {
     </div>
   </div>
 </template>
-
-<style>
-
-</style>

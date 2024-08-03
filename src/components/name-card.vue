@@ -14,7 +14,3 @@
     <name-input />
   </div>
 </template>
-
-<style>
-
-</style>

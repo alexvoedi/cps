@@ -29,7 +29,3 @@ const showQuestionText = computed(() => [
     </h2>
   </div>
 </template>
-
-<style>
-
-</style>

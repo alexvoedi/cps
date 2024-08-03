@@ -87,7 +87,3 @@ function randomize() {
     </div>
   </div>
 </template>
-
-<style>
-
-</style>

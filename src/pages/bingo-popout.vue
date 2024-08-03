@@ -13,7 +13,3 @@ const { cells, size } = useBingo()
     </div>
   </n-layout>
 </template>
-
-<style>
-
-</style>

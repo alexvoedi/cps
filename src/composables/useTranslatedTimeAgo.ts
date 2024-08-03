@@ -3,8 +3,8 @@ import type { MaybeRefOrGetter } from 'vue'
 
 const messages: UseTimeAgoMessages = {
   justNow: 'gerade eben',
-  past: (n: string) => n.match(/\d/) ? `vor ${n}` : n,
-  future: (n: string) => n.match(/\d/) ? `in ${n}` : n,
+  past: (n: string) => /\d/.exec(n) ? `vor ${n}` : n,
+  future: (n: string) => /\d/.exec(n) ? `in ${n}` : n,
   month: (n: number, past: boolean) => n === 1
     ? past
       ? 'Letzten Monat'

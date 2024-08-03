@@ -42,7 +42,3 @@ const showQuestionText = computed(() => [
     </div>
   </quiz-card>
 </template>
-
-<style>
-
-</style>

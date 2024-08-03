@@ -43,7 +43,3 @@ function submit() {
     </n-button>
   </n-input-group>
 </template>
-
-<style>
-
-</style>

@@ -21,13 +21,11 @@ function getType({ oldIndex, newIndex, priorityListCharacter }: {
       return Type.New
     }
   }
+  else if (oldIndex < newIndex) {
+    return Type.Down
+  }
   else {
-    if (oldIndex < newIndex) {
-      return Type.Down
-    }
-    else {
-      return Type.Up
-    }
+    return Type.Up
   }
 }
 

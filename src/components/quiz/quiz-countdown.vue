@@ -68,7 +68,3 @@ watch(remainingCountdown, (newValue) => {
     :border-radius="0"
   />
 </template>
-
-<style>
-
-</style>

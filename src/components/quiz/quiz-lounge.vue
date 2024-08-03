@@ -9,12 +9,8 @@ import Spinner from '@/assets/spinner.svg'
     </h2>
 
     <h3 class="text-xl flex items-center justify-center gap-4 mx-auto">
-      <img :src="Spinner">
+      <img :src="Spinner" alt="Spinner">
       <span class="font-light">Bitte warte, bis das Spiel startet...</span>
     </h3>
   </quiz-card>
 </template>
-
-<style>
-
-</style>

@@ -5,7 +5,3 @@
 <template>
   <n-input name />
 </template>
-
-<style>
-
-</style>

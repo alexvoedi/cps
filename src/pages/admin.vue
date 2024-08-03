@@ -7,7 +7,3 @@
 
   <admin-user-list />
 </template>
-
-<style>
-
-</style>

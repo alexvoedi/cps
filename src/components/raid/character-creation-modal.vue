@@ -154,6 +154,3 @@ async function createCharacter() {
     </n-card>
   </n-modal>
 </template>
-
-<style>
-</style>

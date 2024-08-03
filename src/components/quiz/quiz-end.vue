@@ -18,7 +18,3 @@
     </div>
   </quiz-card>
 </template>
-
-<style>
-
-</style>

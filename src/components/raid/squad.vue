@@ -70,7 +70,3 @@ const columns = computed<DataTableColumns<Character>>(() => [
 
   <n-data-table :columns="columns" :data="raidStore.characters" />
 </template>
-
-<style>
-
-</style>

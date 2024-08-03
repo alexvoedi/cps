@@ -42,7 +42,3 @@ function handleUpdateValue() {
     @update:value="handleUpdateValue"
   />
 </template>
-
-<style>
-
-</style>

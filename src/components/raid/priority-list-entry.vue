@@ -156,7 +156,3 @@ function toggleCharacterActive() {
     </div>
   </div>
 </template>
-
-<style>
-
-</style>

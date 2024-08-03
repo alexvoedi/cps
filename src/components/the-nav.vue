@@ -132,7 +132,3 @@ const activeItem = computed(() => route.path)
     />
   </n-layout-sider>
 </template>
-
-<style>
-
-</style>

@@ -5,7 +5,3 @@ useTitle('CPS | Bingo')
 <template>
   <bingo-game />
 </template>
-
-<style>
-
-</style>

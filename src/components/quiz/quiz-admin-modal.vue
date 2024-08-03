@@ -15,7 +15,3 @@ const show = ref(false)
     </n-card>
   </n-modal>
 </template>
-
-<style>
-
-</style>

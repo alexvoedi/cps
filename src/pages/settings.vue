@@ -15,7 +15,3 @@ const baseStore = useBaseStore()
     </n-card>
   </centered-layout>
 </template>
-
-<style>
-
-</style>

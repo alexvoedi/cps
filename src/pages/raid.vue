@@ -81,7 +81,3 @@ socket.send('Hello, server!')
     </n-card>
   </centered-layout>
 </template>
-
-<style>
-
-</style>
