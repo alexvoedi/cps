@@ -33,7 +33,9 @@ RUN pnpm run build
 
 FROM nginx:stable-alpine AS prod
 
-COPY --chown=nginx:nginx --from=build /app/dist /app/dist
+WORKDIR /usr/share/nginx/html
+
+COPY --chown=nginx:nginx --from=build /usr/src/app/dist .
 COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
