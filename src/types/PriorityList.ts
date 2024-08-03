@@ -1,8 +1,8 @@
-export interface PriorityListListItem {
+export interface PriorityListItem {
   characterId: string
   active: boolean
   position?: number
   tSetPosition?: number
 }
 
-export type PriorityListList = PriorityListListItem[]
+export type PriorityList = PriorityListItem[]

@@ -1,5 +1,5 @@
 import type { CharacterList } from '@/types/Character'
-import type { PriorityListList, PriorityListListItem } from '@/types/PriorityListList'
+import type { PriorityList, PriorityListItem } from '@/types/PriorityList'
 
 enum Type {
   Up = 'up',
@@ -11,7 +11,7 @@ enum Type {
 function getType({ oldIndex, newIndex, priorityListCharacter }: {
   oldIndex?: number
   newIndex: number
-  priorityListCharacter?: PriorityListListItem
+  priorityListCharacter?: PriorityListItem
 }) {
   if (oldIndex === undefined) {
     if (priorityListCharacter) {
@@ -36,14 +36,14 @@ export function calculateNewOrderedListPosition({
   oldIndex,
   newIndex,
   priorityListOrderedList,
-  priorityListList,
+  priorityList,
   characterList,
 }: {
   characterId: string
   oldIndex?: number
   newIndex: number
   priorityListOrderedList: string[]
-  priorityListList: PriorityListList
+  priorityList: PriorityList
   characterList: CharacterList
 }): {
     fromPosition?: number
@@ -55,7 +55,7 @@ export function calculateNewOrderedListPosition({
     throw new Error('Updated item not found')
   }
 
-  const priorityListCharacter = priorityListList.find(item => item.characterId === characterId)
+  const priorityListCharacter = priorityList.find(item => item.characterId === characterId)
 
   const type = getType({
     oldIndex,
@@ -66,7 +66,7 @@ export function calculateNewOrderedListPosition({
   const fromPosition = priorityListCharacter?.position
 
   // get the position of the character before this index
-  const previousPriorityListCharacter = priorityListList.find(
+  const previousPriorityListCharacter = priorityList.find(
     item => item.characterId === priorityListOrderedList[newIndex - 1],
   )
 
@@ -86,7 +86,7 @@ export function calculateNewOrderedListPosition({
     toPosition += 1
   }
 
-  let shouldIncrement = priorityListList.some(priorityList =>
+  let shouldIncrement = priorityList.some(priorityList =>
     priorityList.position === toPosition && priorityList.characterId !== character.id && !priorityList.active,
   )
 
@@ -95,7 +95,7 @@ export function calculateNewOrderedListPosition({
   ) {
     toPosition += 1
 
-    shouldIncrement = priorityListList.some(priorityList =>
+    shouldIncrement = priorityList.some(priorityList =>
       priorityList.position === toPosition && priorityList.characterId !== character.id && !priorityList.active,
     )
   }

@@ -1,5 +1,5 @@
 import { describe } from 'vitest'
-import type { PriorityListList } from '@/types/PriorityListList'
+import type { PriorityList } from '@/types/PriorityList'
 import type { CharacterList } from '@/types/Character'
 import { CharacterClass } from '@/enums/CharacterClass'
 import { calculateNewOrderedListPosition } from '@/utils/calculateNewOrderedListPosition'
@@ -76,7 +76,7 @@ const priorityListOrderedList: string[] = [
 ]
 
 // b, g & i are not in the list yet
-const priorityListList: PriorityListList = [
+const priorityList: PriorityList = [
   {
     characterId: 'a',
     position: 1,
@@ -124,7 +124,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 0,
       newIndex: 0,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -148,7 +148,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 1,
       newIndex: 0,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -172,7 +172,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 1,
       newIndex: 3,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -196,7 +196,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'a',
       newIndex: 0,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -220,7 +220,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'a',
       newIndex: 4,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -244,7 +244,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'j',
       newIndex: 2,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -268,7 +268,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'e',
       newIndex: 2,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -292,7 +292,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 0,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -316,7 +316,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 4,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -340,7 +340,7 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 2,
       characterList,
-      priorityListList,
+      priorityList,
       priorityListOrderedList,
     })
 
@@ -354,7 +354,7 @@ describe('calculateNewOrderedListPosition', (it) => {
         characterId: 'z',
         newIndex: 0,
         characterList,
-        priorityListList,
+        priorityList,
         priorityListOrderedList,
       })
     }).toThrow('Updated item not found')

@@ -16,7 +16,7 @@ const message = useMessage()
 const socket = inject(socketKey)
 
 const characterList = ref<string[]>([])
-const priorityListList = ref<string[]>([])
+const priorityList = ref<string[]>([])
 const needList = ref<Map<string, PlayerNeed | null>>(new Map())
 
 const transition = ref(true)
@@ -32,7 +32,7 @@ watch(() => raidStore.inactiveCharacters, () => {
 
 watch(() => raidStore.priorityList, async () => {
   transition.value = true
-  priorityListList.value = raidStore.priorityList
+  priorityList.value = raidStore.priorityList
     .filter(priorityList => priorityList.active)
     .map(priorityList => priorityList.characterId)
 }, {
@@ -56,8 +56,8 @@ async function handleAddToPriorityList(e: Event) {
   } = calculateNewOrderedListPosition({
     characterId,
     newIndex,
-    priorityListOrderedList: priorityListList.value,
-    priorityListList: raidStore.priorityList,
+    priorityListOrderedList: priorityList.value,
+    priorityList: raidStore.priorityList,
     characterList: raidStore.characters,
   })
 
@@ -86,8 +86,8 @@ async function moveCharacter(e: Event) {
     characterId,
     oldIndex,
     newIndex,
-    priorityListOrderedList: [...priorityListList.value],
-    priorityListList: raidStore.priorityList,
+    priorityListOrderedList: [...priorityList.value],
+    priorityList: raidStore.priorityList,
     characterList: raidStore.characters,
   })
 
@@ -183,7 +183,7 @@ function resetNeed() {
         </div>
 
         <VueDraggable
-          v-model="priorityListList"
+          v-model="priorityList"
           :animation="300"
           class="flex-grow flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden"
           group="priority-list"
@@ -195,7 +195,7 @@ function resetNeed() {
         >
           <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
             <raid-priority-list-entry
-              v-for="characterId in priorityListList"
+              v-for="characterId in priorityList"
               :key="characterId"
               :character-id="characterId"
               :list-type="ListType.PriorityList"

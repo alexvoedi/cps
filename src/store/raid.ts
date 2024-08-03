@@ -2,12 +2,12 @@ import ky from 'ky'
 import { defineStore } from 'pinia'
 import type { Character } from '@/types/Character'
 import type { CreateCharacterDto } from '@/types/dtos/create-character.dto'
-import type { PriorityListList } from '@/types/PriorityListList'
 import type { PriorityListHistory } from '@/types/PriorityListHistory'
+import type { PriorityList } from '@/types/PriorityList'
 
 interface RaidStore {
   characters: Character[]
-  priorityList: PriorityListList
+  priorityList: PriorityList
   priorityListHistory: PriorityListHistory
 }
 
