@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DOCKER_IMAGE_NAME: cps
+  DOCKER_REGISTRY_URL: ghcr.io
+
 jobs:
   check-types:
     environment: build
@@ -56,51 +60,36 @@ jobs:
           npx pnpm run test
 
   build:
-    environment: build
+    name: Build Docker Image
     runs-on: ubuntu-latest
+    environment: build
     env:
       VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
       VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
       VITE_WEBSOCKET_PATH: ${{ vars.VITE_WEBSOCKET_PATH }}
       VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
-    needs:
-      - lint
-      - run-tests
-      - check-types
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: |
-          npx pnpm install
+      - name: Build the Docker image
+        run: docker build . \
+          --file Dockerfile \
+          --tag $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest \
+          --build-arg VITE_BACKEND_URL=$VITE_BACKEND_URL \
+          --build-arg VITE_WEBSOCKET_URL=$VITE_WEBSOCKET_URL \
+          --build-arg VITE_WEBSOCKET_PATH=$VITE_WEBSOCKET_PATH \
+          --build-arg VITE_GOOGLE_AUTH_CLIENT_ID=$VITE_GOOGLE_AUTH_CLIENT_ID
 
-      - name: Build
-        run: |
-          npx pnpm run build
-          cp dist/index.html dist/404.html
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v3
         with:
-          name: build-artifacts
-          path: dist
+          registry: ${{env.DOCKER_REGISTRY_URL}}
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
 
-  deploy:
-    environment: build
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Push the latest tag
+        run: docker push $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest
 
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-          path: dist
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: dist
-          folder: dist
+      - name: Remove the Docker image with latest tag
+        run: docker rmi $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest

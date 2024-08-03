@@ -1,0 +1,10 @@
+*
+
+!public
+!src
+!index.html
+!vite.config.ts
+!unocss.config.ts
+!package.json
+!pnpm-lock.yaml
+!nginx.conf

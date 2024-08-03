@@ -25,7 +25,7 @@
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
