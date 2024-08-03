@@ -74,13 +74,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build the Docker image
-        run: docker build \
-          --file Dockerfile \
-          --tag $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest \
-          --build-arg VITE_BACKEND_URL=$VITE_BACKEND_URL \
-          --build-arg VITE_WEBSOCKET_URL=$VITE_WEBSOCKET_URL \
-          --build-arg VITE_WEBSOCKET_PATH=$VITE_WEBSOCKET_PATH \
-          --build-arg VITE_GOOGLE_AUTH_CLIENT_ID=$VITE_GOOGLE_AUTH_CLIENT_ID \
+        run: docker build
+          --file Dockerfile
+          --tag $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest
+          --build-arg VITE_BACKEND_URL=$VITE_BACKEND_URL
+          --build-arg VITE_WEBSOCKET_URL=$VITE_WEBSOCKET_URL
+          --build-arg VITE_WEBSOCKET_PATH=$VITE_WEBSOCKET_PATH
+          --build-arg VITE_GOOGLE_AUTH_CLIENT_ID=$VITE_GOOGLE_AUTH_CLIENT_ID
           .
 
       - name: Login to GitHub Container Registry
