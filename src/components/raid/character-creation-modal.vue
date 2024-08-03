@@ -90,7 +90,7 @@ async function createCharacter() {
       message.error('Bitte fülle alle Felder korrekt aus')
     }
     else {
-      raidStore.createCharacter(model.value as CreateCharacterDto)
+      await raidStore.createCharacter(model.value as CreateCharacterDto)
 
       model.value = {
         name: null,
@@ -156,5 +156,4 @@ async function createCharacter() {
 </template>
 
 <style>
-
 </style>

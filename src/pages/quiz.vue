@@ -1,11 +1,11 @@
 <script setup lang="ts">
 // import QrcodeVue from 'qrcode.vue'
-import { useHost } from '../composables/useHost'
-import { MessageType } from '../enums/MessageType'
-import { onData } from '../games/quiz/onData'
-import { useBaseStore } from '../store/base'
-import { usePeerStore } from '../store/peer'
-import { useQuizStore } from '../store/quiz'
+import { useHost } from '@/composables/useHost'
+import { MessageType } from '@/enums/MessageType'
+import { onData } from '@/games/quiz/onData'
+import { useBaseStore } from '@/store/base'
+import { usePeerStore } from '@/store/peer'
+import { useQuizStore } from '@/store/quiz'
 
 // const params = useUrlSearchParams<{
 //   hostId?: string

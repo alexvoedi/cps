@@ -85,7 +85,7 @@ const menuOptions = computed<MenuOption[]>(() => [
       })
 
       if (access_token) {
-        userStore.login(access_token)
+        await userStore.login(access_token)
         message.success('Login erfolgreich')
       }
     },

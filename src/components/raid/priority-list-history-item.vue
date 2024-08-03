@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useTranslatedTimeAgo } from '../../composables/useTranslatedTimeAgo'
 import { useRaidStore } from '../../store/raid'
-import type { SuicideKingHistoryItem } from '../../types/SuicideKingHistory'
 import { getClassIcon } from '../../utils/getClassIcon'
+import type { PriorityListHistoryItem } from '@/types/PriorityListHistory'
+import { useTranslatedTimeAgo } from '@/composables/useTranslatedTimeAgo'
 
 const props = defineProps<{
-  event: SuicideKingHistoryItem
+  event: PriorityListHistoryItem
 }>()
 
 const raidStore = useRaidStore()
@@ -38,7 +38,7 @@ const timeAgo = useTranslatedTimeAgo(props.event.timestamp)
     <template #prefix>
       <n-avatar>
         <n-icon>
-          <img :src="getClassIcon(character.class)">
+          <img :src="getClassIcon(character.class)" :alt="`${character.class} Class Icon`">
         </n-icon>
       </n-avatar>
     </template>
@@ -56,7 +56,3 @@ const timeAgo = useTranslatedTimeAgo(props.event.timestamp)
     </div>
   </n-list-item>
 </template>
-
-<style>
-
-</style>

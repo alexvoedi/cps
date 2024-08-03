@@ -1,5 +1,5 @@
 import { describe } from 'vitest'
-import type { SuicideKingList } from '@/types/SuicideKingList'
+import type { PriorityListList } from '@/types/PriorityListList'
 import type { CharacterList } from '@/types/Character'
 import { CharacterClass } from '@/enums/CharacterClass'
 import { calculateNewOrderedListPosition } from '@/utils/calculateNewOrderedListPosition'
@@ -68,7 +68,7 @@ const characterList: CharacterList = [
 ]
 
 // a, e & j are inactive
-const suicideKingOrderedList: string[] = [
+const priorityListOrderedList: string[] = [
   'c',
   'd',
   'f',
@@ -76,7 +76,7 @@ const suicideKingOrderedList: string[] = [
 ]
 
 // b, g & i are not in the list yet
-const suicideKingList: SuicideKingList = [
+const priorityListList: PriorityListList = [
   {
     characterId: 'a',
     position: 1,
@@ -124,8 +124,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 0,
       newIndex: 0,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(2)
@@ -133,7 +133,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when moving up', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'd',
       'c',
       'f',
@@ -148,8 +148,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 1,
       newIndex: 0,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(3)
@@ -157,7 +157,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when moving down', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'f',
       'h',
@@ -172,8 +172,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       oldIndex: 1,
       newIndex: 3,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(3)
@@ -181,7 +181,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding an inactive item to the top', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'a',
       'c',
       'd',
@@ -196,8 +196,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'a',
       newIndex: 0,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(1)
@@ -205,7 +205,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding an inactive item to the bottom', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'd',
       'f',
@@ -220,8 +220,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'a',
       newIndex: 4,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(1)
@@ -229,7 +229,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding an inactive item to the middle', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'd',
       'j',
@@ -244,8 +244,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'j',
       newIndex: 2,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(7)
@@ -253,7 +253,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding an inactive item its previous position', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'd',
       'j',
@@ -268,8 +268,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'e',
       newIndex: 2,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(4)
@@ -277,7 +277,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding a new item to the top', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'b',
       'c',
       'd',
@@ -292,8 +292,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 0,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(undefined)
@@ -301,7 +301,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding a new item to the bottom', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'd',
       'f',
@@ -316,8 +316,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 4,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(undefined)
@@ -325,7 +325,7 @@ describe('calculateNewOrderedListPosition', (it) => {
   })
 
   it('should return the correct position when adding a new item to the middle', ({ expect }) => {
-    const suicideKingOrderedList: string[] = [
+    const priorityListOrderedList: string[] = [
       'c',
       'd',
       'b',
@@ -340,8 +340,8 @@ describe('calculateNewOrderedListPosition', (it) => {
       characterId: 'b',
       newIndex: 2,
       characterList,
-      suicideKingList,
-      suicideKingOrderedList,
+      priorityListList,
+      priorityListOrderedList,
     })
 
     expect(fromPosition).toBe(undefined)
@@ -354,8 +354,8 @@ describe('calculateNewOrderedListPosition', (it) => {
         characterId: 'z',
         newIndex: 0,
         characterList,
-        suicideKingList,
-        suicideKingOrderedList,
+        priorityListList,
+        priorityListOrderedList,
       })
     }).toThrow('Updated item not found')
   })

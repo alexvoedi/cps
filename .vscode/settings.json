@@ -1,15 +1,15 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "lang/**/*.json",
-  "i18n-ally.sortKeys": true,
-  "i18n-ally.sourceLanguage": "en",
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "prettier.enable": false,
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "javascript.preferences.importModuleSpecifier": "shortest",
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.organizeImports": "never",
+    "source.addMissingImports": "always",
+    "source.removeUnused": "always"
   },
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off" },
@@ -36,5 +36,9 @@
   ],
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///d%3A/Repositories/github.com/alexvoedi/cps/.github/workflows/deploy.yml"
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "ubuntu-server",
+    "projectKey": "cps"
   }
 }

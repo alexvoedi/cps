@@ -16,7 +16,7 @@ const message = useMessage()
 const socket = inject(socketKey)
 
 const characterList = ref<string[]>([])
-const suicideKingList = ref<string[]>([])
+const priorityListList = ref<string[]>([])
 const needList = ref<Map<string, PlayerNeed | null>>(new Map())
 
 const transition = ref(true)
@@ -30,17 +30,17 @@ watch(() => raidStore.inactiveCharacters, () => {
   deep: true,
 })
 
-watch(() => raidStore.suicideKing, async () => {
+watch(() => raidStore.priorityList, async () => {
   transition.value = true
-  suicideKingList.value = raidStore.suicideKing
-    .filter(suicideKing => suicideKing.active)
-    .map(suicideKing => suicideKing.characterId)
+  priorityListList.value = raidStore.priorityList
+    .filter(priorityList => priorityList.active)
+    .map(priorityList => priorityList.characterId)
 }, {
   immediate: true,
   deep: true,
 })
 
-async function handleAddToSuicideKing(e: Event) {
+async function handleAddToPriorityList(e: Event) {
   if (!socket) {
     return message.error('Socket not connected')
   }
@@ -56,14 +56,14 @@ async function handleAddToSuicideKing(e: Event) {
   } = calculateNewOrderedListPosition({
     characterId,
     newIndex,
-    suicideKingOrderedList: suicideKingList.value,
-    suicideKingList: raidStore.suicideKing,
+    priorityListOrderedList: priorityListList.value,
+    priorityListList: raidStore.priorityList,
     characterList: raidStore.characters,
   })
 
-  socket.emit('add-to-suicide-king', JSON.stringify({
+  socket.emit('add-to-priority-list', JSON.stringify({
     characterId,
-    listType: ListType.SuicideKing,
+    listType: ListType.PriorityList,
     fromPosition,
     toPosition,
   }))
@@ -86,20 +86,20 @@ async function moveCharacter(e: Event) {
     characterId,
     oldIndex,
     newIndex,
-    suicideKingOrderedList: [...suicideKingList.value],
-    suicideKingList: raidStore.suicideKing,
+    priorityListOrderedList: [...priorityListList.value],
+    priorityListList: raidStore.priorityList,
     characterList: raidStore.characters,
   })
 
   socket.emit('move-character', JSON.stringify({
     characterId,
-    listType: ListType.SuicideKing,
+    listType: ListType.PriorityList,
     fromPosition,
     toPosition,
   }))
 }
 
-function handleRemoveFromSuicideKing(e: Event) {
+function handleRemoveFromPriorityList(e: Event) {
   if (!socket) {
     return message.error('Socket not connected')
   }
@@ -148,12 +148,12 @@ function resetNeed() {
             v-model="characterList"
             :animation="300"
             class="flex-grow flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden transition"
-            group="suicide-king"
+            group="priority-list"
             :disabled="!userStore.isRaidLead"
             @start="() => transition = false"
           >
             <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
-              <raid-suicide-king-entry
+              <raid-priority-list-entry
                 v-for="characterId in characterList"
                 :key="characterId"
                 :character-id="characterId"
@@ -183,22 +183,22 @@ function resetNeed() {
         </div>
 
         <VueDraggable
-          v-model="suicideKingList"
+          v-model="priorityListList"
           :animation="300"
           class="flex-grow flex flex-col gap-2 p-2 min-h-240px bg-true-gray-800 overflow-hidden"
-          group="suicide-king"
+          group="priority-list"
           :disabled="!userStore.isRaidLead"
           @start="() => transition = false"
-          @add="handleAddToSuicideKing"
-          @remove="handleRemoveFromSuicideKing"
+          @add="handleAddToPriorityList"
+          @remove="handleRemoveFromPriorityList"
           @end="async (e) => await moveCharacter(e)"
         >
           <TransitionGroup :name="transition ? 'fade' : ''" type="transition">
-            <raid-suicide-king-entry
-              v-for="characterId in suicideKingList"
+            <raid-priority-list-entry
+              v-for="characterId in priorityListList"
               :key="characterId"
               :character-id="characterId"
-              :list-type="ListType.SuicideKing"
+              :list-type="ListType.PriorityList"
               :need="needList.get(characterId)"
               @set-need="(value: PlayerNeed | null) => setNeed(characterId, value)"
             />
@@ -210,7 +210,7 @@ function resetNeed() {
 
   <n-divider class="m-0!" />
 
-  <raid-suicide-king-history />
+  <raid-priority-list-history />
 </template>
 
 <style>

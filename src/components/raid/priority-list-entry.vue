@@ -26,12 +26,12 @@ const raidStore = useRaidStore()
 const userStore = useUserStore()
 
 const character = computed(() => raidStore.getCharacterById(props.characterId))
-const suicideKingEntry = computed(() => raidStore.getCharacterFromSuicideKing(props.characterId))
+const priorityListEntry = computed(() => raidStore.getCharacterFromPriorityList(props.characterId))
 
 function deleteCharacter() {
   dialog.warning({
     title: 'Charakter löschen',
-    content: 'Willst du wirklich den Charakter von der Suicide King Liste löschen?',
+    content: 'Willst du wirklich den Charakter von der Prio Liste löschen?',
     onPositiveClick: () => {
 
     },
@@ -52,7 +52,7 @@ function moveCharacterToEnd() {
 
   socket.emit('move-to-end', JSON.stringify({
     characterId: character.value.id,
-    listType: ListType.SuicideKing,
+    listType: ListType.PriorityList,
   }))
 }
 
@@ -65,11 +65,11 @@ function toggleCharacterActive() {
     return message.error('Character nicht gefunden!')
   }
 
-  if (!suicideKingEntry.value) {
-    return message.error('Character nicht in Suicide King List vorhanden')
+  if (!priorityListEntry.value) {
+    return message.error('Character nicht in Prio King List vorhanden')
   }
 
-  const command = suicideKingEntry.value?.active ? 'set-character-inactive' : 'set-character-active'
+  const command = priorityListEntry.value?.active ? 'set-character-inactive' : 'set-character-active'
 
   socket.emit(command, JSON.stringify({
     characterId: character.value.id,
@@ -86,23 +86,23 @@ function toggleCharacterActive() {
     }"
   >
     <div class="flex items-center gap-8">
-      <span v-if="suicideKingEntry?.position" class="font-mono font-bold text-2xl pl-4">
-        {{ suicideKingEntry.position }}
+      <span v-if="priorityListEntry?.position" class="font-mono font-bold text-2xl pl-4">
+        {{ priorityListEntry.position }}
       </span>
 
-      <img :src="getClassIcon(character.class)" class="w-10 h-10">
+      <img :src="getClassIcon(character.class)" class="w-10 h-10" :alt="`${character.class} Class Icon`">
 
       <span class="text-lg font-light text-nowrap">{{ character.name }}</span>
     </div>
 
     <div v-if="userStore.isRaidLead" class="flex items-center justify-center gap-3">
-      <template v-if="suicideKingEntry">
+      <template v-if="priorityListEntry">
         <n-tooltip>
           <template #trigger>
-            <n-switch :value="suicideKingEntry.active" @update:value="toggleCharacterActive()" />
+            <n-switch :value="priorityListEntry.active" @update:value="toggleCharacterActive()" />
           </template>
 
-          <div>Character {{ suicideKingEntry.active ? 'deaktivieren' : 'aktivieren' }}</div>
+          <div>Character {{ priorityListEntry.active ? 'deaktivieren' : 'aktivieren' }}</div>
         </n-tooltip>
       </template>
 

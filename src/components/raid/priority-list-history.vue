@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import ky from 'ky'
 import { useRaidStore } from '../../store/raid'
-import type { SuicideKingHistory } from '../../types/SuicideKingHistory'
+import type { PriorityListHistory } from '../../types/PriorityListHistory'
 
 const raidStore = useRaidStore()
 
 const events = computed(() => {
-  return raidStore.suicideKingHistory
+  return raidStore.priorityListHistory
 })
 
 let lastItemReached = false
@@ -15,20 +15,20 @@ async function load() {
   if (lastItemReached)
     return
 
-  const response = await ky.get('suicide-king/history', {
+  const response = await ky.get('priority-list/history', {
     prefixUrl: import.meta.env.VITE_BACKEND_URL,
     searchParams: new URLSearchParams({
-      skip: `${raidStore.suicideKingHistory.length}`,
+      skip: `${raidStore.priorityListHistory.length}`,
       take: '10',
     }),
   })
 
-  const json = await response.json<SuicideKingHistory>()
+  const json = await response.json<PriorityListHistory>()
 
   if (json.length === 0)
     lastItemReached = true
 
-  raidStore.suicideKingHistory.push(...json)
+  raidStore.priorityListHistory.push(...json)
 }
 </script>
 
@@ -41,7 +41,7 @@ async function load() {
           :key="event.id"
           class="border-b border-b-true-gray-800"
         >
-          <raid-suicide-king-history-item :event="event" />
+          <raid-priority-list-history-item :event="event" />
         </div>
       </transition-group>
     </n-list>

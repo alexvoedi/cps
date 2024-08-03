@@ -122,36 +122,52 @@ export function useBingo() {
     cells.value = getRandomCells()
   }
 
+  const isRowDone = (row: number, size: number) => {
+    for (let j = 0; j < size; j++) {
+      if (cells.value[row * size + j].state !== CellState.Done) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const isColDone = (col: number, size: number) => {
+    for (let i = 0; i < size; i++) {
+      if (cells.value[i * size + col].state !== CellState.Done) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const isDiag1Done = (size: number) => {
+    for (let i = 0; i < size; i++) {
+      if (cells.value[i * size + i].state !== CellState.Done) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const isDiag2Done = (size: number) => {
+    for (let i = 0; i < size; i++) {
+      if (cells.value[i * size + (size - i - 1)].state !== CellState.Done) {
+        return false
+      }
+    }
+    return true
+  }
+
   const isBingo = () => {
     const size = Number(params.size)
 
     for (let i = 0; i < size; i++) {
-      let rowDone = true
-      let colDone = true
-      for (let j = 0; j < size; j++) {
-        if (cells.value[i * size + j].state !== CellState.Done) {
-          rowDone = false
-        }
-        if (cells.value[j * size + i].state !== CellState.Done) {
-          colDone = false
-        }
-      }
-      if (rowDone || colDone)
+      if (isRowDone(i, size) || isColDone(i, size)) {
         return true
-    }
-
-    let diag1Done = true
-    let diag2Done = true
-    for (let i = 0; i < size; i++) {
-      if (cells.value[i * size + i].state !== CellState.Done) {
-        diag1Done = false
-      }
-      if (cells.value[i * size + (size - i - 1)].state !== CellState.Done) {
-        diag2Done = false
       }
     }
 
-    return diag1Done || diag2Done
+    return isDiag1Done(size) || isDiag2Done(size)
   }
 
   const cellStates = computed(() => cells.value.map(cell => cell.state))

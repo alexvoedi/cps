@@ -2,8 +2,8 @@
 import { useRouteQuery } from '@vueuse/router'
 import { useMessage } from 'naive-ui'
 import { io } from 'socket.io-client'
-import { useRaidStore } from '../store/raid'
-import { socketKey } from '../injections/socket'
+import { useRaidStore } from '@/store/raid'
+import { socketKey } from '@/injections/socket'
 
 const query = useLocalStorage('raid-tab', useRouteQuery('page', 'squad'))
 const raidStore = useRaidStore()
@@ -14,7 +14,7 @@ onMounted(() => {
 
 const message = useMessage()
 
-const socket = io(`${import.meta.env.VITE_WEBSOCKET_URL}/suicide-king`, {
+const socket = io(`${import.meta.env.VITE_WEBSOCKET_URL}/priority-list`, {
   path: `${import.meta.env.VITE_WEBSOCKET_PATH}/socket.io`,
   withCredentials: true,
   reconnectionDelay: 5000,
@@ -36,16 +36,16 @@ socket.on('update-raid-list', (data) => {
   raidStore.characters = data
 })
 
-socket.on('update-suicide-king-list', (data) => {
-  raidStore.suicideKing = data
+socket.on('update-priority-list-list', (data) => {
+  raidStore.priorityList = data
 })
 
-socket.on('update-suicide-king-history', (data) => {
-  raidStore.suicideKingHistory = data
+socket.on('update-priority-list-history', (data) => {
+  raidStore.priorityListHistory = data
 })
 
-socket.on('add-suicide-king-history-entry', (data) => {
-  raidStore.suicideKingHistory.unshift(...data)
+socket.on('add-priority-list-history-entry', (data) => {
+  raidStore.priorityListHistory.unshift(...data)
 })
 
 provide(socketKey, socket)
@@ -71,8 +71,8 @@ socket.send('Hello, server!')
         <n-tab-pane name="squad" tab="Kader">
           <raid-squad />
         </n-tab-pane>
-        <n-tab-pane name="suicide-king" tab="Suicide King">
-          <raid-suicide-king />
+        <n-tab-pane name="priority-list" tab="Prio Liste">
+          <raid-priority-list />
         </n-tab-pane>
         <n-tab-pane name="contribution" tab="Raidbeitrag">
           Raidbeitrag

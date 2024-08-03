@@ -1,6 +1,6 @@
 import type { ListType } from 'naive-ui/es/upload/src/interface'
 
-export interface SuicideKingHistoryItem {
+export interface PriorityListHistoryItem {
   id: string
   characterId: string
   listType: ListType
@@ -10,4 +10,4 @@ export interface SuicideKingHistoryItem {
   item?: string
 }
 
-export type SuicideKingHistory = SuicideKingHistoryItem[]
+export type PriorityListHistory = PriorityListHistoryItem[]

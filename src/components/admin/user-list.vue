@@ -2,7 +2,7 @@
 import ky from 'ky'
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, useDialog } from 'naive-ui'
-import type { User } from '../../types/User'
+import type { User } from '@/types/User'
 
 const dialog = useDialog()
 

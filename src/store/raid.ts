@@ -2,20 +2,20 @@ import ky from 'ky'
 import { defineStore } from 'pinia'
 import type { Character } from '@/types/Character'
 import type { CreateCharacterDto } from '@/types/dtos/create-character.dto'
-import type { SuicideKingList } from '@/types/SuicideKingList'
-import type { SuicideKingHistory } from '@/types/SuicideKingHistory'
+import type { PriorityListList } from '@/types/PriorityListList'
+import type { PriorityListHistory } from '@/types/PriorityListHistory'
 
 interface RaidStore {
   characters: Character[]
-  suicideKing: SuicideKingList
-  suicideKingHistory: SuicideKingHistory
+  priorityList: PriorityListList
+  priorityListHistory: PriorityListHistory
 }
 
 export const useRaidStore = defineStore('raid', {
   state: (): RaidStore => ({
     characters: [],
-    suicideKing: [],
-    suicideKingHistory: [],
+    priorityList: [],
+    priorityListHistory: [],
   }),
 
   actions: {
@@ -53,8 +53,8 @@ export const useRaidStore = defineStore('raid', {
       return this.characters.find(c => c.id === id)
     },
 
-    getCharacterFromSuicideKing(id: string) {
-      return this.suicideKing.find(s => s.characterId === id)
+    getCharacterFromPriorityList(id: string) {
+      return this.priorityList.find(s => s.characterId === id)
     },
   },
 
@@ -62,9 +62,9 @@ export const useRaidStore = defineStore('raid', {
     inactiveCharacters: (state) => {
       return state.characters.filter(
         (character) => {
-          const suicideKingEntry = state.suicideKing.find(suicideKing => suicideKing.characterId === character.id)
+          const priorityListEntry = state.priorityList.find(priorityList => priorityList.characterId === character.id)
 
-          return !suicideKingEntry || (suicideKingEntry && !suicideKingEntry.active)
+          return !priorityListEntry || (priorityListEntry && !priorityListEntry.active)
         },
       )
     },

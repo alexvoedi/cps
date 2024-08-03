@@ -1,5 +1,5 @@
 import type { CharacterList } from '@/types/Character'
-import type { SuicideKingList, SuicideKingListItem } from '@/types/SuicideKingList'
+import type { PriorityListList, PriorityListListItem } from '@/types/PriorityListList'
 
 enum Type {
   Up = 'up',
@@ -8,13 +8,13 @@ enum Type {
   Activate = 'activate',
 }
 
-function getType({ oldIndex, newIndex, suicideKingCharacter }: {
+function getType({ oldIndex, newIndex, priorityListCharacter }: {
   oldIndex?: number
   newIndex: number
-  suicideKingCharacter?: SuicideKingListItem
+  priorityListCharacter?: PriorityListListItem
 }) {
   if (oldIndex === undefined) {
-    if (suicideKingCharacter) {
+    if (priorityListCharacter) {
       return Type.Activate
     }
     else {
@@ -35,15 +35,15 @@ export function calculateNewOrderedListPosition({
   characterId,
   oldIndex,
   newIndex,
-  suicideKingOrderedList,
-  suicideKingList,
+  priorityListOrderedList,
+  priorityListList,
   characterList,
 }: {
   characterId: string
   oldIndex?: number
   newIndex: number
-  suicideKingOrderedList: string[]
-  suicideKingList: SuicideKingList
+  priorityListOrderedList: string[]
+  priorityListList: PriorityListList
   characterList: CharacterList
 }): {
     fromPosition?: number
@@ -55,39 +55,39 @@ export function calculateNewOrderedListPosition({
     throw new Error('Updated item not found')
   }
 
-  const suicideKingCharacter = suicideKingList.find(item => item.characterId === characterId)
+  const priorityListCharacter = priorityListList.find(item => item.characterId === characterId)
 
   const type = getType({
     oldIndex,
     newIndex,
-    suicideKingCharacter,
+    priorityListCharacter,
   })
 
-  const fromPosition = suicideKingCharacter?.position
+  const fromPosition = priorityListCharacter?.position
 
   // get the position of the character before this index
-  const previousSuicideKingCharacter = suicideKingList.find(
-    item => item.characterId === suicideKingOrderedList[newIndex - 1],
+  const previousPriorityListCharacter = priorityListList.find(
+    item => item.characterId === priorityListOrderedList[newIndex - 1],
   )
 
   // position must be at least the position of the character before
-  let toPosition = previousSuicideKingCharacter?.position ?? newIndex + 1
+  let toPosition = previousPriorityListCharacter?.position ?? newIndex + 1
 
-  if (previousSuicideKingCharacter && (type === Type.New || type === Type.Up)) {
+  if (previousPriorityListCharacter && (type === Type.New || type === Type.Up)) {
     toPosition += 1
   }
 
   if (
     type === Type.Activate
-    && previousSuicideKingCharacter?.position
-    && suicideKingCharacter?.position
-    && previousSuicideKingCharacter.position < suicideKingCharacter.position
+    && previousPriorityListCharacter?.position
+    && priorityListCharacter?.position
+    && previousPriorityListCharacter.position < priorityListCharacter.position
   ) {
     toPosition += 1
   }
 
-  let shouldIncrement = suicideKingList.some(suicideKing =>
-    suicideKing.position === toPosition && suicideKing.characterId !== character.id && !suicideKing.active,
+  let shouldIncrement = priorityListList.some(priorityList =>
+    priorityList.position === toPosition && priorityList.characterId !== character.id && !priorityList.active,
   )
 
   while (
@@ -95,8 +95,8 @@ export function calculateNewOrderedListPosition({
   ) {
     toPosition += 1
 
-    shouldIncrement = suicideKingList.some(suicideKing =>
-      suicideKing.position === toPosition && suicideKing.characterId !== character.id && !suicideKing.active,
+    shouldIncrement = priorityListList.some(priorityList =>
+      priorityList.position === toPosition && priorityList.characterId !== character.id && !priorityList.active,
     )
   }
 
