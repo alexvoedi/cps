@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admin',
     component: () => import('./pages/admin.vue'),
   },
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('./pages/404.vue'),
+  },
 ]
 
 const router = createRouter({

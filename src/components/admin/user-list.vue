@@ -3,6 +3,7 @@ import ky from 'ky'
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, useDialog } from 'naive-ui'
 import type { User } from '@/types/User'
+import { UserRole } from '@/enums/UserRole'
 
 const dialog = useDialog()
 
@@ -42,10 +43,11 @@ const columns = computed<DataTableColumns<User>>(() => [
   },
   {
     key: 'actions',
-    render() {
+    render(user: User) {
       return h(NButton, {
         tertiary: true,
         circle: true,
+        disabled: user.role === UserRole.Admin,
         onClick: () => {
           dialog.warning({
             title: 'Nutzer löschen',
@@ -69,9 +71,7 @@ const columns = computed<DataTableColumns<User>>(() => [
 </script>
 
 <template>
-  <centered-layout>
-    <n-card title="Users" class="max-w-360" content-class="p-0!">
-      <n-data-table :columns="columns" :data="users" />
-    </n-card>
-  </centered-layout>
+  <n-card title="Users" :bordered="false" content-class="p-0!">
+    <n-data-table :columns="columns" :data="users" />
+  </n-card>
 </template>

@@ -3,7 +3,15 @@
 </script>
 
 <template>
-  <h1>Admin</h1>
+  <centered-layout>
+    <n-card
+      class="container m-auto" content-class="p-0!"
+    >
+      <template #header>
+        <n-h1>Administration</n-h1>
+      </template>
 
-  <admin-user-list />
+      <admin-user-list />
+    </n-card>
+  </centered-layout>
 </template>
