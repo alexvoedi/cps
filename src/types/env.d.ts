@@ -3,5 +3,4 @@ interface ImportMetaEnv {
   VITE_GOOGLE_AUTH_CLIENT_ID: string
   VITE_BACKEND_URL: string
   VITE_WEBSOCKET_URL: string
-  VITE_WEBSOCKET_PATH: string
 }

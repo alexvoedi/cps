@@ -1,4 +1,4 @@
-name: Run GitHub Action
+name: Build & Deploy
 
 on:
   push:
@@ -70,7 +70,6 @@ jobs:
     env:
       VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
       VITE_WEBSOCKET_URL: ${{ vars.VITE_WEBSOCKET_URL }}
-      VITE_WEBSOCKET_PATH: ${{ vars.VITE_WEBSOCKET_PATH }}
       VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.VITE_GOOGLE_AUTH_CLIENT_ID }}
     steps:
       - name: Checkout
@@ -82,7 +81,6 @@ jobs:
           --tag $DOCKER_REGISTRY_URL/alexvoedi/$DOCKER_IMAGE_NAME:latest
           --build-arg VITE_BACKEND_URL=$VITE_BACKEND_URL
           --build-arg VITE_WEBSOCKET_URL=$VITE_WEBSOCKET_URL
-          --build-arg VITE_WEBSOCKET_PATH=$VITE_WEBSOCKET_PATH
           --build-arg VITE_GOOGLE_AUTH_CLIENT_ID=$VITE_GOOGLE_AUTH_CLIENT_ID
           .
 

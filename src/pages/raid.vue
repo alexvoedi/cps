@@ -15,7 +15,7 @@ onMounted(() => {
 const message = useMessage()
 
 const socket = io(`${import.meta.env.VITE_WEBSOCKET_URL}/priority-list`, {
-  path: `${import.meta.env.VITE_WEBSOCKET_PATH}/socket.io`,
+  path: `/socket.io`,
   withCredentials: true,
   reconnectionDelay: 5000,
   reconnection: true,
