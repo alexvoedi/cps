@@ -44,13 +44,16 @@
     "vue": "^3.4.34",
     "vue-confetti-explosion": "^1.0.2",
     "vue-draggable-plus": "^0.5.2",
+    "vue-markdown-render": "^2.2.1",
     "vue-router": "^4.4.0",
     "vue3-google-login": "^2.0.29"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.24.0",
     "@iconify-json/ic": "^1.1.17",
+    "@iconify-json/logos": "^1.1.44",
     "@iconify-json/mdi": "^1.1.67",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.14.12",
     "@types/seedrandom": "^3.0.8",
     "@types/uuid": "^10.0.0",

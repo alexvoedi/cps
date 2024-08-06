@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AdminUserList: typeof import('./../components/admin/user-list.vue')['default']
+    AdminUserRoleSelect: typeof import('./../components/admin/user-role-select.vue')['default']
     BaseLayout: typeof import('./../layouts/base-layout.vue')['default']
     BingoBingoBoard: typeof import('./../components/bingo/bingo-board.vue')['default']
     BingoBingoCell: typeof import('./../components/bingo/bingo-cell.vue')['default']

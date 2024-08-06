@@ -5,7 +5,12 @@ import type { User } from '@/types/User'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: useSessionStorage<null | User>('user', null),
+    user: useSessionStorage<null | User>('user', null, {
+      serializer: {
+        read: JSON.parse,
+        write: JSON.stringify,
+      },
+    }),
   }),
 
   actions: {

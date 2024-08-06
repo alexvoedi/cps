@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
+import { useBaseStore } from './store/base'
+import { useUserStore } from './store/user'
+
+const baseStore = useBaseStore()
+const userStore = useUserStore()
+
+onMounted(async () => {
+  await baseStore.checkBackend()
+  await userStore.update()
+})
 </script>
 
 <template>

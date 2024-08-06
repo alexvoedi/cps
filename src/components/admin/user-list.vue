@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import ky from 'ky'
 import type { DataTableColumns } from 'naive-ui'
-import { NButton, useDialog } from 'naive-ui'
+import { NButton, useDialog, useMessage } from 'naive-ui'
 import type { User } from '@/types/User'
 import { UserRole } from '@/enums/UserRole'
+import UserRoleSelect from '@/components/admin/user-role-select.vue'
+import { useUserStore } from '@/store/user'
+
+const userStore = useUserStore()
 
 const dialog = useDialog()
+const message = useMessage()
 
 const users = ref<User[]>([])
 
@@ -28,6 +33,11 @@ const columns = computed<DataTableColumns<User>>(() => [
   {
     title: 'ID',
     key: 'id',
+    render(user) {
+      return h('span', {
+        class: 'font-mono',
+      }, user.id)
+    },
   },
   {
     title: 'Name',
@@ -36,13 +46,40 @@ const columns = computed<DataTableColumns<User>>(() => [
   {
     title: 'Email',
     key: 'email',
+    render(user) {
+      return h('a', {
+        class: 'font-mono',
+        href: `mailto:${user.email}`,
+      }, user.email)
+    },
   },
   {
     title: 'Rolle',
     key: 'role',
+    render(user) {
+      return h(UserRoleSelect, {
+        'modelValue': user.role,
+        'disabled': user.id === userStore.user?.id,
+        'onUpdate:value': async (role: UserRole) => {
+          try {
+            await ky.patch(`users/${user.id}`, {
+              prefixUrl: import.meta.env.VITE_BACKEND_URL,
+              credentials: 'include',
+              json: { role },
+            })
+
+            message.success('Rolle erfolgreich geändert')
+          }
+          catch {
+            message.error('Fehler beim Ändern der Rolle')
+          }
+        },
+      })
+    },
   },
   {
     key: 'actions',
+    align: 'right',
     render(user: User) {
       return h(NButton, {
         tertiary: true,

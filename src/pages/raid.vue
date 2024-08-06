@@ -24,10 +24,6 @@ const socket = io(`${import.meta.env.VITE_WEBSOCKET_URL}/priority-list`, {
   },
 })
 
-socket.on('connect', () => {
-  message.success('Connected to server!')
-})
-
 socket.on('exception', (error: unknown) => {
   message.error(JSON.stringify(error))
 })

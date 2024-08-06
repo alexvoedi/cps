@@ -4,6 +4,7 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
+  presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -21,6 +22,15 @@ export default defineConfig({
       },
     }),
     presetTypography(),
+    presetWebFonts({
+      provider: 'bunny',
+      fonts: {
+        handwriting: {
+          name: 'Dancing Script',
+          weights: ['200', '400', '600'],
+        },
+      },
+    }),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   safelist: [

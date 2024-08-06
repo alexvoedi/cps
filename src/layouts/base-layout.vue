@@ -2,11 +2,9 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import { useMessage } from 'naive-ui'
 import { useBaseStore } from '../store/base'
-import { useUserStore } from '../store/user'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const baseStore = useBaseStore()
-const userStore = useUserStore()
 const message = useMessage()
 
 const mobile = ref(breakpoints.smallerOrEqual('md'))
@@ -20,11 +18,6 @@ watch(() => baseStore.backendHealthy, (newValue, oldValue) => {
   }
 }, {
   immediate: true,
-})
-
-onMounted(() => {
-  baseStore.checkBackend()
-  userStore.update()
 })
 
 useTitle('CPS')

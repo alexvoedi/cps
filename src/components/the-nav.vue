@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { type MenuOption, useMessage } from 'naive-ui'
 import { RouterLink } from 'vue-router'
-import { googleTokenLogin } from 'vue3-google-login'
 import { useMobile } from '../composables/useMobile'
 import { useUserStore } from '../store/user'
 import { useBaseStore } from '../store/base'
 
 const route = useRoute()
+const router = useRouter()
 const mobile = useMobile()
 const message = useMessage()
 const userStore = useUserStore()
@@ -75,20 +75,14 @@ const menuOptions = computed<MenuOption[]>(() => [
     icon: renderIcon('ico-mdi-shield-account'),
   },
   {
-    label: 'Login',
+    label: () => h(RouterLink, {
+      to: '/login',
+    }, {
+      default: () => 'Login',
+    }),
     show: !userStore.isLoggedIn && baseStore.backendHealthy,
     key: '/login',
     icon: renderIcon('ico-mdi-login'),
-    onClick: async () => {
-      const { access_token } = await googleTokenLogin({
-        clientId: import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID,
-      })
-
-      if (access_token) {
-        await userStore.login(access_token)
-        message.success('Login erfolgreich')
-      }
-    },
   },
   {
     label: 'Logout',
@@ -98,6 +92,11 @@ const menuOptions = computed<MenuOption[]>(() => [
     onClick: () => {
       userStore.logout()
       message.success('Logout erfolgreich')
+
+      if (route.meta.roles) {
+        message.info('Weiterleitung zur Startseite')
+        router.push('/')
+      }
     },
   },
 ])
