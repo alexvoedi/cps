@@ -28,19 +28,19 @@ socket.on('exception', (error: unknown) => {
   message.error(JSON.stringify(error))
 })
 
-socket.on('update-raid-list', (data) => {
+socket.on('raid:update', (data) => {
   raidStore.characters = data
 })
 
-socket.on('update-priority-list-list', (data) => {
+socket.on('priority-list:update', (data) => {
   raidStore.priorityList = data
 })
 
-socket.on('update-priority-list-history', (data) => {
+socket.on('priority-list-history:update', (data) => {
   raidStore.priorityListHistory = data
 })
 
-socket.on('add-priority-list-history-entry', (data) => {
+socket.on('priority-list-history:add', (data) => {
   raidStore.priorityListHistory.unshift(...data)
 })
 

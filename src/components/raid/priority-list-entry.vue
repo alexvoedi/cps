@@ -50,9 +50,9 @@ function moveCharacterToEnd() {
     return message.error('Character nicht gefunden!')
   }
 
-  socket.emit('move-to-end', JSON.stringify({
+  socket.emit('priority-list:move-to-end', JSON.stringify({
     characterId: character.value.id,
-    listType: ListType.PriorityList,
+    listType: ListType.Item,
   }))
 }
 
@@ -66,13 +66,12 @@ function toggleCharacterActive() {
   }
 
   if (!priorityListEntry.value) {
-    return message.error('Character nicht in Prio King List vorhanden')
+    return message.error('Character nicht in Prio King List vorhanden.')
   }
 
-  const command = priorityListEntry.value?.active ? 'set-character-inactive' : 'set-character-active'
-
-  socket.emit(command, JSON.stringify({
+  socket.emit('priority-list:set-active', JSON.stringify({
     characterId: character.value.id,
+    active: !priorityListEntry.value.active,
   }))
 }
 </script>

@@ -61,9 +61,9 @@ async function handleAddToPriorityList(e: Event) {
     characterList: raidStore.characters,
   })
 
-  socket.emit('add-to-priority-list', JSON.stringify({
+  socket.emit('priority-list:add', JSON.stringify({
     characterId,
-    listType: ListType.PriorityList,
+    listType: ListType.Item,
     fromPosition,
     toPosition,
   }))
@@ -91,9 +91,9 @@ async function moveCharacter(e: Event) {
     characterList: raidStore.characters,
   })
 
-  socket.emit('move-character', JSON.stringify({
+  socket.emit('priority-list:move', JSON.stringify({
     characterId,
-    listType: ListType.PriorityList,
+    listType: ListType.Item,
     fromPosition,
     toPosition,
   }))
@@ -106,8 +106,9 @@ function handleRemoveFromPriorityList(e: Event) {
 
   const { data } = e as DraggableEvent<string>
 
-  socket.emit('set-character-inactive', JSON.stringify({
+  socket.emit('priority-list:set-active', JSON.stringify({
     characterId: data,
+    active: false,
   }))
 }
 
@@ -198,7 +199,7 @@ function resetNeed() {
               v-for="characterId in priorityList"
               :key="characterId"
               :character-id="characterId"
-              :list-type="ListType.PriorityList"
+              :list-type="ListType.Item"
               :need="needList.get(characterId)"
               @set-need="(value: PlayerNeed | null) => setNeed(characterId, value)"
             />

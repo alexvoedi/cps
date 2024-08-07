@@ -1,4 +1,4 @@
 export enum ListType {
-  PriorityList = 'PriorityList',
+  Item = 'Item',
   TSet = 'TSet',
 }

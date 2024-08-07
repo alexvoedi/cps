@@ -59,7 +59,7 @@ const columns = computed<DataTableColumns<User>>(() => [
     render(user) {
       return h(UserRoleSelect, {
         'modelValue': user.role,
-        'disabled': user.id === userStore.user?.id,
+        'disabled': user.email === userStore.user?.email,
         'onUpdate:value': async (role: UserRole) => {
           try {
             await ky.patch(`users/${user.id}`, {
